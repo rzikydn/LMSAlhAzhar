@@ -4,92 +4,20 @@
         <div class="uni-bg-curve">
             <svg viewBox="0 0 1440 900" preserveAspectRatio="none" width="100%" height="100%">
                 <rect width="1440" height="900" fill="#f4f5fa" />
-                <path d="M 0,900 L 600,900 C 450,750 350,600 420,0 L 0,0 Z" fill="#e4e6f4" />
-                <path d="M 420,0 C 350,600 450,750 600,900 L 1440,900 L 1440,0 Z" fill="#352166" />
+                <path d="M 0,650 C 150,700 250,850 450,900 L 0,900 Z" fill="#dcdffd" />
+                <path d="M 360,0 C 150,150 250,550 720,900 L 1440,900 L 1440,0 Z" fill="#352166" />
             </svg>
         </div>
 
-        <!-- Top Navigation Bar -->
-        <header class="uni-header">
-            <div class="uni-logo">UNIVERSITYLOGO</div>
-            <nav class="uni-nav">
-                <a href="#" class="uni-nav-btn">HOME</a>
-                <a href="#" class="uni-nav-link">ABOUT</a>
-                <a href="#" class="uni-nav-link">PRODUCTS</a>
-                <a href="#" class="uni-nav-link">SERVICES</a>
-                <a href="#" class="uni-nav-link">CONTACT</a>
-            </nav>
-        </header>
-
         <!-- Main Split Container -->
         <div class="uni-container">
-            <!-- Left Section: Content & Form -->
+            <!-- Left Section: Empty -->
             <div class="uni-left">
-                <div class="uni-content">
-                    <h1 class="uni-title">UNIVERSITY</h1>
-                    <h2 class="uni-subtitle">LOGIN PAGE</h2>
-                    <p class="uni-description">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    
-                    <!-- Login Form Card -->
-                    <div class="uni-form-card">
-                        <form method="POST" action="{{ route('login') }}">
-                            @csrf
-                            
-                            <div class="uni-form-group">
-                                <label for="email" class="uni-label">Email or Username</label>
-                                <div class="uni-input-wrapper">
-                                    <input type="email" id="email" name="email" value="{{ old('email') }}" required autofocus placeholder="Enter your email">
-                                </div>
-                                @error('email')
-                                    <div class="uni-error-text">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            
-                            <div class="uni-form-group">
-                                <label for="password" class="uni-label">Password</label>
-                                <div class="uni-input-wrapper">
-                                    <input type="password" id="password" name="password" required placeholder="Enter your password">
-                                    <button type="button" class="uni-password-toggle" onclick="togglePasswordVisibility()">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                        </svg>
-                                    </button>
-                                </div>
-                                @error('password')
-                                    <div class="uni-error-text">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            @if (session('status'))
-                                <div class="uni-status-text">{{ session('status') }}</div>
-                            @endif
-
-                            <button type="submit" class="uni-btn-login">LOG IN</button>
-                            
-                            <div class="uni-form-footer">
-                                @if (Route::has('password.request'))
-                                    <a href="{{ route('password.request') }}" class="uni-forgot-link">Forgot Password?</a>
-                                @endif
-                                <div class="uni-divider-line"></div>
-                                <span class="uni-signup-text">Don't have an account? <a href="#" class="uni-signup-link">Sign Up</a></span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                <!-- Kosong untuk sementara waktu -->
             </div>
 
             <!-- Right Section: Isometric Illustration -->
             <div class="uni-right">
-                <!-- Watermark Background -->
-                <div class="uni-watermarks">
-                    <span class="uni-watermark wm-1">Magnific</span>
-                    <span class="uni-watermark wm-2">Magnific</span>
-                    <span class="uni-watermark wm-3">Magnific</span>
-                    <span class="uni-watermark wm-4">Magnific</span>
-                    <span class="uni-watermark wm-5">Magnific</span>
-                </div>
-
                 <!-- Isometric SVG -->
                 <svg class="uni-isometric-svg" viewBox="0 0 800 650" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <!-- Definitions for Gradients -->
@@ -220,16 +148,4 @@
             </div>
         </div>
     </div>
-
-    <!-- Password visibility toggle script -->
-    <script>
-        function togglePasswordVisibility() {
-            var passwordField = document.getElementById("password");
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-            } else {
-                passwordField.type = "password";
-            }
-        }
-    </script>
 </x-guest-layout>

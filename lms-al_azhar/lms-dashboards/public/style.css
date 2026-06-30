@@ -344,26 +344,6 @@ body{
   align-items: center;
   justify-content: center;
 }
-.uni-watermarks {
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-.uni-watermark {
-  position: absolute;
-  font-size: 32px;
-  font-weight: 800;
-  color: #ffffff;
-  opacity: 0.03;
-  letter-spacing: 2px;
-  transform: rotate(-30deg);
-}
-.wm-1 { top: 15%; left: 20%; }
-.wm-2 { top: 25%; right: 15%; }
-.wm-3 { top: 45%; left: 35%; }
-.wm-4 { bottom: 25%; left: 10%; }
-.wm-5 { bottom: 15%; right: 25%; }
 
 .uni-isometric-svg {
   width: 100%;
