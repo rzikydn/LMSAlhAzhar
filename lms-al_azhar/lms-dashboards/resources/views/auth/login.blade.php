@@ -19,19 +19,19 @@
         
         <!-- Main Split Container -->
         <div class="uni-container" style="font-family: 'Plus Jakarta Sans', sans-serif; height: 100vh; display: flex; align-items: center;">
-            <!-- Left Section: Green area (Empty) -->
-            <div class="uni-left" style="flex: 1.2;">
-                <!-- Sisi kiri kosong (warna hijau toska dari background) -->
+            <!-- Left Section: Green area (Contains college entrance exam-amico.svg Illustration - Shifted Left & Enlarged) -->
+            <div class="uni-left" style="flex: 1.4; display: flex; align-items: center; justify-content: flex-start; padding-left: 40px; height: 100%; z-index: 5;">
+                <img src="{{ asset('college entrance exam-amico.svg') }}" alt="Illustration" style="width: 100%; max-width: 640px; height: auto; object-fit: contain;">
             </div>
 
-            <!-- Right Section: White area (Contains centered smaller Login Form) -->
-            <div class="uni-right" style="flex: 0.8; display: flex; align-items: center; justify-content: flex-start; padding-left: 80px; z-index: 5;">
-                <div style="width: 100%; max-width: 350px; display: flex; flex-direction: column;">
+            <!-- Right Section: White area (Contains aligned smaller Login Form - Shifted Right & Down) -->
+            <div class="uni-right" style="flex: 0.6; display: flex; align-items: center; justify-content: flex-end; padding-right: 40px; z-index: 5;">
+                <div style="width: 100%; max-width: 350px; display: flex; flex-direction: column; margin-top: 50px;">
                     
-                    <!-- Header Teks (Lebih Kecil) -->
-                    <div style="text-align: center; margin-bottom: 20px;">
+                    <!-- Header Teks (Lebih Kecil & Rata Kanan) -->
+                    <div style="text-align: right; margin-bottom: 24px;">
                         <h2 style="font-size: 32px; font-weight: 700; color: #1e293b; margin: 0 0 8px 0; letter-spacing: -0.5px;">Hello Again!</h2>
-                        <p style="font-size: 13px; color: #94a3b8; line-height: 1.5; margin: 0; padding: 0 5px;">Aliquam consectetur et tincidunt praesent enim massa pellentesque velit odio neque</p>
+                        <p style="font-size: 13px; color: #94a3b8; line-height: 1.5; margin: 0; padding: 0;">Aliquam consectetur et tincidunt praesent enim massa pellentesque velit odio neque</p>
                     </div>
 
                     @if (session('status'))
@@ -42,25 +42,6 @@
 
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-
-                        <!-- Role Selector (2x2 Grid) -->
-                        <div style="margin-bottom: 20px;">
-                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
-                                <button type="button" onclick="selectRole('admin')" id="role-admin" style="padding: 10px; border: 1.5px solid #e2e8f0; border-radius: 10px; background: #ffffff; color: #64748b; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; font-family: inherit; text-align: center; outline: none;">
-                                    Admin
-                                </button>
-                                <button type="button" onclick="selectRole('kepala_sekolah')" id="role-kepala_sekolah" style="padding: 10px; border: 1.5px solid #e2e8f0; border-radius: 10px; background: #ffffff; color: #64748b; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; font-family: inherit; text-align: center; outline: none;">
-                                    Kepala Sekolah
-                                </button>
-                                <button type="button" onclick="selectRole('guru')" id="role-guru" style="padding: 10px; border: 1.5px solid #e2e8f0; border-radius: 10px; background: #ffffff; color: #64748b; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; font-family: inherit; text-align: center; outline: none;">
-                                    Guru
-                                </button>
-                                <button type="button" onclick="selectRole('siswa')" id="role-siswa" style="padding: 10px; border: 1.5px solid #FF7A60; border-radius: 10px; background: #fff5f3; color: #FF7A60; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; font-family: inherit; text-align: center; outline: none;">
-                                    Siswa
-                                </button>
-                            </div>
-                            <input type="hidden" name="role" id="selected-role" value="siswa">
-                        </div>
 
                         <!-- Email Input (Floating Label on Border Style - Color #FF7A60) -->
                         <div style="position: relative; margin-bottom: 20px;">
@@ -86,7 +67,7 @@
                         </div>
 
                         <!-- Remember Me & Recovery Password Row (Color #FF7A60) -->
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; font-size: 12.5px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-size: 12.5px;">
                             <label style="display: flex; align-items: center; gap: 6px; color: #94a3b8; cursor: pointer; user-select: none;">
                                 <input type="checkbox" name="remember" style="width: 14px; height: 14px; border: 1.5px solid #cbd5e1; border-radius: 4px; accent-color: #FF7A60; cursor: pointer;">
                                 Remember Me
@@ -94,6 +75,25 @@
                             @if (Route::has('password.request'))
                                 <a href="{{ route('password.request') }}" style="color: #FF7A60; text-decoration: none; font-weight: 600;">Recovery Password</a>
                             @endif
+                        </div>
+
+                        <!-- Role Selector (2x2 Grid) - Below Remember Me -->
+                        <div style="margin-bottom: 20px;">
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
+                                <button type="button" onclick="selectRole('admin')" id="role-admin" style="padding: 10px; border: 1.5px solid #e2e8f0; border-radius: 10px; background: #ffffff; color: #64748b; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; font-family: inherit; text-align: center; outline: none;">
+                                    Admin
+                                </button>
+                                <button type="button" onclick="selectRole('kepala_sekolah')" id="role-kepala_sekolah" style="padding: 10px; border: 1.5px solid #e2e8f0; border-radius: 10px; background: #ffffff; color: #64748b; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; font-family: inherit; text-align: center; outline: none;">
+                                    Kepala Sekolah
+                                </button>
+                                <button type="button" onclick="selectRole('guru')" id="role-guru" style="padding: 10px; border: 1.5px solid #e2e8f0; border-radius: 10px; background: #ffffff; color: #64748b; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; font-family: inherit; text-align: center; outline: none;">
+                                    Guru
+                                </button>
+                                <button type="button" onclick="selectRole('siswa')" id="role-siswa" style="padding: 10px; border: 1.5px solid #FF7A60; border-radius: 10px; background: #fff5f3; color: #FF7A60; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; font-family: inherit; text-align: center; outline: none;">
+                                    Siswa
+                                </button>
+                            </div>
+                            <input type="hidden" name="role" id="selected-role" value="siswa">
                         </div>
 
                         <!-- Login Button (Color #FF7A60) -->
