@@ -1,0 +1,10 @@
+# Ignore dependencies and sensitive configuration files
+**/vendor/
+**/node_modules/
+**/.env
+**/.env.*
+**/*.log
+**/public/storage
+**/public/build
+.DS_Store
+Thumbs.db
