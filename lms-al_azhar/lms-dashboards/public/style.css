@@ -100,243 +100,332 @@ body{
 /* ============================================================ */
 /* HALAMAN LOGIN                                                 */
 /* ============================================================ */
-.login-page {
-  display: flex;
+.uni-login-page {
+  position: relative;
   min-height: 100vh;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
-  background-color: #ededf5;
-  background-image: url('/login_bg_pattern.png');
-  background-repeat: repeat;
-  background-size: 75px;
-}
-.login-container {
-  display: flex;
   width: 100%;
-  max-width: 1080px;
-  min-height: 580px;
-  border-radius: 12px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-  overflow: hidden;
-  background: var(--white);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-}
-.login-left {
-  flex: 1.1;
-  padding: 48px;
-  background-image: linear-gradient(135deg, rgba(28, 160, 148, 0.2) 0%, rgba(4, 84, 198, 0.7) 100%), url('/lms_alazhar_login_bg.jpg');
-  background-size: cover;
-  background-position: center;
-  color: #fff;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  position: relative;
+  overflow-x: hidden;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
-.login-left::before {
-  content: '';
+.uni-bg-curve {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 60%);
+  width: 100%;
+  height: 100%;
   z-index: 1;
+  pointer-events: none;
 }
-.login-left-content {
+.uni-bg-curve svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.uni-header {
   position: relative;
-  z-index: 2;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 80px;
+  width: 100%;
 }
-.login-left-content .welcome-tag {
+.uni-logo {
+  font-size: 20px;
+  font-weight: 800;
+  color: #2b1b54;
+  letter-spacing: -0.5px;
+}
+.uni-nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.uni-nav-btn {
+  background: #352166;
+  color: #ffffff;
+  padding: 10px 24px;
+  border-radius: 999px;
+  text-decoration: none;
   font-size: 13px;
   font-weight: 700;
-  color: #6ee7b7;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  display: inline-block;
-  margin-bottom: 8px;
-  border-bottom: 2px solid #6ee7b7;
-  padding-bottom: 4px;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
 }
-.login-left h1 {
-  font-size: 28px;
-  font-weight: 800;
-  line-height: 1.3;
+.uni-nav-btn:hover {
+  background: #2b1b54;
+  transform: translateY(-1px);
+}
+.uni-nav-link {
   color: #ffffff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: color 0.2s ease;
 }
-.login-right {
-  flex: 0.9;
-  padding: 40px 52px;
+.uni-nav-link:hover {
+  color: #e91e63;
+}
+.uni-container {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex: 1;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 80px 40px;
+}
+.uni-left {
+  flex: 1.1;
+  display: flex;
+  align-items: center;
+  padding-right: 60px;
+}
+.uni-content {
+  width: 100%;
+  max-width: 520px;
+}
+.uni-title {
+  font-size: 56px;
+  font-weight: 900;
+  color: #2b1b54;
+  line-height: 1.1;
+  margin-bottom: 2px;
+}
+.uni-subtitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #6b7280;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+.uni-description {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6b7280;
+  margin-bottom: 36px;
+}
+.uni-form-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(43, 27, 84, 0.08);
+  padding: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+.uni-form-group {
+  margin-bottom: 24px;
+}
+.uni-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #374151;
+  margin-bottom: 8px;
+}
+.uni-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.uni-input-wrapper input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  background: #f9fafb;
+  color: #1f2937;
+  transition: all 0.2s ease;
+}
+.uni-input-wrapper input:focus {
+  border-color: #352166;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(53, 33, 102, 0.1);
+}
+.uni-password-toggle {
+  position: absolute;
+  right: 14px;
+  background: none;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+.uni-password-toggle:hover {
+  color: #352166;
+}
+.uni-error-text {
+  color: #ef4444;
+  font-size: 12px;
+  margin-top: 6px;
+  font-weight: 500;
+}
+.uni-status-text {
+  color: #10b981;
+  font-size: 13px;
+  margin-bottom: 16px;
+  text-align: center;
+  font-weight: 500;
+}
+.uni-btn-login {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  background: #e91e63;
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(233, 30, 99, 0.3);
+  transition: all 0.2s ease;
+  margin-top: 10px;
+}
+.uni-btn-login:hover {
+  background: #c2185b;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(233, 30, 99, 0.4);
+}
+.uni-btn-login:active {
+  transform: translateY(0);
+}
+.uni-form-footer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  background: var(--white);
+  align-items: center;
+  gap: 16px;
+  margin-top: 24px;
 }
-.login-logo-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 16px;
-}
-.login-logo-img {
-  height: 100px;
-  width: auto;
-  object-fit: contain;
-}
-.login-title {
-  font-size: 22px;
-  font-weight: 700;
-  color: #111827;
-  text-align: center;
-  margin-bottom: 6px;
-}
-.login-right .login-sub {
-  font-size: 13.5px;
+.uni-forgot-link {
+  font-size: 13px;
   color: #6b7280;
-  text-align: center;
-  margin-bottom: 24px;
-  line-height: 1.5;
-}
-.btn-google {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-  padding: 8px;
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  color: #374151;
-  cursor: pointer;
-  margin-bottom: 12px;
-  transition: all 0.2s ease;
-}
-.btn-google:hover {
-  background: #f9fafb;
-  border-color: #d1d5db;
-}
-.divider {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: #9ca3af;
-  font-size: 11px;
-  margin-bottom: 12px;
-  font-weight: 500;
-}
-.divider::before, .divider::after {
-  content: '';
-  flex: 1;
-  border-bottom: 1px solid #f3f4f6;
-}
-.divider:not(:empty)::before {
-  margin-right: 10px;
-}
-.divider:not(:empty)::after {
-  margin-left: 10px;
-}
-.form-group {
-  margin-bottom: 16px;
-}
-.form-group label {
-  display: block;
-  font-size: 13px;
-  font-weight: 600;
-  color: #374151;
-  margin-bottom: 6px;
-}
-.form-group label .required {
-  color: #ef4444;
-  margin-left: 3px;
-}
-.input-wrap {
-  display: flex;
-  align-items: center;
-  border: 1.5px solid #d1d5db;
-  border-radius: 6px;
-  padding: 0 14px;
-  transition: all 0.2s ease;
-  background: #ffffff;
-}
-.input-wrap:focus-within {
-  border-color: #3b82f6;
-  background: #eff6ff;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
-}
-.input-wrap input {
-  flex: 1;
-  border: none;
-  outline: none;
-  padding: 11px 0;
-  font-size: 14px;
-  font-family: var(--font);
-  background: transparent;
-  color: #1f2937;
-}
-.form-options {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-.remember-me {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  color: #4b5563;
-  cursor: pointer;
-}
-.remember-me input {
-  width: 15px;
-  height: 15px;
-  accent-color: #0454C6;
-  cursor: pointer;
-}
-.forgot-pass-link {
-  font-size: 13px;
-  color: #2563eb;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
+  transition: color 0.2s ease;
 }
-.forgot-pass-link:hover {
+.uni-forgot-link:hover {
+  color: #e91e63;
+}
+.uni-divider-line {
+  width: 100%;
+  height: 1px;
+  background: #f3f4f6;
+}
+.uni-signup-text {
+  font-size: 13px;
+  color: #6b7280;
+}
+.uni-signup-link {
+  color: #e91e63;
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.2s ease;
+}
+.uni-signup-link:hover {
   text-decoration: underline;
 }
-.btn-login-submit {
-  display: block;
+.uni-right {
+  flex: 0.9;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.uni-watermarks {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.uni-watermark {
+  position: absolute;
+  font-size: 32px;
+  font-weight: 800;
+  color: #ffffff;
+  opacity: 0.03;
+  letter-spacing: 2px;
+  transform: rotate(-30deg);
+}
+.wm-1 { top: 15%; left: 20%; }
+.wm-2 { top: 25%; right: 15%; }
+.wm-3 { top: 45%; left: 35%; }
+.wm-4 { bottom: 25%; left: 10%; }
+.wm-5 { bottom: 15%; right: 25%; }
+
+.uni-isometric-svg {
   width: 100%;
-  padding: 12px;
-  background: #0454C6;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 14.5px;
-  font-weight: 700;
-  font-family: var(--font);
-  cursor: pointer;
-  text-align: center;
-  transition: all 0.2s ease;
-}
-.btn-login-submit:hover {
-  background: #033d91;
-}
-.login-footer {
-  text-align: center;
-  font-size: 12px;
-  color: #9ca3af;
-  margin-top: 24px;
-  padding-top: 18px;
-  border-top: 1px solid #f3f4f6;
-  font-weight: 500;
+  height: auto;
+  max-width: 650px;
+  z-index: 5;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15));
 }
 
-@media(max-width:768px){
-  .login-container{flex-direction:column}
-  .login-left{padding:40px 28px;flex:auto;min-height:250px}
-  .login-right{padding:36px 28px;flex:auto}
-  .login-left h1{font-size:24px}
+@media (max-width: 1024px) {
+  .uni-header {
+    padding: 20px 40px;
+  }
+  .uni-container {
+    padding: 0 40px 40px;
+    flex-direction: column;
+    gap: 40px;
+  }
+  .uni-left {
+    padding-right: 0;
+    justify-content: center;
+  }
+  .uni-content {
+    max-width: 100%;
+  }
+  .uni-right {
+    min-height: 450px;
+  }
+  .uni-bg-curve {
+    display: none;
+  }
+  .uni-login-page {
+    background: #f4f5fa;
+  }
+  .uni-logo {
+    color: #352166;
+  }
+  .uni-nav-link {
+    color: #352166;
+  }
+}
+@media (max-width: 768px) {
+  .uni-nav {
+    display: none;
+  }
+  .uni-header {
+    justify-content: center;
+  }
+  .uni-title {
+    font-size: 40px;
+    text-align: center;
+  }
+  .uni-subtitle {
+    font-size: 18px;
+    text-align: center;
+  }
+  .uni-description {
+    text-align: center;
+  }
+  .uni-form-card {
+    padding: 24px;
+  }
 }
 
 /* ============================================================ */
