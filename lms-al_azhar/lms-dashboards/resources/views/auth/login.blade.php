@@ -15,9 +15,9 @@
                 <!-- Sisi kiri kosong (warna hijau toska dari background) -->
             </div>
 
-            <!-- Right Section: White area (Contains new Login Form) -->
+            <!-- Right Section: White area (Contains new Login Form - Shifted Downward) -->
             <div class="uni-right" style="flex: 0.8; display: flex; align-items: center; justify-content: flex-start; padding-left: 80px; z-index: 5;">
-                <div style="width: 100%; max-width: 400px; display: flex; flex-direction: column;">
+                <div style="width: 100%; max-width: 400px; display: flex; flex-direction: column; margin-top: 60px;">
                     
                     <!-- Header Teks -->
                     <div style="text-align: center; margin-bottom: 32px;">
