@@ -1,5 +1,16 @@
 <x-guest-layout>
-    <div class="uni-login-page" style="background: url('/login_bg.png') no-repeat center center; background-size: cover; min-height: 100vh; width: 100%; display: flex; align-items: center; justify-content: center;">
+    <div class="uni-login-page" style="position: relative; min-height: 100vh; width: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; background-color: #ffffff;">
+        <!-- Background Curve SVG dari Backgroud4.svg (Sangat Tajam & Vektor Presisi) -->
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;">
+            <svg id="visual" viewBox="0 0 900 600" width="100%" height="100%" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+                <rect x="0" y="0" width="900" height="600" fill="#ffffff"></rect>
+                <path d="M443 0L457.7 14.3C472.3 28.7 501.7 57.3 512 85.8C522.3 114.3 513.7 142.7 492.5 171.2C471.3 199.7 437.7 228.3 414.5 257C391.3 285.7 378.7 314.3 395.7 343C412.7 371.7 459.3 400.3 474.3 428.8C489.3 457.3 472.7 485.7 460.7 514.2C448.7 542.7 441.3 571.3 437.7 585.7L434 600L0 600L0 585.7C0 571.3 0 542.7 0 514.2C0 485.7 0 457.3 0 428.8C0 400.3 0 371.7 0 343C0 314.3 0 285.7 0 257C0 228.3 0 199.7 0 171.2C0 142.7 0 114.3 0 85.8C0 57.3 0 28.7 0 14.3L0 0Z" fill="#2ebe9f" stroke-linecap="round" stroke-linejoin="miter"></path>
+            </svg>
+        </div>
+        
         <!-- Konten kosong sementara waktu sesuai permintaan -->
+        <div style="position: relative; z-index: 2;">
+            <!-- Kosong untuk sementara waktu -->
+        </div>
     </div>
 </x-guest-layout>
