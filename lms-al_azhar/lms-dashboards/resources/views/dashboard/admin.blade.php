@@ -18,6 +18,18 @@
     <li :class="{'active': tab === 'kelas'}" @click="tab = 'kelas'">
         <label><i class="fas fa-school"></i> Kelas</label>
     </li>
+    <li :class="{'active': tab === 'kurikulum'}" @click="tab = 'kurikulum'">
+        <label><i class="fas fa-book-open"></i> Kurikulum &amp; KKM</label>
+    </li>
+    <li :class="{'active': tab === 'asesmen'}" @click="tab = 'asesmen'">
+        <label><i class="fas fa-cubes"></i> Asesmen &amp; Ujian</label>
+    </li>
+    <li :class="{'active': tab === 'audit_guru'}" @click="tab = 'audit_guru'">
+        <label><i class="fas fa-clipboard-check"></i> Audit &amp; Kinerja Guru</label>
+    </li>
+    <li :class="{'active': tab === 'karya_tahfidz'}" @click="tab = 'karya_tahfidz'">
+        <label><i class="fas fa-medal"></i> Karya Tulis &amp; Tahfidz</label>
+    </li>
     <li :class="{'active': tab === 'cbt'}" @click="tab = 'cbt'">
         <label><i class="fas fa-laptop"></i> CBT Approval</label>
     </li>
@@ -226,6 +238,807 @@
                     <p style="font-size:13px;color:var(--gray-500)">Zona Waktu: WIB (UTC+7)</p>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- KURIKULUM & KKM TAB -->
+    <div x-show="tab === 'kurikulum'" x-data="{
+        showToast: false,
+        toastMsg: '',
+        kkmList: [
+            { mapel: 'Matematika', biasa: 75, unggulan: 85 },
+            { mapel: 'IPA', biasa: 75, unggulan: 85 },
+            { mapel: 'Bahasa Indonesia', biasa: 78, unggulan: 88 },
+            { mapel: 'Pendidikan Agama Islam', biasa: 80, unggulan: 90 },
+            { mapel: 'Bahasa Inggris', biasa: 75, unggulan: 85 }
+        ],
+        mapelPairs: [
+            { mapel1: 'Matematika', mapel2: 'Mathematics' },
+            { mapel1: 'IPA', mapel2: 'Science' },
+            { mapel1: 'IPS', mapel2: 'Social Studies' }
+        ],
+        newPair1: '',
+        newPair2: '',
+        saveKKM() {
+            this.toastMsg = 'Pengaturan KKM berhasil disimpan!';
+            this.showToast = true;
+            setTimeout(() => this.showToast = false, 3000);
+        },
+        addPair() {
+            if (!this.newPair1 || !this.newPair2) return;
+            this.mapelPairs.push({ mapel1: this.newPair1, mapel2: this.newPair2 });
+            this.newPair1 = '';
+            this.newPair2 = '';
+            this.toastMsg = 'Pasangan Mata Pelajaran ditambahkan!';
+            this.showToast = true;
+            setTimeout(() => this.showToast = false, 3000);
+        },
+        removePair(index) {
+            this.mapelPairs.splice(index, 1);
+            this.toastMsg = 'Pasangan Mata Pelajaran dihapus!';
+            this.showToast = true;
+            setTimeout(() => this.showToast = false, 3000);
+        }
+    }">
+        <div class="content-header">
+            <div>
+                <h1>Kurikulum &amp; KKM</h1>
+                <p style="font-size:14px;color:var(--gray-400);margin-top:2px">Kelola KKM Mata Pelajaran &amp; Pasangan Mapel Bilingual</p>
+            </div>
+            <div class="header-right">
+                <div class="avatar teal">AD</div>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <!-- Card KKM -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-sliders-h" style="color:var(--teal)"></i> Pengaturan Nilai Minimum (KKM)</h3>
+                </div>
+                <div class="table-wrap" style="margin-bottom: 20px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Mata Pelajaran</th>
+                                <th>KKM Biasa</th>
+                                <th>KKM Unggulan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template x-for="(kkm, index) in kkmList" :key="index">
+                                <tr>
+                                    <td style="font-weight: 600;" x-text="kkm.mapel"></td>
+                                    <td>
+                                        <div class="input-wrap" style="border: 1px solid var(--border-light); border-radius: 4px; padding: 2px 6px; width: 80px; display: inline-block;">
+                                            <input type="number" x-model.number="kkm.biasa" style="border:none; outline:none; width: 100%; font-size: 13px; text-align: center;">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-wrap" style="border: 1px solid var(--border-light); border-radius: 4px; padding: 2px 6px; width: 80px; display: inline-block;">
+                                            <input type="number" x-model.number="kkm.unggulan" style="border:none; outline:none; width: 100%; font-size: 13px; text-align: center;">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+                <button @click="saveKKM()" class="btn-primary btn-small" style="display: block; width: 100%; text-align: center; border-radius: 8px;">
+                    <i class="fas fa-save"></i> Simpan Nilai KKM
+                </button>
+            </div>
+
+            <!-- Card Pasangan Mapel -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-link" style="color:var(--blue)"></i> Pasangan Mata Pelajaran (Bilingual)</h3>
+                </div>
+                
+                <div style="background: var(--blue-bg); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-light); margin-bottom: 16px;">
+                    <p style="font-size: 12px; color: var(--gray-600); line-height: 1.4;">
+                        Tentukan pasangan mapel nasional dengan pasangan mapel internasionalnya untuk pelaporan rapor terintegrasi.
+                    </p>
+                </div>
+
+                <div class="table-wrap" style="margin-bottom: 20px; max-height: 250px; overflow-y: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Mapel Utama</th>
+                                <th></th>
+                                <th>Mapel Pasangan</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template x-for="(pair, index) in mapelPairs" :key="index">
+                                <tr>
+                                    <td style="font-weight:600;" x-text="pair.mapel1"></td>
+                                    <td style="color: var(--gray-400); text-align: center;"><i class="fas fa-arrows-alt-h"></i></td>
+                                    <td style="font-weight:600; color: var(--blue);" x-text="pair.mapel2"></td>
+                                    <td>
+                                        <button @click="removePair(index)" class="btn-small outline" style="border-color: var(--red); color: var(--red); padding: 2px 8px; font-size: 11px;">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="border-top: 1px solid var(--border-light); padding-top: 16px;">
+                    <h4 style="font-size: 12px; font-weight: 700; margin-bottom: 8px;">Tambah Hubungan Baru</h4>
+                    <div style="display: flex; gap: 8px;">
+                        <div class="input-wrap" style="flex:1; border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 6px 12px;">
+                            <input type="text" placeholder="Contoh: IPS" x-model="newPair1" style="border:none; outline:none; width: 100%; font-size:12px;">
+                        </div>
+                        <div style="align-self: center; color: var(--gray-400);"><i class="fas fa-link"></i></div>
+                        <div class="input-wrap" style="flex:1; border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding: 6px 12px;">
+                            <input type="text" placeholder="Contoh: Social Studies" x-model="newPair2" style="border:none; outline:none; width: 100%; font-size:12px;">
+                        </div>
+                        <button @click="addPair()" class="btn-primary btn-small" style="padding: 8px 12px; border-radius: var(--radius-sm);">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Alert -->
+        <div x-show="showToast" 
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 transform translate-y-2"
+             x-transition:enter-end="opacity-100 transform translate-y-0"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 transform translate-y-0"
+             x-transition:leave-end="opacity-0 transform translate-y-2"
+             style="position: fixed; bottom: 24px; right: 24px; background: var(--teal); color: white; padding: 12px 24px; border-radius: var(--radius-sm); box-shadow: var(--shadow-lg); z-index: 9999; display: flex; align-items: center; gap: 8px;">
+             <i class="fas fa-check-circle"></i> <span x-text="toastMsg"></span>
+        </div>
+    </div>
+
+    <!-- ASESMEN & UJIAN TAB -->
+    <div x-show="tab === 'asesmen'" x-data="{
+        showToast: false,
+        toastMsg: '',
+        isGenerating: false,
+        examAssembled: false,
+        selectedMapel: 'Matematika',
+        selectedKelas: '7A',
+        soalCount: 40,
+        compEasy: 30,
+        compMedium: 40,
+        compHard: 20,
+        compOlim: 10,
+        soalList: [],
+        anomalies: [
+            { nama: 'Ahmad Rizky', kelas: '7A', mapel: 'Matematika', biasa: 55, unggulan: 92, status: 'Flagged', guru: 'Bu Dewi Sartika' },
+            { nama: 'Siti Aisyah', kelas: '7A', mapel: 'IPA', biasa: 95, unggulan: 48, status: 'Flagged', guru: 'Pak Budi Santoso' },
+            { nama: 'Budi Santoso', kelas: '7A', mapel: 'PAI', biasa: 40, unggulan: 88, status: 'Flagged', guru: 'Ustadz Ahmad Fauzi' }
+        ],
+        generateExam() {
+            this.isGenerating = true;
+            this.examAssembled = false;
+            setTimeout(() => {
+                this.isGenerating = false;
+                this.examAssembled = true;
+                this.soalList = [
+                    { no: 1, teks: 'Hasil dari 12 x (15 + 25) adalah...', tipe: 'Gampang' },
+                    { no: 2, teks: 'Jika x + 5 = 12, maka nilai 2x - 3 adalah...', tipe: 'Sedang' },
+                    { no: 3, teks: 'Tentukan himpunan penyelesaian dari persamaan kuadrat x² - 5x + 6 = 0...', tipe: 'Susah' },
+                    { no: 4, teks: 'Diberikan segitiga ABC dengan panjang sisi AB=6, BC=8, CA=10. Jika titik D pada...', tipe: 'Olimpiade' }
+                ];
+                this.toastMsg = 'Ujian Otomatis Berhasil Dirakit!';
+                this.showToast = true;
+                setTimeout(() => this.showToast = false, 3000);
+            }, 1500);
+        },
+        swapScores(index) {
+            let a = this.anomalies[index];
+            let temp = a.biasa;
+            a.biasa = a.unggulan;
+            a.unggulan = temp;
+            a.status = 'Fixed';
+            this.toastMsg = 'Nilai berhasil ditukar kembali untuk ' + a.nama;
+            this.showToast = true;
+            setTimeout(() => this.showToast = false, 3000);
+        }
+    }">
+        <div class="content-header">
+            <div>
+                <h1>Asesmen &amp; Bank Soal</h1>
+                <p style="font-size:14px;color:var(--gray-400);margin-top:2px">Rakit Ujian Otomatis &amp; Cek Nilai Tertukar (Audit Nilai)</p>
+            </div>
+            <div class="header-right">
+                <div class="avatar teal">AD</div>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <!-- Card Bank Soal & Rakit Ujian -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-cog" style="color:var(--teal)"></i> Perakitan Ujian Otomatis</h3>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:12px;">
+                    <div class="grid-2">
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label style="font-size: 11px; font-weight:700;">Mata Pelajaran</label>
+                            <select x-model="selectedMapel" class="form-select" style="width:100%; border:1px solid var(--border-light); border-radius:4px; padding:6px; font-family:var(--font); outline:none;">
+                                <option>Matematika</option>
+                                <option>IPA</option>
+                                <option>Bahasa Indonesia</option>
+                                <option>Bahasa Inggris</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label style="font-size: 11px; font-weight:700;">Kelas Target</label>
+                            <select x-model="selectedKelas" class="form-select" style="width:100%; border:1px solid var(--border-light); border-radius:4px; padding:6px; font-family:var(--font); outline:none;">
+                                <option>7A</option>
+                                <option>7B</option>
+                                <option>8A</option>
+                                <option>9A</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label style="font-size: 11px; font-weight:700;">Jumlah Soal</label>
+                        <div class="input-wrap" style="border: 1px solid var(--border-light); border-radius: 4px; padding: 6px 12px;">
+                            <input type="number" x-model.number="soalCount" style="border:none; outline:none; width:100%; font-size:13px; font-family:var(--font);">
+                        </div>
+                    </div>
+
+                    <!-- Slider / Input Komposisi Soal -->
+                    <div style="background:var(--gray-50); padding:12px; border-radius:var(--radius-sm); border: 1px solid var(--border-light); display:flex; flex-direction:column; gap:8px;">
+                        <span style="font-size:11px; font-weight:700; color:var(--gray-600);">Komposisi Soal (%)</span>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                            <div>
+                                <span style="font-size:11px; color:var(--gray-500);">Gampang</span>
+                                <input type="number" x-model.number="compEasy" class="form-select" style="width:100%; border:1px solid var(--border-light); padding:4px; font-size:12px; font-family:var(--font); outline:none; border-radius:4px;">
+                            </div>
+                            <div>
+                                <span style="font-size:11px; color:var(--gray-500);">Sedang</span>
+                                <input type="number" x-model.number="compMedium" class="form-select" style="width:100%; border:1px solid var(--border-light); padding:4px; font-size:12px; font-family:var(--font); outline:none; border-radius:4px;">
+                            </div>
+                            <div>
+                                <span style="font-size:11px; color:var(--gray-500);">Susah</span>
+                                <input type="number" x-model.number="compHard" class="form-select" style="width:100%; border:1px solid var(--border-light); padding:4px; font-size:12px; font-family:var(--font); outline:none; border-radius:4px;">
+                            </div>
+                            <div>
+                                <span style="font-size:11px; color:var(--gray-500);">Olimpiade</span>
+                                <input type="number" x-model.number="compOlim" class="form-select" style="width:100%; border:1px solid var(--border-light); padding:4px; font-size:12px; font-family:var(--font); outline:none; border-radius:4px;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button @click="generateExam()" class="btn-primary btn-small" style="padding: 10px; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; border-radius:8px;" :disabled="isGenerating">
+                        <i class="fas fa-spinner fa-spin" x-show="isGenerating" style="display:none;"></i>
+                        <i class="fas fa-magic" x-show="!isGenerating"></i>
+                        <span x-text="isGenerating ? 'Merakit Soal...' : 'Rakit Ujian Otomatis'"></span>
+                    </button>
+                </div>
+
+                <!-- Preview Rakitan Soal -->
+                <div x-show="examAssembled" style="margin-top:20px; border-top:1.5px dashed var(--border); padding-top:16px;" x-transition>
+                    <h4 style="font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--teal);"><i class="fas fa-file-alt"></i> Preview Lembar Ujian Terakit</h4>
+                    <div style="display:flex; flex-direction:column; gap:8px;">
+                        <template x-for="soal in soalList" :key="soal.no">
+                            <div style="background:var(--white); border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding:8px 12px; display:flex; gap:10px;">
+                                <span style="font-weight:700; color:var(--teal);" x-text="soal.no"></span>
+                                <div style="flex:1;">
+                                    <p style="font-size:12px; font-weight:500;" x-text="soal.teks"></p>
+                                    <span class="badge" :class="{'teal': soal.tipe==='Gampang', 'blue': soal.tipe==='Sedang', 'orange': soal.tipe==='Susah', 'red': soal.tipe==='Olimpiade'}" style="font-size:9px; padding:2px 6px;" x-text="soal.tipe"></span>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Cek Nilai Ketuker -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-exclamation-triangle" style="color:var(--orange)"></i> Cek Nilai Tertukar (Audit Nilai)</h3>
+                </div>
+
+                <div style="background: var(--orange-bg); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-light); margin-bottom: 16px;">
+                    <p style="font-size: 12px; color: var(--gray-600); line-height: 1.4;">
+                        Algoritma mendeteksi anomali entri di mana nilai harian biasa dan nilai unggulan terbalik pada kolom nilai guru.
+                    </p>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Siswa</th>
+                                <th>Mapel</th>
+                                <th>Biasa</th>
+                                <th>Unggulan</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template x-for="(anomali, index) in anomalies" :key="index">
+                                <tr>
+                                    <td>
+                                        <div style="font-weight:600;" x-text="anomali.nama"></div>
+                                        <small style="color:var(--gray-400);" x-text="'Kelas: ' + anomali.kelas"></small>
+                                    </td>
+                                    <td>
+                                        <div style="font-weight:600;" x-text="anomali.mapel"></div>
+                                        <small style="color:var(--gray-400);" x-text="'Guru: ' + anomali.guru"></small>
+                                    </td>
+                                    <td>
+                                        <span x-text="anomali.biasa" :style="anomali.status === 'Flagged' ? 'color: var(--red); font-weight:700;' : 'color: var(--text);'"></span>
+                                    </td>
+                                    <td>
+                                        <span x-text="anomali.unggulan" :style="anomali.status === 'Flagged' ? 'color: var(--teal); font-weight:700;' : 'color: var(--text);'"></span>
+                                    </td>
+                                    <td>
+                                        <span class="badge" :class="anomali.status === 'Flagged' ? 'red' : 'green'" style="font-size:10px;" x-text="anomali.status"></span>
+                                    </td>
+                                    <td>
+                                        <template x-if="anomali.status === 'Flagged'">
+                                            <button @click="swapScores(index)" class="btn-small teal" style="padding: 4px 8px; font-size:11px;">
+                                                <i class="fas fa-sync-alt"></i> Tukar Kembali
+                                            </button>
+                                        </template>
+                                        <template x-if="anomali.status === 'Fixed'">
+                                            <span style="color: var(--green); font-size: 11px; font-weight: 600;"><i class="fas fa-check"></i> Selesai</span>
+                                        </template>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Alert -->
+        <div x-show="showToast" 
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 transform translate-y-2"
+             x-transition:enter-end="opacity-100 transform translate-y-0"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 transform translate-y-0"
+             x-transition:leave-end="opacity-0 transform translate-y-2"
+             style="position: fixed; bottom: 24px; right: 24px; background: var(--teal); color: white; padding: 12px 24px; border-radius: var(--radius-sm); box-shadow: var(--shadow-lg); z-index: 9999; display: flex; align-items: center; gap: 8px;">
+             <i class="fas fa-check-circle"></i> <span x-text="toastMsg"></span>
+        </div>
+    </div>
+
+    <!-- AUDIT & KINERJA GURU TAB -->
+    <div x-show="tab === 'audit_guru'" x-data="{
+        showToast: false,
+        toastMsg: '',
+        guruReports: [
+            { nama: 'Ustadz Ahmad Fauzi', harian: 'Lengkap', mingguan: 'Lengkap', bulanan: 'Belum Isi', kelas: '7A', mapel: 'PAI' },
+            { nama: 'Bu Dewi Sartika', harian: 'Lengkap', mingguan: 'Lengkap', bulanan: 'Lengkap', kelas: '7A-9B', mapel: 'Matematika' },
+            { nama: 'Ibu Siti Rahmawati', harian: 'Terlambat', mingguan: 'Belum Isi', bulanan: 'Belum Isi', kelas: '7A', mapel: 'B. Indonesia' },
+            { nama: 'Pak Budi Santoso', harian: 'Lengkap', mingguan: 'Lengkap', bulanan: 'Lengkap', kelas: '7A', mapel: 'IPA' }
+        ],
+        materiAjar: [
+            { id: 1, guru: 'Bu Dewi Sartika', mapel: 'Matematika 7', judul: 'Aljabar & SPLDV', status: 'Pending' },
+            { id: 2, guru: 'Pak Budi Santoso', mapel: 'IPA 7', judul: 'Ekosistem & Lingkungan', status: 'Pending' },
+            { id: 3, guru: 'Ustadz Ahmad Fauzi', mapel: 'PAI 7', judul: 'Fiqih Sholat Berjamaah', status: 'Approved' }
+        ],
+        sendReminder(nama) {
+            this.toastMsg = 'Peringatan terkirim ke ' + nama + '!';
+            this.showToast = true;
+            setTimeout(() => this.showToast = false, 3000);
+        },
+        approveMateri(id) {
+            let m = this.materiAjar.find(x => x.id === id);
+            if (m) m.status = 'Approved';
+            this.toastMsg = 'Materi ajar disetujui!';
+            this.showToast = true;
+            setTimeout(() => this.showToast = false, 3000);
+        },
+        rejectMateri(id) {
+            let m = this.materiAjar.find(x => x.id === id);
+            if (m) m.status = 'Rejected';
+            this.toastMsg = 'Materi ajar ditolak!';
+            this.showToast = true;
+            setTimeout(() => this.showToast = false, 3000);
+        },
+        calculatePerformance(guruName) {
+            let rep = this.guruReports.find(x => x.nama === guruName);
+            let mat = this.materiAjar.filter(x => x.guru === guruName);
+            
+            let score = 70; // Base score
+            if (rep) {
+                if (rep.harian === 'Lengkap') score += 10;
+                if (rep.mingguan === 'Lengkap') score += 10;
+                if (rep.bulanan === 'Lengkap') score += 10;
+                if (rep.harian === 'Terlambat') score += 5;
+            }
+            let approvedCount = mat.filter(x => x.status === 'Approved').length;
+            score += approvedCount * 5;
+            return Math.min(score, 100);
+        }
+    }">
+        <div class="content-header">
+            <div>
+                <h1>Audit &amp; Kinerja Guru</h1>
+                <p style="font-size:14px;color:var(--gray-400);margin-top:2px">Cek Kelengkapan Laporan Mengajar, Approval Modul, dan Rapor Kinerja</p>
+            </div>
+            <div class="header-right">
+                <div class="avatar teal">AD</div>
+            </div>
+        </div>
+
+        <div class="grid-2" style="margin-bottom: 24px;">
+            <!-- Column 1: Laporan Mengajar -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-clipboard-list" style="color:var(--teal)"></i> Kelengkapan Laporan Guru</h3>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Guru</th>
+                                <th>Harian</th>
+                                <th>Mingguan</th>
+                                <th>Bulanan</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template x-for="(rep, index) in guruReports" :key="index">
+                                <tr>
+                                    <td>
+                                        <div style="font-weight: 600;" x-text="rep.nama"></div>
+                                        <small style="color:var(--gray-400);" x-text="rep.mapel + ' - ' + rep.kelas"></small>
+                                    </td>
+                                    <td>
+                                        <span class="badge" :class="{'green': rep.harian==='Lengkap', 'orange': rep.harian==='Terlambat', 'red': rep.harian==='Belum Isi'}" x-text="rep.harian"></span>
+                                    </td>
+                                    <td>
+                                        <span class="badge" :class="{'green': rep.mingguan==='Lengkap', 'orange': rep.mingguan==='Terlambat', 'red': rep.mingguan==='Belum Isi'}" x-text="rep.mingguan"></span>
+                                    </td>
+                                    <td>
+                                        <span class="badge" :class="{'green': rep.bulanan==='Lengkap', 'orange': rep.bulanan==='Terlambat', 'red': rep.bulanan==='Belum Isi'}" x-text="rep.bulanan"></span>
+                                    </td>
+                                    <td>
+                                        <template x-if="rep.harian === 'Belum Isi' || rep.mingguan === 'Belum Isi' || rep.bulanan === 'Belum Isi' || rep.harian === 'Terlambat'">
+                                            <button @click="sendReminder(rep.nama)" class="btn-small outline" style="border-color:var(--red); color:var(--red); padding:4px 8px; font-size:11px;">
+                                                <i class="fas fa-bell"></i> Hubungi
+                                            </button>
+                                        </template>
+                                        <template x-if="rep.harian === 'Lengkap' && rep.mingguan === 'Lengkap' && rep.bulanan === 'Lengkap'">
+                                            <span style="color:var(--green); font-size:11px; font-weight:600;"><i class="fas fa-check-circle"></i> Ok</span>
+                                        </template>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Column 2: Approve Materi Ajar -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-check-double" style="color:var(--blue)"></i> Approve Materi Ajar Guru</h3>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Materi / Modul</th>
+                                <th>Guru</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template x-for="(mat, index) in materiAjar" :key="index">
+                                <tr>
+                                    <td>
+                                        <div style="font-weight: 600;" x-text="mat.judul"></div>
+                                        <small style="color: var(--blue);" x-text="mat.mapel"></small>
+                                    </td>
+                                    <td style="font-weight:500;" x-text="mat.guru"></td>
+                                    <td>
+                                        <span class="badge" :class="{'green': mat.status==='Approved', 'red': mat.status==='Rejected', 'orange': mat.status==='Pending'}" x-text="mat.status"></span>
+                                    </td>
+                                    <td>
+                                        <template x-if="mat.status === 'Pending'">
+                                            <div style="display:flex; gap:4px;">
+                                                <button @click="approveMateri(mat.id)" class="btn-small teal" style="padding: 2px 6px; font-size:11px;"><i class="fas fa-check"></i></button>
+                                                <button @click="rejectMateri(mat.id)" class="btn-small outline" style="border-color: var(--red); color: var(--red); padding: 2px 6px; font-size:11px;"><i class="fas fa-times"></i></button>
+                                            </div>
+                                        </template>
+                                        <template x-if="mat.status !== 'Pending'">
+                                            <span style="font-size: 11px; color: var(--gray-400); font-weight: 500;">Selesai di-review</span>
+                                        </template>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Full width Rapor Kinerja Guru -->
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-trophy" style="color:var(--orange)"></i> Rapor Skor Kinerja Guru</h3>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nama Guru</th>
+                            <th>Mata Pelajaran</th>
+                            <th style="width: 50%;">Skor Indeks Kinerja</th>
+                            <th>Nilai</th>
+                            <th>Predikat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template x-for="(rep, index) in guruReports" :key="index">
+                            <tr>
+                                <td style="font-weight:700;" x-text="rep.nama"></td>
+                                <td style="color:var(--gray-500);" x-text="rep.mapel"></td>
+                                <td>
+                                    <div class="progress-wrap" style="margin:0;">
+                                        <div class="progress-bar" style="height:10px;">
+                                            <div class="fill" :style="'width: ' + calculatePerformance(rep.nama) + '%;'"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <strong style="color:var(--teal); font-size:15px;" x-text="calculatePerformance(rep.nama)"></strong>
+                                </td>
+                                <td>
+                                    <span class="badge" :class="{'green': calculatePerformance(rep.nama) >= 90, 'blue': calculatePerformance(rep.nama) >= 80 && calculatePerformance(rep.nama) < 90, 'orange': calculatePerformance(rep.nama) < 80}" style="font-size: 10px;" x-text="calculatePerformance(rep.nama) >= 90 ? 'Sangat Baik' : (calculatePerformance(rep.nama) >= 80 ? 'Baik' : 'Cukup')"></span>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Toast Alert -->
+        <div x-show="showToast" 
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 transform translate-y-2"
+             x-transition:enter-end="opacity-100 transform translate-y-0"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 transform translate-y-0"
+             x-transition:leave-end="opacity-0 transform translate-y-2"
+             style="position: fixed; bottom: 24px; right: 24px; background: var(--teal); color: white; padding: 12px 24px; border-radius: var(--radius-sm); box-shadow: var(--shadow-lg); z-index: 9999; display: flex; align-items: center; gap: 8px;">
+             <i class="fas fa-check-circle"></i> <span x-text="toastMsg"></span>
+        </div>
+    </div>
+
+    <!-- KARYA TULIS & TAHFIDZ TAB -->
+    <div x-show="tab === 'karya_tahfidz'" x-data="{
+        showToast: false,
+        toastMsg: '',
+        searchSiswa: '',
+        sidangList: [
+            { siswa: 'Ahmad Rizky', kelas: '9A', judul: 'Rancang Bangun Mini Green House Otomatis', tanggal: '2026-07-15', waktu: '09:00', penguji: 'Pak Budi Santoso', status: 'Terjadwal' },
+            { siswa: 'Budi Santoso', kelas: '9A', judul: 'Pengaruh Sholat Dhuha Terhadap Ketenangan Jiwa', tanggal: '2026-07-16', waktu: '10:30', penguji: 'Ustadz Ahmad Fauzi', status: 'Terjadwal' },
+            { siswa: 'Siti Aisyah', kelas: '9B', judul: 'Analisis Kadar Vitamin C pada Buah Lokal', tanggal: '2026-07-17', waktu: '13:00', penguji: 'Ibu Siti Rahmawati', status: 'Draft' }
+        ],
+        tahfidzList: [
+            { nama: 'Ahmad Rizky', kelas: '7A', surah: 'An-Naba', ayat: '1-40', target: 'Juz 30', progress: 95 },
+            { nama: 'Siti Aisyah', kelas: '7A', surah: 'Al-Mulk', ayat: '1-30', target: 'Juz 29', progress: 75 },
+            { nama: 'Budi Santoso', kelas: '7A', surah: 'Al-Waqiah', ayat: '1-96', target: 'Juz 27', progress: 40 },
+            { nama: 'Citra Dewi', kelas: '7A', surah: 'Yasin', ayat: '1-83', target: 'Juz 28', progress: 85 },
+            { nama: 'Doni Prasetyo', kelas: '8B', surah: 'Al-Kahfi', ayat: '1-110', target: 'Juz 15', progress: 60 }
+        ],
+        newSiswa: '',
+        newKelas: '9A',
+        newJudul: '',
+        newTanggal: '',
+        newWaktu: '',
+        newPenguji: 'Pak Budi Santoso',
+        showForm: false,
+        addSidang() {
+            if (!this.newSiswa || !this.newJudul || !this.newTanggal || !this.newWaktu) return;
+            this.sidangList.push({
+                siswa: this.newSiswa,
+                kelas: this.newKelas,
+                judul: this.newJudul,
+                tanggal: this.newTanggal,
+                waktu: this.newWaktu,
+                penguji: this.newPenguji,
+                status: 'Terjadwal'
+            });
+            this.newSiswa = '';
+            this.newJudul = '';
+            this.newTanggal = '';
+            this.newWaktu = '';
+            this.showForm = false;
+            this.toastMsg = 'Jadwal sidang berhasil ditambahkan!';
+            this.showToast = true;
+            setTimeout(() => this.showToast = false, 3000);
+        }
+    }">
+        <div class="content-header">
+            <div>
+                <h1>Karya Tulis &amp; Tahfidz</h1>
+                <p style="font-size:14px;color:var(--gray-400);margin-top:2px">Jadwalkan Sidang Karya Tulis Ilmiah Kelas 9 &amp; Rekap Hafalan Quran Siswa</p>
+            </div>
+            <div class="header-right">
+                <div class="avatar teal">AD</div>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <!-- Column 1: Sidang Karya Tulis -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-file-signature" style="color:var(--teal)"></i> Jadwal Sidang Karya Tulis (Kelas 9)</h3>
+                    <button @click="showForm = !showForm" class="btn-small teal" style="padding:4px 8px; font-size:11px;">
+                        <i class="fas" :class="showForm ? 'fa-times' : 'fa-plus'"></i> <span x-text="showForm ? 'Batal' : 'Tambah'"></span>
+                    </button>
+                </div>
+
+                <!-- Form Tambah Jadwal -->
+                <div x-show="showForm" style="background:var(--gray-50); border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding:16px; margin-bottom: 16px;" x-transition>
+                    <div style="display:flex; flex-direction:column; gap:10px;">
+                        <div class="grid-2">
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label style="font-size:11px; font-weight:700;">Nama Siswa</label>
+                                <div class="input-wrap" style="border: 1px solid var(--border-light); border-radius: 4px; padding: 4px 8px;">
+                                    <input type="text" x-model="newSiswa" placeholder="Ahmad Rizky" style="border:none; outline:none; width:100%; font-size:12px; font-family:var(--font);">
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label style="font-size:11px; font-weight:700;">Kelas</label>
+                                <select x-model="newKelas" class="form-select" style="width:100%; border:1px solid var(--border-light); border-radius:4px; padding:4px; font-family:var(--font); outline:none;">
+                                    <option>9A</option>
+                                    <option>9B</option>
+                                    <option>9C</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label style="font-size:11px; font-weight:700;">Judul Karya Tulis</label>
+                            <div class="input-wrap" style="border: 1px solid var(--border-light); border-radius: 4px; padding: 4px 8px;">
+                                <input type="text" x-model="newJudul" placeholder="Analisis..." style="border:none; outline:none; width:100%; font-size:12px; font-family:var(--font);">
+                            </div>
+                        </div>
+                        <div class="grid-2">
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label style="font-size:11px; font-weight:700;">Tanggal</label>
+                                <div class="input-wrap" style="border: 1px solid var(--border-light); border-radius: 4px; padding: 4px 8px;">
+                                    <input type="date" x-model="newTanggal" style="border:none; outline:none; width:100%; font-size:12px; font-family:var(--font);">
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-bottom:0;">
+                                <label style="font-size:11px; font-weight:700;">Waktu</label>
+                                <div class="input-wrap" style="border: 1px solid var(--border-light); border-radius: 4px; padding: 4px 8px;">
+                                    <input type="time" x-model="newWaktu" style="border:none; outline:none; width:100%; font-size:12px; font-family:var(--font);">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label style="font-size:11px; font-weight:700;">Dosen Penguji / Guru</label>
+                            <select x-model="newPenguji" class="form-select" style="width:100%; border:1px solid var(--border-light); border-radius:4px; padding:4px; font-family:var(--font); outline:none;">
+                                <option>Pak Budi Santoso</option>
+                                <option>Ustadz Ahmad Fauzi</option>
+                                <option>Bu Dewi Sartika</option>
+                                <option>Ibu Siti Rahmawati</option>
+                            </select>
+                        </div>
+                        <button @click="addSidang()" class="btn-primary btn-small" style="align-self: flex-start; padding: 8px 16px; border-radius:6px;">
+                            <i class="fas fa-save"></i> Jadwalkan
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Siswa</th>
+                                <th>Judul Karya Tulis</th>
+                                <th>Tanggal &amp; Jam</th>
+                                <th>Penguji</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template x-for="(sidang, index) in sidangList" :key="index">
+                                <tr>
+                                    <td>
+                                        <div style="font-weight:600;" x-text="sidang.siswa"></div>
+                                        <small style="color:var(--gray-400);" x-text="'Kelas: ' + sidang.kelas"></small>
+                                    </td>
+                                    <td>
+                                        <div style="font-size:12px; font-weight:500; line-height:1.3;" x-text="sidang.judul"></div>
+                                    </td>
+                                    <td>
+                                        <div style="font-weight:600;" x-text="sidang.tanggal"></div>
+                                        <small style="color:var(--teal);" x-text="sidang.waktu + ' WIB'"></small>
+                                    </td>
+                                    <td style="font-weight:500; font-size:12px;" x-text="sidang.penguji"></td>
+                                    <td>
+                                        <span class="badge" :class="{'green': sidang.status==='Terjadwal', 'orange': sidang.status==='Draft'}" x-text="sidang.status"></span>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Column 2: Rekap Hafalan Quran -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-quran" style="color:var(--blue)"></i> Rekap Hafalan Quran Siswa</h3>
+                    <div class="input-wrap" style="border: 1px solid var(--border-light); border-radius: 20px; padding: 2px 10px; width: 140px; display: flex; align-items: center;">
+                        <input type="text" placeholder="Cari Siswa..." x-model="searchSiswa" style="border:none; outline:none; width: 100%; font-size: 11px; font-family:var(--font);">
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Siswa</th>
+                                <th>Hafalan Terakhir</th>
+                                <th>Target</th>
+                                <th>Progress Juz</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template x-for="(tahfidz, index) in tahfidzList" :key="index">
+                                <tr x-show="searchSiswa === '' || tahfidz.nama.toLowerCase().includes(searchSiswa.toLowerCase())">
+                                    <td>
+                                        <div style="font-weight: 600;" x-text="tahfidz.nama"></div>
+                                        <small style="color:var(--gray-400);" x-text="'Kelas: ' + tahfidz.kelas"></small>
+                                    </td>
+                                    <td>
+                                        <div style="font-weight:600; color:var(--teal);" x-text="'Q.S. ' + tahfidz.surah"></div>
+                                        <small style="color:var(--gray-500);" x-text="'Ayat: ' + tahfidz.ayat"></small>
+                                    </td>
+                                    <td>
+                                        <span class="badge light blue" x-text="tahfidz.target"></span>
+                                    </td>
+                                    <td>
+                                        <div class="progress-wrap" style="margin:0;">
+                                            <div class="progress-label" style="font-size:10px; margin-bottom:2px;">
+                                                <span class="percentage" x-text="tahfidz.progress + '%'"></span>
+                                            </div>
+                                            <div class="progress-bar" style="height:6px; width:100px;">
+                                                <div class="fill" :style="'width: ' + tahfidz.progress + '%;'"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Alert -->
+        <div x-show="showToast" 
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 transform translate-y-2"
+             x-transition:enter-end="opacity-100 transform translate-y-0"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 transform translate-y-0"
+             x-transition:leave-end="opacity-0 transform translate-y-2"
+             style="position: fixed; bottom: 24px; right: 24px; background: var(--teal); color: white; padding: 12px 24px; border-radius: var(--radius-sm); box-shadow: var(--shadow-lg); z-index: 9999; display: flex; align-items: center; gap: 8px;">
+             <i class="fas fa-check-circle"></i> <span x-text="toastMsg"></span>
         </div>
     </div>
 

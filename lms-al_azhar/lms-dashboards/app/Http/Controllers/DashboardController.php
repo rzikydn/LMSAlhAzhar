@@ -29,6 +29,7 @@ class DashboardController extends Controller
             'guru' => 'dashboard.guru',
             'orang_tua' => 'dashboard.orang-tua',
             'admin' => 'dashboard.admin',
+            'kepala_sekolah' => 'dashboard.kepala-sekolah',
         ];
 
         $view = $views[$role] ?? 'dashboard';

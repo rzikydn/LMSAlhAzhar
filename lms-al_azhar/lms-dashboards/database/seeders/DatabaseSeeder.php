@@ -133,6 +133,13 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Admin Sekolah', 'password' => Hash::make('password123'), 'role' => 'admin']
         );
 
+        // === USER: KEPALA SEKOLAH ===
+        User::firstOrCreate(
+            ['email' => 'kepala@alazharjayaindonesia.sch.id'],
+            ['name' => 'Kepala Sekolah', 'password' => Hash::make('password123'), 'role' => 'kepala_sekolah']
+        );
+
+
         // === JADWAL (for SD kelas 7A) ===
         $hariMap = [
             'Senin' => [

@@ -8,15 +8,25 @@
 -- Dumped by pg_dump version 18.4
 
 SET statement_timeout = 0;
+
 SET lock_timeout = 0;
+
 SET idle_in_transaction_session_timeout = 0;
+
 SET transaction_timeout = 0;
+
 SET client_encoding = 'UTF8';
+
 SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
+
+SELECT pg_catalog.set_config ('search_path', '', false);
+
 SET check_function_bodies = false;
+
 SET xmloption = content;
+
 SET client_min_messages = warning;
+
 SET row_security = off;
 
 SET default_tablespace = '';
@@ -36,20 +46,15 @@ CREATE TABLE public.badges (
     updated_at timestamp(0) without time zone
 );
 
-
 ALTER TABLE public.badges OWNER TO postgres;
 
 --
 -- Name: badges_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.badges_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.badges_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.badges_id_seq OWNER TO postgres;
 
@@ -58,7 +63,6 @@ ALTER SEQUENCE public.badges_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.badges_id_seq OWNED BY public.badges.id;
-
 
 --
 -- Name: cache; Type: TABLE; Schema: public; Owner: postgres
@@ -69,7 +73,6 @@ CREATE TABLE public.cache (
     value text NOT NULL,
     expiration bigint NOT NULL
 );
-
 
 ALTER TABLE public.cache OWNER TO postgres;
 
@@ -82,7 +85,6 @@ CREATE TABLE public.cache_locks (
     owner character varying(255) NOT NULL,
     expiration bigint NOT NULL
 );
-
 
 ALTER TABLE public.cache_locks OWNER TO postgres;
 
@@ -100,20 +102,15 @@ CREATE TABLE public.catatan_wali (
     updated_at timestamp(0) without time zone
 );
 
-
 ALTER TABLE public.catatan_wali OWNER TO postgres;
 
 --
 -- Name: catatan_wali_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.catatan_wali_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.catatan_wali_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.catatan_wali_id_seq OWNER TO postgres;
 
@@ -122,7 +119,6 @@ ALTER SEQUENCE public.catatan_wali_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.catatan_wali_id_seq OWNED BY public.catatan_wali.id;
-
 
 --
 -- Name: cbt_exams; Type: TABLE; Schema: public; Owner: postgres
@@ -148,7 +144,6 @@ CREATE TABLE public.cbt_exams (
     CONSTRAINT cbt_exams_tipe_check CHECK (((tipe)::text = ANY ((ARRAY['ulangan'::character varying, 'uts'::character varying, 'uas'::character varying])::text[])))
 );
 
-
 ALTER TABLE public.cbt_exams OWNER TO postgres;
 
 --
@@ -157,18 +152,13 @@ ALTER TABLE public.cbt_exams OWNER TO postgres;
 
 COMMENT ON COLUMN public.cbt_exams.durasi IS 'menit';
 
-
 --
 -- Name: cbt_exams_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.cbt_exams_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.cbt_exams_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.cbt_exams_id_seq OWNER TO postgres;
 
@@ -177,7 +167,6 @@ ALTER SEQUENCE public.cbt_exams_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.cbt_exams_id_seq OWNED BY public.cbt_exams.id;
-
 
 --
 -- Name: cbt_jawabans; Type: TABLE; Schema: public; Owner: postgres
@@ -189,12 +178,11 @@ CREATE TABLE public.cbt_jawabans (
     cbt_soal_id bigint NOT NULL,
     siswa_id bigint NOT NULL,
     jawaban text,
-    nilai numeric(5,2),
+    nilai numeric(5, 2),
     dinilai boolean DEFAULT false NOT NULL,
     created_at timestamp(0) without time zone,
     updated_at timestamp(0) without time zone
 );
-
 
 ALTER TABLE public.cbt_jawabans OWNER TO postgres;
 
@@ -202,13 +190,9 @@ ALTER TABLE public.cbt_jawabans OWNER TO postgres;
 -- Name: cbt_jawabans_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.cbt_jawabans_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.cbt_jawabans_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.cbt_jawabans_id_seq OWNER TO postgres;
 
@@ -217,7 +201,6 @@ ALTER SEQUENCE public.cbt_jawabans_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.cbt_jawabans_id_seq OWNED BY public.cbt_jawabans.id;
-
 
 --
 -- Name: cbt_soals; Type: TABLE; Schema: public; Owner: postgres
@@ -240,20 +223,15 @@ CREATE TABLE public.cbt_soals (
     CONSTRAINT cbt_soals_tipe_check CHECK (((tipe)::text = ANY ((ARRAY['pg'::character varying, 'essay'::character varying])::text[])))
 );
 
-
 ALTER TABLE public.cbt_soals OWNER TO postgres;
 
 --
 -- Name: cbt_soals_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.cbt_soals_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.cbt_soals_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.cbt_soals_id_seq OWNER TO postgres;
 
@@ -262,7 +240,6 @@ ALTER SEQUENCE public.cbt_soals_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.cbt_soals_id_seq OWNED BY public.cbt_soals.id;
-
 
 --
 -- Name: failed_jobs; Type: TABLE; Schema: public; Owner: postgres
@@ -278,20 +255,15 @@ CREATE TABLE public.failed_jobs (
     failed_at timestamp(0) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
-
 ALTER TABLE public.failed_jobs OWNER TO postgres;
 
 --
 -- Name: failed_jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.failed_jobs_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.failed_jobs_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.failed_jobs_id_seq OWNER TO postgres;
 
@@ -300,7 +272,6 @@ ALTER SEQUENCE public.failed_jobs_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.failed_jobs_id_seq OWNED BY public.failed_jobs.id;
-
 
 --
 -- Name: guru; Type: TABLE; Schema: public; Owner: postgres
@@ -320,20 +291,15 @@ CREATE TABLE public.guru (
     CONSTRAINT guru_status_check CHECK (((status)::text = ANY ((ARRAY['aktif'::character varying, 'nonaktif'::character varying])::text[])))
 );
 
-
 ALTER TABLE public.guru OWNER TO postgres;
 
 --
 -- Name: guru_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.guru_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.guru_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.guru_id_seq OWNER TO postgres;
 
@@ -342,7 +308,6 @@ ALTER SEQUENCE public.guru_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.guru_id_seq OWNED BY public.guru.id;
-
 
 --
 -- Name: jadwal; Type: TABLE; Schema: public; Owner: postgres
@@ -360,20 +325,15 @@ CREATE TABLE public.jadwal (
     updated_at timestamp(0) without time zone
 );
 
-
 ALTER TABLE public.jadwal OWNER TO postgres;
 
 --
 -- Name: jadwal_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.jadwal_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.jadwal_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.jadwal_id_seq OWNER TO postgres;
 
@@ -382,7 +342,6 @@ ALTER SEQUENCE public.jadwal_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.jadwal_id_seq OWNED BY public.jadwal.id;
-
 
 --
 -- Name: job_batches; Type: TABLE; Schema: public; Owner: postgres
@@ -401,7 +360,6 @@ CREATE TABLE public.job_batches (
     finished_at integer
 );
 
-
 ALTER TABLE public.job_batches OWNER TO postgres;
 
 --
@@ -418,20 +376,15 @@ CREATE TABLE public.jobs (
     created_at integer NOT NULL
 );
 
-
 ALTER TABLE public.jobs OWNER TO postgres;
 
 --
 -- Name: jobs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.jobs_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.jobs_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.jobs_id_seq OWNER TO postgres;
 
@@ -440,7 +393,6 @@ ALTER SEQUENCE public.jobs_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.jobs_id_seq OWNED BY public.jobs.id;
-
 
 --
 -- Name: kehadiran; Type: TABLE; Schema: public; Owner: postgres
@@ -457,20 +409,15 @@ CREATE TABLE public.kehadiran (
     CONSTRAINT kehadiran_status_check CHECK (((status)::text = ANY ((ARRAY['hadir'::character varying, 'sakit'::character varying, 'izin'::character varying, 'alpha'::character varying])::text[])))
 );
 
-
 ALTER TABLE public.kehadiran OWNER TO postgres;
 
 --
 -- Name: kehadiran_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.kehadiran_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.kehadiran_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.kehadiran_id_seq OWNER TO postgres;
 
@@ -479,7 +426,6 @@ ALTER SEQUENCE public.kehadiran_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.kehadiran_id_seq OWNED BY public.kehadiran.id;
-
 
 --
 -- Name: kelas; Type: TABLE; Schema: public; Owner: postgres
@@ -494,20 +440,15 @@ CREATE TABLE public.kelas (
     CONSTRAINT kelas_jenjang_check CHECK (((jenjang)::text = ANY ((ARRAY['SD'::character varying, 'SMP'::character varying])::text[])))
 );
 
-
 ALTER TABLE public.kelas OWNER TO postgres;
 
 --
 -- Name: kelas_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.kelas_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.kelas_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.kelas_id_seq OWNER TO postgres;
 
@@ -516,7 +457,6 @@ ALTER SEQUENCE public.kelas_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.kelas_id_seq OWNED BY public.kelas.id;
-
 
 --
 -- Name: log_aktivitas; Type: TABLE; Schema: public; Owner: postgres
@@ -532,20 +472,15 @@ CREATE TABLE public.log_aktivitas (
     updated_at timestamp(0) without time zone
 );
 
-
 ALTER TABLE public.log_aktivitas OWNER TO postgres;
 
 --
 -- Name: log_aktivitas_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.log_aktivitas_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.log_aktivitas_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.log_aktivitas_id_seq OWNER TO postgres;
 
@@ -554,7 +489,6 @@ ALTER SEQUENCE public.log_aktivitas_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.log_aktivitas_id_seq OWNED BY public.log_aktivitas.id;
-
 
 --
 -- Name: mapel; Type: TABLE; Schema: public; Owner: postgres
@@ -568,20 +502,15 @@ CREATE TABLE public.mapel (
     updated_at timestamp(0) without time zone
 );
 
-
 ALTER TABLE public.mapel OWNER TO postgres;
 
 --
 -- Name: mapel_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.mapel_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.mapel_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.mapel_id_seq OWNER TO postgres;
 
@@ -590,7 +519,6 @@ ALTER SEQUENCE public.mapel_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.mapel_id_seq OWNED BY public.mapel.id;
-
 
 --
 -- Name: materi; Type: TABLE; Schema: public; Owner: postgres
@@ -609,20 +537,15 @@ CREATE TABLE public.materi (
     updated_at timestamp(0) without time zone
 );
 
-
 ALTER TABLE public.materi OWNER TO postgres;
 
 --
 -- Name: materi_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.materi_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.materi_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.materi_id_seq OWNER TO postgres;
 
@@ -631,7 +554,6 @@ ALTER SEQUENCE public.materi_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.materi_id_seq OWNED BY public.materi.id;
-
 
 --
 -- Name: migrations; Type: TABLE; Schema: public; Owner: postgres
@@ -643,21 +565,15 @@ CREATE TABLE public.migrations (
     batch integer NOT NULL
 );
 
-
 ALTER TABLE public.migrations OWNER TO postgres;
 
 --
 -- Name: migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.migrations_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.migrations_id_seq AS integer START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.migrations_id_seq OWNER TO postgres;
 
@@ -666,7 +582,6 @@ ALTER SEQUENCE public.migrations_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.migrations_id_seq OWNED BY public.migrations.id;
-
 
 --
 -- Name: nilai; Type: TABLE; Schema: public; Owner: postgres
@@ -677,12 +592,11 @@ CREATE TABLE public.nilai (
     siswa_id bigint NOT NULL,
     tugas_id bigint,
     mapel_id bigint NOT NULL,
-    nilai numeric(5,2) NOT NULL,
+    nilai numeric(5, 2) NOT NULL,
     catatan text,
     created_at timestamp(0) without time zone,
     updated_at timestamp(0) without time zone
 );
-
 
 ALTER TABLE public.nilai OWNER TO postgres;
 
@@ -690,13 +604,9 @@ ALTER TABLE public.nilai OWNER TO postgres;
 -- Name: nilai_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.nilai_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.nilai_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.nilai_id_seq OWNER TO postgres;
 
@@ -705,7 +615,6 @@ ALTER SEQUENCE public.nilai_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.nilai_id_seq OWNED BY public.nilai.id;
-
 
 --
 -- Name: olympiad_exams; Type: TABLE; Schema: public; Owner: postgres
@@ -730,7 +639,6 @@ CREATE TABLE public.olympiad_exams (
     CONSTRAINT olympiad_exams_status_check CHECK (((status)::text = ANY ((ARRAY['draft'::character varying, 'pending'::character varying, 'approved'::character varying, 'rejected'::character varying])::text[])))
 );
 
-
 ALTER TABLE public.olympiad_exams OWNER TO postgres;
 
 --
@@ -739,25 +647,19 @@ ALTER TABLE public.olympiad_exams OWNER TO postgres;
 
 COMMENT ON COLUMN public.olympiad_exams.tingkat IS 'kabupaten/provinsi/nasional';
 
-
 --
 -- Name: COLUMN olympiad_exams.durasi; Type: COMMENT; Schema: public; Owner: postgres
 --
 
 COMMENT ON COLUMN public.olympiad_exams.durasi IS 'menit';
 
-
 --
 -- Name: olympiad_exams_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.olympiad_exams_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.olympiad_exams_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.olympiad_exams_id_seq OWNER TO postgres;
 
@@ -766,7 +668,6 @@ ALTER SEQUENCE public.olympiad_exams_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.olympiad_exams_id_seq OWNED BY public.olympiad_exams.id;
-
 
 --
 -- Name: olympiad_jawabans; Type: TABLE; Schema: public; Owner: postgres
@@ -778,12 +679,11 @@ CREATE TABLE public.olympiad_jawabans (
     olympiad_soal_id bigint NOT NULL,
     siswa_id bigint NOT NULL,
     jawaban text,
-    nilai numeric(5,2),
+    nilai numeric(5, 2),
     dinilai boolean DEFAULT false NOT NULL,
     created_at timestamp(0) without time zone,
     updated_at timestamp(0) without time zone
 );
-
 
 ALTER TABLE public.olympiad_jawabans OWNER TO postgres;
 
@@ -791,13 +691,9 @@ ALTER TABLE public.olympiad_jawabans OWNER TO postgres;
 -- Name: olympiad_jawabans_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.olympiad_jawabans_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.olympiad_jawabans_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.olympiad_jawabans_id_seq OWNER TO postgres;
 
@@ -806,7 +702,6 @@ ALTER SEQUENCE public.olympiad_jawabans_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.olympiad_jawabans_id_seq OWNED BY public.olympiad_jawabans.id;
-
 
 --
 -- Name: olympiad_soals; Type: TABLE; Schema: public; Owner: postgres
@@ -829,20 +724,15 @@ CREATE TABLE public.olympiad_soals (
     CONSTRAINT olympiad_soals_tipe_check CHECK (((tipe)::text = ANY ((ARRAY['pg'::character varying, 'essay'::character varying])::text[])))
 );
 
-
 ALTER TABLE public.olympiad_soals OWNER TO postgres;
 
 --
 -- Name: olympiad_soals_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.olympiad_soals_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.olympiad_soals_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.olympiad_soals_id_seq OWNER TO postgres;
 
@@ -851,7 +741,6 @@ ALTER SEQUENCE public.olympiad_soals_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.olympiad_soals_id_seq OWNED BY public.olympiad_soals.id;
-
 
 --
 -- Name: orang_tua; Type: TABLE; Schema: public; Owner: postgres
@@ -867,20 +756,15 @@ CREATE TABLE public.orang_tua (
     updated_at timestamp(0) without time zone
 );
 
-
 ALTER TABLE public.orang_tua OWNER TO postgres;
 
 --
 -- Name: orang_tua_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.orang_tua_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.orang_tua_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.orang_tua_id_seq OWNER TO postgres;
 
@@ -889,7 +773,6 @@ ALTER SEQUENCE public.orang_tua_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.orang_tua_id_seq OWNED BY public.orang_tua.id;
-
 
 --
 -- Name: orang_tua_siswa; Type: TABLE; Schema: public; Owner: postgres
@@ -903,20 +786,15 @@ CREATE TABLE public.orang_tua_siswa (
     updated_at timestamp(0) without time zone
 );
 
-
 ALTER TABLE public.orang_tua_siswa OWNER TO postgres;
 
 --
 -- Name: orang_tua_siswa_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.orang_tua_siswa_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.orang_tua_siswa_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.orang_tua_siswa_id_seq OWNER TO postgres;
 
@@ -925,7 +803,6 @@ ALTER SEQUENCE public.orang_tua_siswa_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.orang_tua_siswa_id_seq OWNED BY public.orang_tua_siswa.id;
-
 
 --
 -- Name: password_reset_tokens; Type: TABLE; Schema: public; Owner: postgres
@@ -936,7 +813,6 @@ CREATE TABLE public.password_reset_tokens (
     token character varying(255) NOT NULL,
     created_at timestamp(0) without time zone
 );
-
 
 ALTER TABLE public.password_reset_tokens OWNER TO postgres;
 
@@ -958,20 +834,15 @@ CREATE TABLE public.pembayarans (
     CONSTRAINT pembayarans_status_check CHECK (((status)::text = ANY ((ARRAY['confirmed'::character varying, 'pending'::character varying])::text[])))
 );
 
-
 ALTER TABLE public.pembayarans OWNER TO postgres;
 
 --
 -- Name: pembayarans_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.pembayarans_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.pembayarans_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.pembayarans_id_seq OWNER TO postgres;
 
@@ -980,7 +851,6 @@ ALTER SEQUENCE public.pembayarans_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.pembayarans_id_seq OWNED BY public.pembayarans.id;
-
 
 --
 -- Name: pengaturan; Type: TABLE; Schema: public; Owner: postgres
@@ -994,20 +864,15 @@ CREATE TABLE public.pengaturan (
     updated_at timestamp(0) without time zone
 );
 
-
 ALTER TABLE public.pengaturan OWNER TO postgres;
 
 --
 -- Name: pengaturan_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.pengaturan_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.pengaturan_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.pengaturan_id_seq OWNER TO postgres;
 
@@ -1016,7 +881,6 @@ ALTER SEQUENCE public.pengaturan_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.pengaturan_id_seq OWNED BY public.pengaturan.id;
-
 
 --
 -- Name: pengumpulan_tugas; Type: TABLE; Schema: public; Owner: postgres
@@ -1028,13 +892,12 @@ CREATE TABLE public.pengumpulan_tugas (
     siswa_id bigint NOT NULL,
     file_path character varying(255),
     catatan_siswa text,
-    nilai numeric(5,2),
+    nilai numeric(5, 2),
     catatan_guru text,
     dikumpulkan_at timestamp(0) without time zone,
     created_at timestamp(0) without time zone,
     updated_at timestamp(0) without time zone
 );
-
 
 ALTER TABLE public.pengumpulan_tugas OWNER TO postgres;
 
@@ -1042,13 +905,9 @@ ALTER TABLE public.pengumpulan_tugas OWNER TO postgres;
 -- Name: pengumpulan_tugas_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.pengumpulan_tugas_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.pengumpulan_tugas_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.pengumpulan_tugas_id_seq OWNER TO postgres;
 
@@ -1057,7 +916,6 @@ ALTER SEQUENCE public.pengumpulan_tugas_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.pengumpulan_tugas_id_seq OWNED BY public.pengumpulan_tugas.id;
-
 
 --
 -- Name: pengumuman; Type: TABLE; Schema: public; Owner: postgres
@@ -1073,20 +931,15 @@ CREATE TABLE public.pengumuman (
     updated_at timestamp(0) without time zone
 );
 
-
 ALTER TABLE public.pengumuman OWNER TO postgres;
 
 --
 -- Name: pengumuman_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.pengumuman_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.pengumuman_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.pengumuman_id_seq OWNER TO postgres;
 
@@ -1095,7 +948,6 @@ ALTER SEQUENCE public.pengumuman_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.pengumuman_id_seq OWNED BY public.pengumuman.id;
-
 
 --
 -- Name: pesan; Type: TABLE; Schema: public; Owner: postgres
@@ -1112,20 +964,15 @@ CREATE TABLE public.pesan (
     updated_at timestamp(0) without time zone
 );
 
-
 ALTER TABLE public.pesan OWNER TO postgres;
 
 --
 -- Name: pesan_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.pesan_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.pesan_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.pesan_id_seq OWNER TO postgres;
 
@@ -1134,7 +981,6 @@ ALTER SEQUENCE public.pesan_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.pesan_id_seq OWNED BY public.pesan.id;
-
 
 --
 -- Name: sessions; Type: TABLE; Schema: public; Owner: postgres
@@ -1148,7 +994,6 @@ CREATE TABLE public.sessions (
     payload text NOT NULL,
     last_activity integer NOT NULL
 );
-
 
 ALTER TABLE public.sessions OWNER TO postgres;
 
@@ -1164,20 +1009,15 @@ CREATE TABLE public.settings (
     updated_at timestamp(0) without time zone
 );
 
-
 ALTER TABLE public.settings OWNER TO postgres;
 
 --
 -- Name: settings_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.settings_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.settings_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.settings_id_seq OWNER TO postgres;
 
@@ -1186,7 +1026,6 @@ ALTER SEQUENCE public.settings_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.settings_id_seq OWNED BY public.settings.id;
-
 
 --
 -- Name: siswa; Type: TABLE; Schema: public; Owner: postgres
@@ -1211,7 +1050,6 @@ CREATE TABLE public.siswa (
     CONSTRAINT siswa_status_check CHECK (((status)::text = ANY ((ARRAY['aktif'::character varying, 'nonaktif'::character varying])::text[])))
 );
 
-
 ALTER TABLE public.siswa OWNER TO postgres;
 
 --
@@ -1225,20 +1063,15 @@ CREATE TABLE public.siswa_badge (
     achieved_at timestamp(0) without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 
-
 ALTER TABLE public.siswa_badge OWNER TO postgres;
 
 --
 -- Name: siswa_badge_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.siswa_badge_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.siswa_badge_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.siswa_badge_id_seq OWNER TO postgres;
 
@@ -1248,18 +1081,13 @@ ALTER SEQUENCE public.siswa_badge_id_seq OWNER TO postgres;
 
 ALTER SEQUENCE public.siswa_badge_id_seq OWNED BY public.siswa_badge.id;
 
-
 --
 -- Name: siswa_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.siswa_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.siswa_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.siswa_id_seq OWNER TO postgres;
 
@@ -1268,7 +1096,6 @@ ALTER SEQUENCE public.siswa_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.siswa_id_seq OWNED BY public.siswa.id;
-
 
 --
 -- Name: spps; Type: TABLE; Schema: public; Owner: postgres
@@ -1287,20 +1114,15 @@ CREATE TABLE public.spps (
     CONSTRAINT spps_status_check CHECK (((status)::text = ANY ((ARRAY['lunas'::character varying, 'belum'::character varying])::text[])))
 );
 
-
 ALTER TABLE public.spps OWNER TO postgres;
 
 --
 -- Name: spps_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.spps_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.spps_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.spps_id_seq OWNER TO postgres;
 
@@ -1309,7 +1131,6 @@ ALTER SEQUENCE public.spps_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.spps_id_seq OWNED BY public.spps.id;
-
 
 --
 -- Name: tahfidz_setoran; Type: TABLE; Schema: public; Owner: postgres
@@ -1332,20 +1153,15 @@ CREATE TABLE public.tahfidz_setoran (
     CONSTRAINT tahfidz_setoran_status_check CHECK (((status)::text = ANY ((ARRAY['baru'::character varying, 'murojaah'::character varying])::text[])))
 );
 
-
 ALTER TABLE public.tahfidz_setoran OWNER TO postgres;
 
 --
 -- Name: tahfidz_setoran_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.tahfidz_setoran_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.tahfidz_setoran_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.tahfidz_setoran_id_seq OWNER TO postgres;
 
@@ -1354,7 +1170,6 @@ ALTER SEQUENCE public.tahfidz_setoran_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.tahfidz_setoran_id_seq OWNED BY public.tahfidz_setoran.id;
-
 
 --
 -- Name: tugas; Type: TABLE; Schema: public; Owner: postgres
@@ -1375,20 +1190,15 @@ CREATE TABLE public.tugas (
     CONSTRAINT tugas_tipe_check CHECK (((tipe)::text = ANY ((ARRAY['tugas'::character varying, 'ulangan'::character varying])::text[])))
 );
 
-
 ALTER TABLE public.tugas OWNER TO postgres;
 
 --
 -- Name: tugas_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.tugas_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.tugas_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.tugas_id_seq OWNER TO postgres;
 
@@ -1397,7 +1207,6 @@ ALTER SEQUENCE public.tugas_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.tugas_id_seq OWNED BY public.tugas.id;
-
 
 --
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres
@@ -1416,20 +1225,15 @@ CREATE TABLE public.users (
     CONSTRAINT users_role_check CHECK (((role)::text = ANY ((ARRAY['siswa_sd'::character varying, 'siswa_smp'::character varying, 'guru'::character varying, 'orang_tua'::character varying, 'admin'::character varying])::text[])))
 );
 
-
 ALTER TABLE public.users OWNER TO postgres;
 
 --
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.users_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.users_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.users_id_seq OWNER TO postgres;
 
@@ -1438,7 +1242,6 @@ ALTER SEQUENCE public.users_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
-
 
 --
 -- Name: workbook_jawabans; Type: TABLE; Schema: public; Owner: postgres
@@ -1449,11 +1252,10 @@ CREATE TABLE public.workbook_jawabans (
     workbook_soal_id bigint NOT NULL,
     siswa_id bigint NOT NULL,
     jawaban text,
-    nilai numeric(5,2),
+    nilai numeric(5, 2),
     created_at timestamp(0) without time zone,
     updated_at timestamp(0) without time zone
 );
-
 
 ALTER TABLE public.workbook_jawabans OWNER TO postgres;
 
@@ -1461,13 +1263,9 @@ ALTER TABLE public.workbook_jawabans OWNER TO postgres;
 -- Name: workbook_jawabans_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.workbook_jawabans_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.workbook_jawabans_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.workbook_jawabans_id_seq OWNER TO postgres;
 
@@ -1476,7 +1274,6 @@ ALTER SEQUENCE public.workbook_jawabans_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.workbook_jawabans_id_seq OWNED BY public.workbook_jawabans.id;
-
 
 --
 -- Name: workbook_soals; Type: TABLE; Schema: public; Owner: postgres
@@ -1499,20 +1296,15 @@ CREATE TABLE public.workbook_soals (
     CONSTRAINT workbook_soals_tipe_check CHECK (((tipe)::text = ANY ((ARRAY['pg'::character varying, 'essay'::character varying])::text[])))
 );
 
-
 ALTER TABLE public.workbook_soals OWNER TO postgres;
 
 --
 -- Name: workbook_soals_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.workbook_soals_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.workbook_soals_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.workbook_soals_id_seq OWNER TO postgres;
 
@@ -1521,7 +1313,6 @@ ALTER SEQUENCE public.workbook_soals_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.workbook_soals_id_seq OWNED BY public.workbook_soals.id;
-
 
 --
 -- Name: workbooks; Type: TABLE; Schema: public; Owner: postgres
@@ -1540,20 +1331,15 @@ CREATE TABLE public.workbooks (
     CONSTRAINT workbooks_tipe_check CHECK (((tipe)::text = ANY ((ARRAY['latihan'::character varying, 'pr'::character varying])::text[])))
 );
 
-
 ALTER TABLE public.workbooks OWNER TO postgres;
 
 --
 -- Name: workbooks_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
-CREATE SEQUENCE public.workbooks_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
+CREATE SEQUENCE public.workbooks_id_seq START
+WITH
+    1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 
 ALTER SEQUENCE public.workbooks_id_seq OWNER TO postgres;
 
@@ -1563,13 +1349,11 @@ ALTER SEQUENCE public.workbooks_id_seq OWNER TO postgres;
 
 ALTER SEQUENCE public.workbooks_id_seq OWNED BY public.workbooks.id;
 
-
 --
 -- Name: badges id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.badges ALTER COLUMN id SET DEFAULT nextval('public.badges_id_seq'::regclass);
-
 
 --
 -- Name: catatan_wali id; Type: DEFAULT; Schema: public; Owner: postgres
@@ -1577,13 +1361,11 @@ ALTER TABLE ONLY public.badges ALTER COLUMN id SET DEFAULT nextval('public.badge
 
 ALTER TABLE ONLY public.catatan_wali ALTER COLUMN id SET DEFAULT nextval('public.catatan_wali_id_seq'::regclass);
 
-
 --
 -- Name: cbt_exams id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cbt_exams ALTER COLUMN id SET DEFAULT nextval('public.cbt_exams_id_seq'::regclass);
-
 
 --
 -- Name: cbt_jawabans id; Type: DEFAULT; Schema: public; Owner: postgres
@@ -1591,13 +1373,11 @@ ALTER TABLE ONLY public.cbt_exams ALTER COLUMN id SET DEFAULT nextval('public.cb
 
 ALTER TABLE ONLY public.cbt_jawabans ALTER COLUMN id SET DEFAULT nextval('public.cbt_jawabans_id_seq'::regclass);
 
-
 --
 -- Name: cbt_soals id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cbt_soals ALTER COLUMN id SET DEFAULT nextval('public.cbt_soals_id_seq'::regclass);
-
 
 --
 -- Name: failed_jobs id; Type: DEFAULT; Schema: public; Owner: postgres
@@ -1605,13 +1385,11 @@ ALTER TABLE ONLY public.cbt_soals ALTER COLUMN id SET DEFAULT nextval('public.cb
 
 ALTER TABLE ONLY public.failed_jobs ALTER COLUMN id SET DEFAULT nextval('public.failed_jobs_id_seq'::regclass);
 
-
 --
 -- Name: guru id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.guru ALTER COLUMN id SET DEFAULT nextval('public.guru_id_seq'::regclass);
-
 
 --
 -- Name: jadwal id; Type: DEFAULT; Schema: public; Owner: postgres
@@ -1619,13 +1397,11 @@ ALTER TABLE ONLY public.guru ALTER COLUMN id SET DEFAULT nextval('public.guru_id
 
 ALTER TABLE ONLY public.jadwal ALTER COLUMN id SET DEFAULT nextval('public.jadwal_id_seq'::regclass);
 
-
 --
 -- Name: jobs id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.jobs ALTER COLUMN id SET DEFAULT nextval('public.jobs_id_seq'::regclass);
-
 
 --
 -- Name: kehadiran id; Type: DEFAULT; Schema: public; Owner: postgres
@@ -1633,13 +1409,11 @@ ALTER TABLE ONLY public.jobs ALTER COLUMN id SET DEFAULT nextval('public.jobs_id
 
 ALTER TABLE ONLY public.kehadiran ALTER COLUMN id SET DEFAULT nextval('public.kehadiran_id_seq'::regclass);
 
-
 --
 -- Name: kelas id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.kelas ALTER COLUMN id SET DEFAULT nextval('public.kelas_id_seq'::regclass);
-
 
 --
 -- Name: log_aktivitas id; Type: DEFAULT; Schema: public; Owner: postgres
@@ -1647,13 +1421,11 @@ ALTER TABLE ONLY public.kelas ALTER COLUMN id SET DEFAULT nextval('public.kelas_
 
 ALTER TABLE ONLY public.log_aktivitas ALTER COLUMN id SET DEFAULT nextval('public.log_aktivitas_id_seq'::regclass);
 
-
 --
 -- Name: mapel id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.mapel ALTER COLUMN id SET DEFAULT nextval('public.mapel_id_seq'::regclass);
-
 
 --
 -- Name: materi id; Type: DEFAULT; Schema: public; Owner: postgres
@@ -1661,13 +1433,11 @@ ALTER TABLE ONLY public.mapel ALTER COLUMN id SET DEFAULT nextval('public.mapel_
 
 ALTER TABLE ONLY public.materi ALTER COLUMN id SET DEFAULT nextval('public.materi_id_seq'::regclass);
 
-
 --
 -- Name: migrations id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.migrations ALTER COLUMN id SET DEFAULT nextval('public.migrations_id_seq'::regclass);
-
 
 --
 -- Name: nilai id; Type: DEFAULT; Schema: public; Owner: postgres
@@ -1675,13 +1445,11 @@ ALTER TABLE ONLY public.migrations ALTER COLUMN id SET DEFAULT nextval('public.m
 
 ALTER TABLE ONLY public.nilai ALTER COLUMN id SET DEFAULT nextval('public.nilai_id_seq'::regclass);
 
-
 --
 -- Name: olympiad_exams id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.olympiad_exams ALTER COLUMN id SET DEFAULT nextval('public.olympiad_exams_id_seq'::regclass);
-
 
 --
 -- Name: olympiad_jawabans id; Type: DEFAULT; Schema: public; Owner: postgres
@@ -1689,13 +1457,11 @@ ALTER TABLE ONLY public.olympiad_exams ALTER COLUMN id SET DEFAULT nextval('publ
 
 ALTER TABLE ONLY public.olympiad_jawabans ALTER COLUMN id SET DEFAULT nextval('public.olympiad_jawabans_id_seq'::regclass);
 
-
 --
 -- Name: olympiad_soals id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.olympiad_soals ALTER COLUMN id SET DEFAULT nextval('public.olympiad_soals_id_seq'::regclass);
-
 
 --
 -- Name: orang_tua id; Type: DEFAULT; Schema: public; Owner: postgres
@@ -1703,13 +1469,11 @@ ALTER TABLE ONLY public.olympiad_soals ALTER COLUMN id SET DEFAULT nextval('publ
 
 ALTER TABLE ONLY public.orang_tua ALTER COLUMN id SET DEFAULT nextval('public.orang_tua_id_seq'::regclass);
 
-
 --
 -- Name: orang_tua_siswa id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.orang_tua_siswa ALTER COLUMN id SET DEFAULT nextval('public.orang_tua_siswa_id_seq'::regclass);
-
 
 --
 -- Name: pembayarans id; Type: DEFAULT; Schema: public; Owner: postgres
@@ -1717,13 +1481,11 @@ ALTER TABLE ONLY public.orang_tua_siswa ALTER COLUMN id SET DEFAULT nextval('pub
 
 ALTER TABLE ONLY public.pembayarans ALTER COLUMN id SET DEFAULT nextval('public.pembayarans_id_seq'::regclass);
 
-
 --
 -- Name: pengaturan id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pengaturan ALTER COLUMN id SET DEFAULT nextval('public.pengaturan_id_seq'::regclass);
-
 
 --
 -- Name: pengumpulan_tugas id; Type: DEFAULT; Schema: public; Owner: postgres
@@ -1731,13 +1493,11 @@ ALTER TABLE ONLY public.pengaturan ALTER COLUMN id SET DEFAULT nextval('public.p
 
 ALTER TABLE ONLY public.pengumpulan_tugas ALTER COLUMN id SET DEFAULT nextval('public.pengumpulan_tugas_id_seq'::regclass);
 
-
 --
 -- Name: pengumuman id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pengumuman ALTER COLUMN id SET DEFAULT nextval('public.pengumuman_id_seq'::regclass);
-
 
 --
 -- Name: pesan id; Type: DEFAULT; Schema: public; Owner: postgres
@@ -1745,13 +1505,11 @@ ALTER TABLE ONLY public.pengumuman ALTER COLUMN id SET DEFAULT nextval('public.p
 
 ALTER TABLE ONLY public.pesan ALTER COLUMN id SET DEFAULT nextval('public.pesan_id_seq'::regclass);
 
-
 --
 -- Name: settings id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.settings ALTER COLUMN id SET DEFAULT nextval('public.settings_id_seq'::regclass);
-
 
 --
 -- Name: siswa id; Type: DEFAULT; Schema: public; Owner: postgres
@@ -1759,13 +1517,11 @@ ALTER TABLE ONLY public.settings ALTER COLUMN id SET DEFAULT nextval('public.set
 
 ALTER TABLE ONLY public.siswa ALTER COLUMN id SET DEFAULT nextval('public.siswa_id_seq'::regclass);
 
-
 --
 -- Name: siswa_badge id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.siswa_badge ALTER COLUMN id SET DEFAULT nextval('public.siswa_badge_id_seq'::regclass);
-
 
 --
 -- Name: spps id; Type: DEFAULT; Schema: public; Owner: postgres
@@ -1773,13 +1529,11 @@ ALTER TABLE ONLY public.siswa_badge ALTER COLUMN id SET DEFAULT nextval('public.
 
 ALTER TABLE ONLY public.spps ALTER COLUMN id SET DEFAULT nextval('public.spps_id_seq'::regclass);
 
-
 --
 -- Name: tahfidz_setoran id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.tahfidz_setoran ALTER COLUMN id SET DEFAULT nextval('public.tahfidz_setoran_id_seq'::regclass);
-
 
 --
 -- Name: tugas id; Type: DEFAULT; Schema: public; Owner: postgres
@@ -1787,13 +1541,11 @@ ALTER TABLE ONLY public.tahfidz_setoran ALTER COLUMN id SET DEFAULT nextval('pub
 
 ALTER TABLE ONLY public.tugas ALTER COLUMN id SET DEFAULT nextval('public.tugas_id_seq'::regclass);
 
-
 --
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
-
 
 --
 -- Name: workbook_jawabans id; Type: DEFAULT; Schema: public; Owner: postgres
@@ -1801,13 +1553,11 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 ALTER TABLE ONLY public.workbook_jawabans ALTER COLUMN id SET DEFAULT nextval('public.workbook_jawabans_id_seq'::regclass);
 
-
 --
 -- Name: workbook_soals id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.workbook_soals ALTER COLUMN id SET DEFAULT nextval('public.workbook_soals_id_seq'::regclass);
-
 
 --
 -- Name: workbooks id; Type: DEFAULT; Schema: public; Owner: postgres
@@ -1815,10 +1565,10 @@ ALTER TABLE ONLY public.workbook_soals ALTER COLUMN id SET DEFAULT nextval('publ
 
 ALTER TABLE ONLY public.workbooks ALTER COLUMN id SET DEFAULT nextval('public.workbooks_id_seq'::regclass);
 
-
 --
 -- Data for Name: badges; Type: TABLE DATA; Schema: public; Owner: postgres
 --
+
 
 COPY public.badges (id, nama, deskripsi, icon, created_at, updated_at) FROM stdin;
 1	Rajin Belajar	Aktif 30 hari berturut-turut	⭐	2026-05-29 09:03:51	2026-05-29 09:03:51
@@ -1862,44 +1612,44 @@ COPY public.catatan_wali (id, siswa_id, semester, catatan, created_by, created_a
 5	5	Genap 2025/2026	Ananda Doni adalah siswa yang cerdas dan aktif dalam diskusi kelas. Tingkatkan fokus pada pelajaran Bahasa Inggris untuk hasil yang lebih maksimal.	1	2026-05-29 09:18:20	2026-05-29 09:18:20
 \.
 
-
 --
 -- Data for Name: cbt_exams; Type: TABLE DATA; Schema: public; Owner: postgres
 --
+
 
 COPY public.cbt_exams (id, judul, deskripsi, mapel_id, kelas_id, guru_id, durasi, jumlah_soal, status, approved_by, approved_at, catatan_reject, created_at, updated_at, tipe) FROM stdin;
 1	sadasd	\N	3	\N	2	120	1	pending	\N	\N	\N	2026-05-29 10:51:08	2026-05-29 10:51:22	ulangan
 \.
 
-
 --
 -- Data for Name: cbt_jawabans; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+
 COPY public.cbt_jawabans (id, cbt_exam_id, cbt_soal_id, siswa_id, jawaban, nilai, dinilai, created_at, updated_at) FROM stdin;
 \.
-
 
 --
 -- Data for Name: cbt_soals; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+
 COPY public.cbt_soals (id, cbt_exam_id, nomor, soal, tipe, pilihan_a, pilihan_b, pilihan_c, pilihan_d, jawaban_benar, bobot, created_at, updated_at) FROM stdin;
 1	1	1	sdas	pg	a	c	c	vb	d	1	2026-05-29 10:51:19	2026-05-29 10:51:19
 \.
-
 
 --
 -- Data for Name: failed_jobs; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+
 COPY public.failed_jobs (id, uuid, connection, queue, payload, exception, failed_at) FROM stdin;
 \.
-
 
 --
 -- Data for Name: guru; Type: TABLE DATA; Schema: public; Owner: postgres
 --
+
 
 COPY public.guru (id, user_id, nip, nama, mapel_id, alamat, no_telp, status, created_at, updated_at) FROM stdin;
 1	1	19870101	Ustadz Ahmad Fauzi	2	\N	\N	aktif	2026-05-29 08:46:46	2026-05-29 08:46:46
@@ -1914,10 +1664,10 @@ COPY public.guru (id, user_id, nip, nama, mapel_id, alamat, no_telp, status, cre
 10	19	19941210	Bu Rina Marlina	10	\N	\N	aktif	2026-05-29 08:47:43	2026-05-29 08:47:43
 \.
 
-
 --
 -- Data for Name: jadwal; Type: TABLE DATA; Schema: public; Owner: postgres
 --
+
 
 COPY public.jadwal (id, kelas_id, mapel_id, guru_id, hari, jam_mulai, jam_selesai, created_at, updated_at) FROM stdin;
 1	3	1	7	Senin	06:30:00	07:30:00	2026-05-29 08:47:29	2026-05-29 08:47:29
@@ -1970,26 +1720,26 @@ COPY public.jadwal (id, kelas_id, mapel_id, guru_id, hari, jam_mulai, jam_selesa
 48	6	3	2	Jumat	10:00:00	11:00:00	2026-05-29 09:18:20	2026-05-29 09:18:20
 \.
 
-
 --
 -- Data for Name: job_batches; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+
 COPY public.job_batches (id, name, total_jobs, pending_jobs, failed_jobs, failed_job_ids, options, cancelled_at, created_at, finished_at) FROM stdin;
 \.
-
 
 --
 -- Data for Name: jobs; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+
 COPY public.jobs (id, queue, payload, attempts, reserved_at, available_at, created_at) FROM stdin;
 \.
-
 
 --
 -- Data for Name: kehadiran; Type: TABLE DATA; Schema: public; Owner: postgres
 --
+
 
 COPY public.kehadiran (id, siswa_id, tanggal, status, keterangan, created_at, updated_at) FROM stdin;
 1	1	2026-01-05	hadir	\N	2026-05-29 09:01:11	2026-05-29 09:01:11
@@ -2204,10 +1954,10 @@ COPY public.kehadiran (id, siswa_id, tanggal, status, keterangan, created_at, up
 210	5	2026-05-29	hadir	\N	2026-05-29 09:18:20	2026-05-29 09:18:20
 \.
 
-
 --
 -- Data for Name: kelas; Type: TABLE DATA; Schema: public; Owner: postgres
 --
+
 
 COPY public.kelas (id, nama_kelas, jenjang, created_at, updated_at) FROM stdin;
 1	1A	SD	2026-05-29 08:46:45	2026-05-29 08:46:45
@@ -2220,10 +1970,10 @@ COPY public.kelas (id, nama_kelas, jenjang, created_at, updated_at) FROM stdin;
 8	9B	SMP	2026-05-29 08:46:45	2026-05-29 08:46:45
 \.
 
-
 --
 -- Data for Name: log_aktivitas; Type: TABLE DATA; Schema: public; Owner: postgres
 --
+
 
 COPY public.log_aktivitas (id, user_id, tipe, deskripsi, status, created_at, updated_at) FROM stdin;
 1	16	User	Login admin dashboard	\N	2026-03-25 08:00:00	2026-03-25 08:00:00
@@ -2234,10 +1984,10 @@ COPY public.log_aktivitas (id, user_id, tipe, deskripsi, status, created_at, upd
 6	16	Laporan	Generate laporan kehadiran bulan Maret	\N	2026-03-22 11:00:00	2026-03-22 11:00:00
 \.
 
-
 --
 -- Data for Name: mapel; Type: TABLE DATA; Schema: public; Owner: postgres
 --
+
 
 COPY public.mapel (id, nama_mapel, kode, created_at, updated_at) FROM stdin;
 1	Tahfidz Qur'an	TAH	2026-05-29 08:46:45	2026-05-29 08:46:45
@@ -2529,10 +2279,10 @@ COPY public.tahfidz_setoran (id, siswa_id, guru_id, tanggal, surah, ayat_mulai, 
 23	5	7	2026-03-08	An-Nazi'at	1	10	10	murojaah	90	\N	2026-05-29 09:18:20	2026-05-29 09:18:20
 \.
 
-
 --
 -- Data for Name: tugas; Type: TABLE DATA; Schema: public; Owner: postgres
 --
+
 
 COPY public.tugas (id, judul, deskripsi, mapel_id, kelas_id, guru_id, tipe, tanggal_deadline, file_path, created_at, updated_at) FROM stdin;
 1	Tugas Praktek Sholat	\N	2	3	1	tugas	2026-04-02	\N	2026-05-29 08:47:46	2026-05-29 08:47:46
@@ -2555,10 +2305,10 @@ COPY public.tugas (id, judul, deskripsi, mapel_id, kelas_id, guru_id, tipe, tang
 18	sdfds	fdsf	3	6	2	ulangan	2026-06-05	\N	2026-05-29 10:43:13	2026-05-29 10:43:13
 \.
 
-
 --
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
+
 
 COPY public.users (id, name, email, email_verified_at, password, remember_token, created_at, updated_at, role) FROM stdin;
 1	Ustadz Ahmad Fauzi	ahmad.fauzi@alazharjayaindonesia.sch.id	\N	$2y$12$sijlPyzY8bjGC1j80xL6Y.iN4nULtEt/rN.6QVFXC87eiCpEsc13m	\N	2026-05-29 08:46:46	2026-05-29 08:46:46	guru
@@ -2582,18 +2332,18 @@ COPY public.users (id, name, email, email_verified_at, password, remember_token,
 20	Ibu Sari Rahmawati	sari.rohmah@alazharjayaindonesia.sch.id	\N	$2y$12$tMgaMJ.dBKRxRuVN4hVk..Hqm9pvvFqPSzRUPOjRGkY1VVZBHu0Wm	\N	2026-05-29 09:45:32	2026-05-29 09:45:32	orang_tua
 \.
 
-
 --
 -- Data for Name: workbook_jawabans; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+
 COPY public.workbook_jawabans (id, workbook_soal_id, siswa_id, jawaban, nilai, created_at, updated_at) FROM stdin;
 \.
-
 
 --
 -- Data for Name: workbook_soals; Type: TABLE DATA; Schema: public; Owner: postgres
 --
+
 
 COPY public.workbook_soals (id, workbook_id, nomor, soal, tipe, pilihan_a, pilihan_b, pilihan_c, pilihan_d, jawaban_benar, bobot, created_at, updated_at) FROM stdin;
 1	1	1	Berapakah hasil dari 25 × 4?	pg	80	100	120	90	b	1	2026-05-29 09:12:51	2026-05-29 09:12:51
@@ -2602,10 +2352,10 @@ COPY public.workbook_soals (id, workbook_id, nomor, soal, tipe, pilihan_a, pilih
 4	3	1	bewfdsoifbiwef	pg	\N	\N	\N	\N	a	1	2026-05-29 10:46:11	2026-05-29 10:46:11
 \.
 
-
 --
 -- Data for Name: workbooks; Type: TABLE DATA; Schema: public; Owner: postgres
 --
+
 
 COPY public.workbooks (id, judul, deskripsi, mapel_id, kelas_id, guru_id, tipe, created_at, updated_at) FROM stdin;
 1	Latihan Soal Matematika Bab 5	\N	3	3	2	latihan	2026-05-29 09:12:51	2026-05-29 09:12:51
@@ -2614,690 +2364,605 @@ COPY public.workbooks (id, judul, deskripsi, mapel_id, kelas_id, guru_id, tipe, 
 4	xxxxxx	xsxxsxs	3	\N	2	latihan	2026-05-29 10:50:38	2026-05-29 10:50:38
 \.
 
-
 --
 -- Name: badges_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.badges_id_seq', 6, true);
-
+SELECT pg_catalog.setval ( 'public.badges_id_seq', 6, true );
 
 --
 -- Name: catatan_wali_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.catatan_wali_id_seq', 5, true);
-
+SELECT pg_catalog.setval ( 'public.catatan_wali_id_seq', 5, true );
 
 --
 -- Name: cbt_exams_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.cbt_exams_id_seq', 1, true);
-
+SELECT pg_catalog.setval ( 'public.cbt_exams_id_seq', 1, true );
 
 --
 -- Name: cbt_jawabans_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.cbt_jawabans_id_seq', 1, false);
-
+SELECT pg_catalog.setval ( 'public.cbt_jawabans_id_seq', 1, false );
 
 --
 -- Name: cbt_soals_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.cbt_soals_id_seq', 1, true);
-
+SELECT pg_catalog.setval ( 'public.cbt_soals_id_seq', 1, true );
 
 --
 -- Name: failed_jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.failed_jobs_id_seq', 1, false);
-
+SELECT pg_catalog.setval ( 'public.failed_jobs_id_seq', 1, false );
 
 --
 -- Name: guru_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.guru_id_seq', 10, true);
-
+SELECT pg_catalog.setval ( 'public.guru_id_seq', 10, true );
 
 --
 -- Name: jadwal_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.jadwal_id_seq', 48, true);
-
+SELECT pg_catalog.setval ( 'public.jadwal_id_seq', 48, true );
 
 --
 -- Name: jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.jobs_id_seq', 1, false);
-
+SELECT pg_catalog.setval ( 'public.jobs_id_seq', 1, false );
 
 --
 -- Name: kehadiran_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.kehadiran_id_seq', 210, true);
-
+SELECT pg_catalog.setval ( 'public.kehadiran_id_seq', 210, true );
 
 --
 -- Name: kelas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.kelas_id_seq', 8, true);
-
+SELECT pg_catalog.setval ( 'public.kelas_id_seq', 8, true );
 
 --
 -- Name: log_aktivitas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.log_aktivitas_id_seq', 6, true);
-
+SELECT pg_catalog.setval ( 'public.log_aktivitas_id_seq', 6, true );
 
 --
 -- Name: mapel_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.mapel_id_seq', 10, true);
-
+SELECT pg_catalog.setval ( 'public.mapel_id_seq', 10, true );
 
 --
 -- Name: materi_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.materi_id_seq', 1, false);
-
+SELECT pg_catalog.setval ( 'public.materi_id_seq', 1, false );
 
 --
 -- Name: migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.migrations_id_seq', 38, true);
-
+SELECT pg_catalog.setval ( 'public.migrations_id_seq', 38, true );
 
 --
 -- Name: nilai_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.nilai_id_seq', 16, true);
-
+SELECT pg_catalog.setval ( 'public.nilai_id_seq', 16, true );
 
 --
 -- Name: olympiad_exams_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.olympiad_exams_id_seq', 1, false);
-
+SELECT pg_catalog.setval ( 'public.olympiad_exams_id_seq', 1, false );
 
 --
 -- Name: olympiad_jawabans_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.olympiad_jawabans_id_seq', 1, false);
-
+SELECT pg_catalog.setval (
+        'public.olympiad_jawabans_id_seq', 1, false
+    );
 
 --
 -- Name: olympiad_soals_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.olympiad_soals_id_seq', 1, false);
-
+SELECT pg_catalog.setval ( 'public.olympiad_soals_id_seq', 1, false );
 
 --
 -- Name: orang_tua_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.orang_tua_id_seq', 1, true);
-
+SELECT pg_catalog.setval ( 'public.orang_tua_id_seq', 1, true );
 
 --
 -- Name: orang_tua_siswa_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.orang_tua_siswa_id_seq', 5, true);
-
+SELECT pg_catalog.setval ( 'public.orang_tua_siswa_id_seq', 5, true );
 
 --
 -- Name: pembayarans_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.pembayarans_id_seq', 4, true);
-
+SELECT pg_catalog.setval ( 'public.pembayarans_id_seq', 4, true );
 
 --
 -- Name: pengaturan_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.pengaturan_id_seq', 5, true);
-
+SELECT pg_catalog.setval ( 'public.pengaturan_id_seq', 5, true );
 
 --
 -- Name: pengumpulan_tugas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.pengumpulan_tugas_id_seq', 1, false);
-
+SELECT pg_catalog.setval (
+        'public.pengumpulan_tugas_id_seq', 1, false
+    );
 
 --
 -- Name: pengumuman_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.pengumuman_id_seq', 3, true);
-
+SELECT pg_catalog.setval ( 'public.pengumuman_id_seq', 3, true );
 
 --
 -- Name: pesan_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.pesan_id_seq', 2, true);
-
+SELECT pg_catalog.setval ( 'public.pesan_id_seq', 2, true );
 
 --
 -- Name: settings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.settings_id_seq', 5, true);
-
+SELECT pg_catalog.setval ( 'public.settings_id_seq', 5, true );
 
 --
 -- Name: siswa_badge_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.siswa_badge_id_seq', 4, true);
-
+SELECT pg_catalog.setval ( 'public.siswa_badge_id_seq', 4, true );
 
 --
 -- Name: siswa_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.siswa_id_seq', 5, true);
-
+SELECT pg_catalog.setval ( 'public.siswa_id_seq', 5, true );
 
 --
 -- Name: spps_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.spps_id_seq', 5, true);
-
+SELECT pg_catalog.setval ('public.spps_id_seq', 5, true);
 
 --
 -- Name: tahfidz_setoran_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.tahfidz_setoran_id_seq', 23, true);
-
+SELECT pg_catalog.setval ( 'public.tahfidz_setoran_id_seq', 23, true );
 
 --
 -- Name: tugas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.tugas_id_seq', 18, true);
-
+SELECT pg_catalog.setval ( 'public.tugas_id_seq', 18, true );
 
 --
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 20, true);
-
+SELECT pg_catalog.setval ( 'public.users_id_seq', 20, true );
 
 --
 -- Name: workbook_jawabans_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.workbook_jawabans_id_seq', 1, false);
-
+SELECT pg_catalog.setval (
+        'public.workbook_jawabans_id_seq', 1, false
+    );
 
 --
 -- Name: workbook_soals_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.workbook_soals_id_seq', 4, true);
-
+SELECT pg_catalog.setval ( 'public.workbook_soals_id_seq', 4, true );
 
 --
 -- Name: workbooks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.workbooks_id_seq', 4, true);
-
+SELECT pg_catalog.setval ( 'public.workbooks_id_seq', 4, true );
 
 --
 -- Name: badges badges_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.badges
-    ADD CONSTRAINT badges_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT badges_pkey PRIMARY KEY (id);
 
 --
 -- Name: cache_locks cache_locks_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cache_locks
-    ADD CONSTRAINT cache_locks_pkey PRIMARY KEY (key);
-
+ADD CONSTRAINT cache_locks_pkey PRIMARY KEY (key);
 
 --
 -- Name: cache cache_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cache
-    ADD CONSTRAINT cache_pkey PRIMARY KEY (key);
-
+ADD CONSTRAINT cache_pkey PRIMARY KEY (key);
 
 --
 -- Name: catatan_wali catatan_wali_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.catatan_wali
-    ADD CONSTRAINT catatan_wali_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT catatan_wali_pkey PRIMARY KEY (id);
 
 --
 -- Name: cbt_exams cbt_exams_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cbt_exams
-    ADD CONSTRAINT cbt_exams_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT cbt_exams_pkey PRIMARY KEY (id);
 
 --
 -- Name: cbt_jawabans cbt_jawabans_cbt_soal_id_siswa_id_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cbt_jawabans
-    ADD CONSTRAINT cbt_jawabans_cbt_soal_id_siswa_id_unique UNIQUE (cbt_soal_id, siswa_id);
-
+ADD CONSTRAINT cbt_jawabans_cbt_soal_id_siswa_id_unique UNIQUE (cbt_soal_id, siswa_id);
 
 --
 -- Name: cbt_jawabans cbt_jawabans_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cbt_jawabans
-    ADD CONSTRAINT cbt_jawabans_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT cbt_jawabans_pkey PRIMARY KEY (id);
 
 --
 -- Name: cbt_soals cbt_soals_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cbt_soals
-    ADD CONSTRAINT cbt_soals_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT cbt_soals_pkey PRIMARY KEY (id);
 
 --
 -- Name: failed_jobs failed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.failed_jobs
-    ADD CONSTRAINT failed_jobs_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT failed_jobs_pkey PRIMARY KEY (id);
 
 --
 -- Name: failed_jobs failed_jobs_uuid_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.failed_jobs
-    ADD CONSTRAINT failed_jobs_uuid_unique UNIQUE (uuid);
-
+ADD CONSTRAINT failed_jobs_uuid_unique UNIQUE (uuid);
 
 --
 -- Name: guru guru_nip_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.guru
-    ADD CONSTRAINT guru_nip_unique UNIQUE (nip);
-
+ADD CONSTRAINT guru_nip_unique UNIQUE (nip);
 
 --
 -- Name: guru guru_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.guru
-    ADD CONSTRAINT guru_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT guru_pkey PRIMARY KEY (id);
 
 --
 -- Name: jadwal jadwal_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.jadwal
-    ADD CONSTRAINT jadwal_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT jadwal_pkey PRIMARY KEY (id);
 
 --
 -- Name: job_batches job_batches_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.job_batches
-    ADD CONSTRAINT job_batches_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT job_batches_pkey PRIMARY KEY (id);
 
 --
 -- Name: jobs jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.jobs
-    ADD CONSTRAINT jobs_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT jobs_pkey PRIMARY KEY (id);
 
 --
 -- Name: kehadiran kehadiran_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.kehadiran
-    ADD CONSTRAINT kehadiran_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT kehadiran_pkey PRIMARY KEY (id);
 
 --
 -- Name: kehadiran kehadiran_siswa_id_tanggal_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.kehadiran
-    ADD CONSTRAINT kehadiran_siswa_id_tanggal_unique UNIQUE (siswa_id, tanggal);
-
+ADD CONSTRAINT kehadiran_siswa_id_tanggal_unique UNIQUE (siswa_id, tanggal);
 
 --
 -- Name: kelas kelas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.kelas
-    ADD CONSTRAINT kelas_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT kelas_pkey PRIMARY KEY (id);
 
 --
 -- Name: log_aktivitas log_aktivitas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.log_aktivitas
-    ADD CONSTRAINT log_aktivitas_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT log_aktivitas_pkey PRIMARY KEY (id);
 
 --
 -- Name: mapel mapel_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.mapel
-    ADD CONSTRAINT mapel_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT mapel_pkey PRIMARY KEY (id);
 
 --
 -- Name: materi materi_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.materi
-    ADD CONSTRAINT materi_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT materi_pkey PRIMARY KEY (id);
 
 --
 -- Name: migrations migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.migrations
-    ADD CONSTRAINT migrations_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT migrations_pkey PRIMARY KEY (id);
 
 --
 -- Name: nilai nilai_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.nilai
-    ADD CONSTRAINT nilai_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT nilai_pkey PRIMARY KEY (id);
 
 --
 -- Name: olympiad_exams olympiad_exams_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.olympiad_exams
-    ADD CONSTRAINT olympiad_exams_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT olympiad_exams_pkey PRIMARY KEY (id);
 
 --
 -- Name: olympiad_jawabans olympiad_jawabans_olympiad_soal_id_siswa_id_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.olympiad_jawabans
-    ADD CONSTRAINT olympiad_jawabans_olympiad_soal_id_siswa_id_unique UNIQUE (olympiad_soal_id, siswa_id);
-
+ADD CONSTRAINT olympiad_jawabans_olympiad_soal_id_siswa_id_unique UNIQUE (olympiad_soal_id, siswa_id);
 
 --
 -- Name: olympiad_jawabans olympiad_jawabans_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.olympiad_jawabans
-    ADD CONSTRAINT olympiad_jawabans_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT olympiad_jawabans_pkey PRIMARY KEY (id);
 
 --
 -- Name: olympiad_soals olympiad_soals_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.olympiad_soals
-    ADD CONSTRAINT olympiad_soals_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT olympiad_soals_pkey PRIMARY KEY (id);
 
 --
 -- Name: orang_tua orang_tua_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.orang_tua
-    ADD CONSTRAINT orang_tua_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT orang_tua_pkey PRIMARY KEY (id);
 
 --
 -- Name: orang_tua_siswa orang_tua_siswa_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.orang_tua_siswa
-    ADD CONSTRAINT orang_tua_siswa_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT orang_tua_siswa_pkey PRIMARY KEY (id);
 
 --
 -- Name: password_reset_tokens password_reset_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.password_reset_tokens
-    ADD CONSTRAINT password_reset_tokens_pkey PRIMARY KEY (email);
-
+ADD CONSTRAINT password_reset_tokens_pkey PRIMARY KEY (email);
 
 --
 -- Name: pembayarans pembayarans_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pembayarans
-    ADD CONSTRAINT pembayarans_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT pembayarans_pkey PRIMARY KEY (id);
 
 --
 -- Name: pengaturan pengaturan_key_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pengaturan
-    ADD CONSTRAINT pengaturan_key_unique UNIQUE (key);
-
+ADD CONSTRAINT pengaturan_key_unique UNIQUE (key);
 
 --
 -- Name: pengaturan pengaturan_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pengaturan
-    ADD CONSTRAINT pengaturan_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT pengaturan_pkey PRIMARY KEY (id);
 
 --
 -- Name: pengumpulan_tugas pengumpulan_tugas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pengumpulan_tugas
-    ADD CONSTRAINT pengumpulan_tugas_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT pengumpulan_tugas_pkey PRIMARY KEY (id);
 
 --
 -- Name: pengumpulan_tugas pengumpulan_tugas_tugas_id_siswa_id_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pengumpulan_tugas
-    ADD CONSTRAINT pengumpulan_tugas_tugas_id_siswa_id_unique UNIQUE (tugas_id, siswa_id);
-
+ADD CONSTRAINT pengumpulan_tugas_tugas_id_siswa_id_unique UNIQUE (tugas_id, siswa_id);
 
 --
 -- Name: pengumuman pengumuman_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pengumuman
-    ADD CONSTRAINT pengumuman_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT pengumuman_pkey PRIMARY KEY (id);
 
 --
 -- Name: pesan pesan_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pesan
-    ADD CONSTRAINT pesan_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT pesan_pkey PRIMARY KEY (id);
 
 --
 -- Name: sessions sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.sessions
-    ADD CONSTRAINT sessions_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT sessions_pkey PRIMARY KEY (id);
 
 --
 -- Name: settings settings_key_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.settings
-    ADD CONSTRAINT settings_key_unique UNIQUE (key);
-
+ADD CONSTRAINT settings_key_unique UNIQUE (key);
 
 --
 -- Name: settings settings_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.settings
-    ADD CONSTRAINT settings_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT settings_pkey PRIMARY KEY (id);
 
 --
 -- Name: siswa_badge siswa_badge_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.siswa_badge
-    ADD CONSTRAINT siswa_badge_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT siswa_badge_pkey PRIMARY KEY (id);
 
 --
 -- Name: siswa_badge siswa_badge_siswa_id_badge_id_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.siswa_badge
-    ADD CONSTRAINT siswa_badge_siswa_id_badge_id_unique UNIQUE (siswa_id, badge_id);
-
+ADD CONSTRAINT siswa_badge_siswa_id_badge_id_unique UNIQUE (siswa_id, badge_id);
 
 --
 -- Name: siswa siswa_nis_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.siswa
-    ADD CONSTRAINT siswa_nis_unique UNIQUE (nis);
-
+ADD CONSTRAINT siswa_nis_unique UNIQUE (nis);
 
 --
 -- Name: siswa siswa_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.siswa
-    ADD CONSTRAINT siswa_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT siswa_pkey PRIMARY KEY (id);
 
 --
 -- Name: spps spps_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.spps
-    ADD CONSTRAINT spps_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT spps_pkey PRIMARY KEY (id);
 
 --
 -- Name: spps spps_siswa_id_bulan_tahun_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.spps
-    ADD CONSTRAINT spps_siswa_id_bulan_tahun_unique UNIQUE (siswa_id, bulan, tahun);
-
+ADD CONSTRAINT spps_siswa_id_bulan_tahun_unique UNIQUE (siswa_id, bulan, tahun);
 
 --
 -- Name: tahfidz_setoran tahfidz_setoran_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.tahfidz_setoran
-    ADD CONSTRAINT tahfidz_setoran_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT tahfidz_setoran_pkey PRIMARY KEY (id);
 
 --
 -- Name: tugas tugas_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.tugas
-    ADD CONSTRAINT tugas_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT tugas_pkey PRIMARY KEY (id);
 
 --
 -- Name: users users_email_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_email_unique UNIQUE (email);
-
+ADD CONSTRAINT users_email_unique UNIQUE (email);
 
 --
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 --
 -- Name: workbook_jawabans workbook_jawabans_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.workbook_jawabans
-    ADD CONSTRAINT workbook_jawabans_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT workbook_jawabans_pkey PRIMARY KEY (id);
 
 --
 -- Name: workbook_jawabans workbook_jawabans_workbook_soal_id_siswa_id_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.workbook_jawabans
-    ADD CONSTRAINT workbook_jawabans_workbook_soal_id_siswa_id_unique UNIQUE (workbook_soal_id, siswa_id);
-
+ADD CONSTRAINT workbook_jawabans_workbook_soal_id_siswa_id_unique UNIQUE (workbook_soal_id, siswa_id);
 
 --
 -- Name: workbook_soals workbook_soals_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.workbook_soals
-    ADD CONSTRAINT workbook_soals_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT workbook_soals_pkey PRIMARY KEY (id);
 
 --
 -- Name: workbooks workbooks_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.workbooks
-    ADD CONSTRAINT workbooks_pkey PRIMARY KEY (id);
-
+ADD CONSTRAINT workbooks_pkey PRIMARY KEY (id);
 
 --
 -- Name: cache_expiration_index; Type: INDEX; Schema: public; Owner: postgres
@@ -3305,13 +2970,11 @@ ALTER TABLE ONLY public.workbooks
 
 CREATE INDEX cache_expiration_index ON public.cache USING btree (expiration);
 
-
 --
 -- Name: cache_locks_expiration_index; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX cache_locks_expiration_index ON public.cache_locks USING btree (expiration);
-
 
 --
 -- Name: failed_jobs_connection_queue_failed_at_index; Type: INDEX; Schema: public; Owner: postgres
@@ -3319,13 +2982,11 @@ CREATE INDEX cache_locks_expiration_index ON public.cache_locks USING btree (exp
 
 CREATE INDEX failed_jobs_connection_queue_failed_at_index ON public.failed_jobs USING btree (connection, queue, failed_at);
 
-
 --
 -- Name: jobs_queue_index; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX jobs_queue_index ON public.jobs USING btree (queue);
-
 
 --
 -- Name: sessions_last_activity_index; Type: INDEX; Schema: public; Owner: postgres
@@ -3333,473 +2994,413 @@ CREATE INDEX jobs_queue_index ON public.jobs USING btree (queue);
 
 CREATE INDEX sessions_last_activity_index ON public.sessions USING btree (last_activity);
 
-
 --
 -- Name: sessions_user_id_index; Type: INDEX; Schema: public; Owner: postgres
 --
 
 CREATE INDEX sessions_user_id_index ON public.sessions USING btree (user_id);
 
-
 --
 -- Name: catatan_wali catatan_wali_created_by_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.catatan_wali
-    ADD CONSTRAINT catatan_wali_created_by_foreign FOREIGN KEY (created_by) REFERENCES public.guru(id);
-
+ADD CONSTRAINT catatan_wali_created_by_foreign FOREIGN KEY (created_by) REFERENCES public.guru (id);
 
 --
 -- Name: catatan_wali catatan_wali_siswa_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.catatan_wali
-    ADD CONSTRAINT catatan_wali_siswa_id_foreign FOREIGN KEY (siswa_id) REFERENCES public.siswa(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT catatan_wali_siswa_id_foreign FOREIGN KEY (siswa_id) REFERENCES public.siswa (id) ON DELETE CASCADE;
 
 --
 -- Name: cbt_exams cbt_exams_approved_by_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cbt_exams
-    ADD CONSTRAINT cbt_exams_approved_by_foreign FOREIGN KEY (approved_by) REFERENCES public.users(id);
-
+ADD CONSTRAINT cbt_exams_approved_by_foreign FOREIGN KEY (approved_by) REFERENCES public.users (id);
 
 --
 -- Name: cbt_exams cbt_exams_guru_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cbt_exams
-    ADD CONSTRAINT cbt_exams_guru_id_foreign FOREIGN KEY (guru_id) REFERENCES public.guru(id);
-
+ADD CONSTRAINT cbt_exams_guru_id_foreign FOREIGN KEY (guru_id) REFERENCES public.guru (id);
 
 --
 -- Name: cbt_exams cbt_exams_kelas_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cbt_exams
-    ADD CONSTRAINT cbt_exams_kelas_id_foreign FOREIGN KEY (kelas_id) REFERENCES public.kelas(id);
-
+ADD CONSTRAINT cbt_exams_kelas_id_foreign FOREIGN KEY (kelas_id) REFERENCES public.kelas (id);
 
 --
 -- Name: cbt_exams cbt_exams_mapel_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cbt_exams
-    ADD CONSTRAINT cbt_exams_mapel_id_foreign FOREIGN KEY (mapel_id) REFERENCES public.mapel(id);
-
+ADD CONSTRAINT cbt_exams_mapel_id_foreign FOREIGN KEY (mapel_id) REFERENCES public.mapel (id);
 
 --
 -- Name: cbt_jawabans cbt_jawabans_cbt_exam_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cbt_jawabans
-    ADD CONSTRAINT cbt_jawabans_cbt_exam_id_foreign FOREIGN KEY (cbt_exam_id) REFERENCES public.cbt_exams(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT cbt_jawabans_cbt_exam_id_foreign FOREIGN KEY (cbt_exam_id) REFERENCES public.cbt_exams (id) ON DELETE CASCADE;
 
 --
 -- Name: cbt_jawabans cbt_jawabans_cbt_soal_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cbt_jawabans
-    ADD CONSTRAINT cbt_jawabans_cbt_soal_id_foreign FOREIGN KEY (cbt_soal_id) REFERENCES public.cbt_soals(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT cbt_jawabans_cbt_soal_id_foreign FOREIGN KEY (cbt_soal_id) REFERENCES public.cbt_soals (id) ON DELETE CASCADE;
 
 --
 -- Name: cbt_jawabans cbt_jawabans_siswa_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cbt_jawabans
-    ADD CONSTRAINT cbt_jawabans_siswa_id_foreign FOREIGN KEY (siswa_id) REFERENCES public.siswa(id);
-
+ADD CONSTRAINT cbt_jawabans_siswa_id_foreign FOREIGN KEY (siswa_id) REFERENCES public.siswa (id);
 
 --
 -- Name: cbt_soals cbt_soals_cbt_exam_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.cbt_soals
-    ADD CONSTRAINT cbt_soals_cbt_exam_id_foreign FOREIGN KEY (cbt_exam_id) REFERENCES public.cbt_exams(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT cbt_soals_cbt_exam_id_foreign FOREIGN KEY (cbt_exam_id) REFERENCES public.cbt_exams (id) ON DELETE CASCADE;
 
 --
 -- Name: guru guru_mapel_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.guru
-    ADD CONSTRAINT guru_mapel_id_foreign FOREIGN KEY (mapel_id) REFERENCES public.mapel(id) ON DELETE SET NULL;
-
+ADD CONSTRAINT guru_mapel_id_foreign FOREIGN KEY (mapel_id) REFERENCES public.mapel (id) ON DELETE SET NULL;
 
 --
 -- Name: guru guru_user_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.guru
-    ADD CONSTRAINT guru_user_id_foreign FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT guru_user_id_foreign FOREIGN KEY (user_id) REFERENCES public.users (id) ON DELETE CASCADE;
 
 --
 -- Name: jadwal jadwal_guru_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.jadwal
-    ADD CONSTRAINT jadwal_guru_id_foreign FOREIGN KEY (guru_id) REFERENCES public.guru(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT jadwal_guru_id_foreign FOREIGN KEY (guru_id) REFERENCES public.guru (id) ON DELETE CASCADE;
 
 --
 -- Name: jadwal jadwal_kelas_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.jadwal
-    ADD CONSTRAINT jadwal_kelas_id_foreign FOREIGN KEY (kelas_id) REFERENCES public.kelas(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT jadwal_kelas_id_foreign FOREIGN KEY (kelas_id) REFERENCES public.kelas (id) ON DELETE CASCADE;
 
 --
 -- Name: jadwal jadwal_mapel_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.jadwal
-    ADD CONSTRAINT jadwal_mapel_id_foreign FOREIGN KEY (mapel_id) REFERENCES public.mapel(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT jadwal_mapel_id_foreign FOREIGN KEY (mapel_id) REFERENCES public.mapel (id) ON DELETE CASCADE;
 
 --
 -- Name: kehadiran kehadiran_siswa_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.kehadiran
-    ADD CONSTRAINT kehadiran_siswa_id_foreign FOREIGN KEY (siswa_id) REFERENCES public.siswa(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT kehadiran_siswa_id_foreign FOREIGN KEY (siswa_id) REFERENCES public.siswa (id) ON DELETE CASCADE;
 
 --
 -- Name: log_aktivitas log_aktivitas_user_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.log_aktivitas
-    ADD CONSTRAINT log_aktivitas_user_id_foreign FOREIGN KEY (user_id) REFERENCES public.users(id);
-
+ADD CONSTRAINT log_aktivitas_user_id_foreign FOREIGN KEY (user_id) REFERENCES public.users (id);
 
 --
 -- Name: materi materi_guru_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.materi
-    ADD CONSTRAINT materi_guru_id_foreign FOREIGN KEY (guru_id) REFERENCES public.guru(id);
-
+ADD CONSTRAINT materi_guru_id_foreign FOREIGN KEY (guru_id) REFERENCES public.guru (id);
 
 --
 -- Name: materi materi_kelas_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.materi
-    ADD CONSTRAINT materi_kelas_id_foreign FOREIGN KEY (kelas_id) REFERENCES public.kelas(id);
-
+ADD CONSTRAINT materi_kelas_id_foreign FOREIGN KEY (kelas_id) REFERENCES public.kelas (id);
 
 --
 -- Name: materi materi_mapel_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.materi
-    ADD CONSTRAINT materi_mapel_id_foreign FOREIGN KEY (mapel_id) REFERENCES public.mapel(id);
-
+ADD CONSTRAINT materi_mapel_id_foreign FOREIGN KEY (mapel_id) REFERENCES public.mapel (id);
 
 --
 -- Name: nilai nilai_mapel_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.nilai
-    ADD CONSTRAINT nilai_mapel_id_foreign FOREIGN KEY (mapel_id) REFERENCES public.mapel(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT nilai_mapel_id_foreign FOREIGN KEY (mapel_id) REFERENCES public.mapel (id) ON DELETE CASCADE;
 
 --
 -- Name: nilai nilai_siswa_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.nilai
-    ADD CONSTRAINT nilai_siswa_id_foreign FOREIGN KEY (siswa_id) REFERENCES public.siswa(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT nilai_siswa_id_foreign FOREIGN KEY (siswa_id) REFERENCES public.siswa (id) ON DELETE CASCADE;
 
 --
 -- Name: nilai nilai_tugas_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.nilai
-    ADD CONSTRAINT nilai_tugas_id_foreign FOREIGN KEY (tugas_id) REFERENCES public.tugas(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT nilai_tugas_id_foreign FOREIGN KEY (tugas_id) REFERENCES public.tugas (id) ON DELETE CASCADE;
 
 --
 -- Name: olympiad_exams olympiad_exams_approved_by_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.olympiad_exams
-    ADD CONSTRAINT olympiad_exams_approved_by_foreign FOREIGN KEY (approved_by) REFERENCES public.users(id);
-
+ADD CONSTRAINT olympiad_exams_approved_by_foreign FOREIGN KEY (approved_by) REFERENCES public.users (id);
 
 --
 -- Name: olympiad_exams olympiad_exams_guru_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.olympiad_exams
-    ADD CONSTRAINT olympiad_exams_guru_id_foreign FOREIGN KEY (guru_id) REFERENCES public.guru(id);
-
+ADD CONSTRAINT olympiad_exams_guru_id_foreign FOREIGN KEY (guru_id) REFERENCES public.guru (id);
 
 --
 -- Name: olympiad_exams olympiad_exams_kelas_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.olympiad_exams
-    ADD CONSTRAINT olympiad_exams_kelas_id_foreign FOREIGN KEY (kelas_id) REFERENCES public.kelas(id);
-
+ADD CONSTRAINT olympiad_exams_kelas_id_foreign FOREIGN KEY (kelas_id) REFERENCES public.kelas (id);
 
 --
 -- Name: olympiad_exams olympiad_exams_mapel_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.olympiad_exams
-    ADD CONSTRAINT olympiad_exams_mapel_id_foreign FOREIGN KEY (mapel_id) REFERENCES public.mapel(id);
-
+ADD CONSTRAINT olympiad_exams_mapel_id_foreign FOREIGN KEY (mapel_id) REFERENCES public.mapel (id);
 
 --
 -- Name: olympiad_jawabans olympiad_jawabans_olympiad_exam_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.olympiad_jawabans
-    ADD CONSTRAINT olympiad_jawabans_olympiad_exam_id_foreign FOREIGN KEY (olympiad_exam_id) REFERENCES public.olympiad_exams(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT olympiad_jawabans_olympiad_exam_id_foreign FOREIGN KEY (olympiad_exam_id) REFERENCES public.olympiad_exams (id) ON DELETE CASCADE;
 
 --
 -- Name: olympiad_jawabans olympiad_jawabans_olympiad_soal_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.olympiad_jawabans
-    ADD CONSTRAINT olympiad_jawabans_olympiad_soal_id_foreign FOREIGN KEY (olympiad_soal_id) REFERENCES public.olympiad_soals(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT olympiad_jawabans_olympiad_soal_id_foreign FOREIGN KEY (olympiad_soal_id) REFERENCES public.olympiad_soals (id) ON DELETE CASCADE;
 
 --
 -- Name: olympiad_jawabans olympiad_jawabans_siswa_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.olympiad_jawabans
-    ADD CONSTRAINT olympiad_jawabans_siswa_id_foreign FOREIGN KEY (siswa_id) REFERENCES public.siswa(id);
-
+ADD CONSTRAINT olympiad_jawabans_siswa_id_foreign FOREIGN KEY (siswa_id) REFERENCES public.siswa (id);
 
 --
 -- Name: olympiad_soals olympiad_soals_olympiad_exam_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.olympiad_soals
-    ADD CONSTRAINT olympiad_soals_olympiad_exam_id_foreign FOREIGN KEY (olympiad_exam_id) REFERENCES public.olympiad_exams(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT olympiad_soals_olympiad_exam_id_foreign FOREIGN KEY (olympiad_exam_id) REFERENCES public.olympiad_exams (id) ON DELETE CASCADE;
 
 --
 -- Name: orang_tua_siswa orang_tua_siswa_orang_tua_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.orang_tua_siswa
-    ADD CONSTRAINT orang_tua_siswa_orang_tua_id_foreign FOREIGN KEY (orang_tua_id) REFERENCES public.orang_tua(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT orang_tua_siswa_orang_tua_id_foreign FOREIGN KEY (orang_tua_id) REFERENCES public.orang_tua (id) ON DELETE CASCADE;
 
 --
 -- Name: orang_tua_siswa orang_tua_siswa_siswa_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.orang_tua_siswa
-    ADD CONSTRAINT orang_tua_siswa_siswa_id_foreign FOREIGN KEY (siswa_id) REFERENCES public.siswa(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT orang_tua_siswa_siswa_id_foreign FOREIGN KEY (siswa_id) REFERENCES public.siswa (id) ON DELETE CASCADE;
 
 --
 -- Name: orang_tua orang_tua_user_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.orang_tua
-    ADD CONSTRAINT orang_tua_user_id_foreign FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT orang_tua_user_id_foreign FOREIGN KEY (user_id) REFERENCES public.users (id) ON DELETE CASCADE;
 
 --
 -- Name: pembayarans pembayarans_orang_tua_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pembayarans
-    ADD CONSTRAINT pembayarans_orang_tua_id_foreign FOREIGN KEY (orang_tua_id) REFERENCES public.orang_tua(id);
-
+ADD CONSTRAINT pembayarans_orang_tua_id_foreign FOREIGN KEY (orang_tua_id) REFERENCES public.orang_tua (id);
 
 --
 -- Name: pembayarans pembayarans_spp_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pembayarans
-    ADD CONSTRAINT pembayarans_spp_id_foreign FOREIGN KEY (spp_id) REFERENCES public.spps(id);
-
+ADD CONSTRAINT pembayarans_spp_id_foreign FOREIGN KEY (spp_id) REFERENCES public.spps (id);
 
 --
 -- Name: pengumpulan_tugas pengumpulan_tugas_siswa_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pengumpulan_tugas
-    ADD CONSTRAINT pengumpulan_tugas_siswa_id_foreign FOREIGN KEY (siswa_id) REFERENCES public.siswa(id);
-
+ADD CONSTRAINT pengumpulan_tugas_siswa_id_foreign FOREIGN KEY (siswa_id) REFERENCES public.siswa (id);
 
 --
 -- Name: pengumpulan_tugas pengumpulan_tugas_tugas_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pengumpulan_tugas
-    ADD CONSTRAINT pengumpulan_tugas_tugas_id_foreign FOREIGN KEY (tugas_id) REFERENCES public.tugas(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT pengumpulan_tugas_tugas_id_foreign FOREIGN KEY (tugas_id) REFERENCES public.tugas (id) ON DELETE CASCADE;
 
 --
 -- Name: pengumuman pengumuman_created_by_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pengumuman
-    ADD CONSTRAINT pengumuman_created_by_foreign FOREIGN KEY (created_by) REFERENCES public.users(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT pengumuman_created_by_foreign FOREIGN KEY (created_by) REFERENCES public.users (id) ON DELETE CASCADE;
 
 --
 -- Name: pesan pesan_penerima_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pesan
-    ADD CONSTRAINT pesan_penerima_id_foreign FOREIGN KEY (penerima_id) REFERENCES public.users(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT pesan_penerima_id_foreign FOREIGN KEY (penerima_id) REFERENCES public.users (id) ON DELETE CASCADE;
 
 --
 -- Name: pesan pesan_pengirim_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.pesan
-    ADD CONSTRAINT pesan_pengirim_id_foreign FOREIGN KEY (pengirim_id) REFERENCES public.users(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT pesan_pengirim_id_foreign FOREIGN KEY (pengirim_id) REFERENCES public.users (id) ON DELETE CASCADE;
 
 --
 -- Name: siswa_badge siswa_badge_badge_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.siswa_badge
-    ADD CONSTRAINT siswa_badge_badge_id_foreign FOREIGN KEY (badge_id) REFERENCES public.badges(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT siswa_badge_badge_id_foreign FOREIGN KEY (badge_id) REFERENCES public.badges (id) ON DELETE CASCADE;
 
 --
 -- Name: siswa_badge siswa_badge_siswa_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.siswa_badge
-    ADD CONSTRAINT siswa_badge_siswa_id_foreign FOREIGN KEY (siswa_id) REFERENCES public.siswa(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT siswa_badge_siswa_id_foreign FOREIGN KEY (siswa_id) REFERENCES public.siswa (id) ON DELETE CASCADE;
 
 --
 -- Name: siswa siswa_kelas_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.siswa
-    ADD CONSTRAINT siswa_kelas_id_foreign FOREIGN KEY (kelas_id) REFERENCES public.kelas(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT siswa_kelas_id_foreign FOREIGN KEY (kelas_id) REFERENCES public.kelas (id) ON DELETE CASCADE;
 
 --
 -- Name: siswa siswa_user_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.siswa
-    ADD CONSTRAINT siswa_user_id_foreign FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT siswa_user_id_foreign FOREIGN KEY (user_id) REFERENCES public.users (id) ON DELETE CASCADE;
 
 --
 -- Name: spps spps_siswa_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.spps
-    ADD CONSTRAINT spps_siswa_id_foreign FOREIGN KEY (siswa_id) REFERENCES public.siswa(id);
-
+ADD CONSTRAINT spps_siswa_id_foreign FOREIGN KEY (siswa_id) REFERENCES public.siswa (id);
 
 --
 -- Name: tahfidz_setoran tahfidz_setoran_guru_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.tahfidz_setoran
-    ADD CONSTRAINT tahfidz_setoran_guru_id_foreign FOREIGN KEY (guru_id) REFERENCES public.guru(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT tahfidz_setoran_guru_id_foreign FOREIGN KEY (guru_id) REFERENCES public.guru (id) ON DELETE CASCADE;
 
 --
 -- Name: tahfidz_setoran tahfidz_setoran_siswa_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.tahfidz_setoran
-    ADD CONSTRAINT tahfidz_setoran_siswa_id_foreign FOREIGN KEY (siswa_id) REFERENCES public.siswa(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT tahfidz_setoran_siswa_id_foreign FOREIGN KEY (siswa_id) REFERENCES public.siswa (id) ON DELETE CASCADE;
 
 --
 -- Name: tugas tugas_guru_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.tugas
-    ADD CONSTRAINT tugas_guru_id_foreign FOREIGN KEY (guru_id) REFERENCES public.guru(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT tugas_guru_id_foreign FOREIGN KEY (guru_id) REFERENCES public.guru (id) ON DELETE CASCADE;
 
 --
 -- Name: tugas tugas_kelas_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.tugas
-    ADD CONSTRAINT tugas_kelas_id_foreign FOREIGN KEY (kelas_id) REFERENCES public.kelas(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT tugas_kelas_id_foreign FOREIGN KEY (kelas_id) REFERENCES public.kelas (id) ON DELETE CASCADE;
 
 --
 -- Name: tugas tugas_mapel_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.tugas
-    ADD CONSTRAINT tugas_mapel_id_foreign FOREIGN KEY (mapel_id) REFERENCES public.mapel(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT tugas_mapel_id_foreign FOREIGN KEY (mapel_id) REFERENCES public.mapel (id) ON DELETE CASCADE;
 
 --
 -- Name: workbook_jawabans workbook_jawabans_siswa_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.workbook_jawabans
-    ADD CONSTRAINT workbook_jawabans_siswa_id_foreign FOREIGN KEY (siswa_id) REFERENCES public.siswa(id);
-
+ADD CONSTRAINT workbook_jawabans_siswa_id_foreign FOREIGN KEY (siswa_id) REFERENCES public.siswa (id);
 
 --
 -- Name: workbook_jawabans workbook_jawabans_workbook_soal_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.workbook_jawabans
-    ADD CONSTRAINT workbook_jawabans_workbook_soal_id_foreign FOREIGN KEY (workbook_soal_id) REFERENCES public.workbook_soals(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT workbook_jawabans_workbook_soal_id_foreign FOREIGN KEY (workbook_soal_id) REFERENCES public.workbook_soals (id) ON DELETE CASCADE;
 
 --
 -- Name: workbook_soals workbook_soals_workbook_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.workbook_soals
-    ADD CONSTRAINT workbook_soals_workbook_id_foreign FOREIGN KEY (workbook_id) REFERENCES public.workbooks(id) ON DELETE CASCADE;
-
+ADD CONSTRAINT workbook_soals_workbook_id_foreign FOREIGN KEY (workbook_id) REFERENCES public.workbooks (id) ON DELETE CASCADE;
 
 --
 -- Name: workbooks workbooks_guru_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.workbooks
-    ADD CONSTRAINT workbooks_guru_id_foreign FOREIGN KEY (guru_id) REFERENCES public.guru(id);
-
+ADD CONSTRAINT workbooks_guru_id_foreign FOREIGN KEY (guru_id) REFERENCES public.guru (id);
 
 --
 -- Name: workbooks workbooks_kelas_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.workbooks
-    ADD CONSTRAINT workbooks_kelas_id_foreign FOREIGN KEY (kelas_id) REFERENCES public.kelas(id);
-
+ADD CONSTRAINT workbooks_kelas_id_foreign FOREIGN KEY (kelas_id) REFERENCES public.kelas (id);
 
 --
 -- Name: workbooks workbooks_mapel_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.workbooks
-    ADD CONSTRAINT workbooks_mapel_id_foreign FOREIGN KEY (mapel_id) REFERENCES public.mapel(id);
-
+ADD CONSTRAINT workbooks_mapel_id_foreign FOREIGN KEY (mapel_id) REFERENCES public.mapel (id);
 
 --
 -- PostgreSQL database dump complete
 --
 
 \unrestrict Jo7LxIYuxxajJ5dIhokSjHRfuxCUPtCjfP8f4vsEBkGxHb46CJ0dsraSR4jRcaB
-
