@@ -40,7 +40,7 @@
                     <td>{{ $s->nis }}</td>
                     <td><strong>{{ $s->nama }}</strong></td>
                     <td>{{ $s->jenis_kelamin }}</td>
-                    <td><strong>{{ $nilaiSiswa?->nilai ?? '-' }}</strong></td>
+                    <td><strong>{{ $nilaiSiswa?->nilai ?? '-' }}</strong>@if($nilaiSiswa?->nilai_bahasa) <span style="font-size:11px;color:var(--indigo);font-weight:normal">(Eng: {{ $nilaiSiswa->nilai_bahasa }})</span>@endif</td>
                     <td><label @click="selectedSiswa='{{ $s->id }}'; tab='siswa-detail'" class="btn-small outline" style="cursor:pointer">Detail</label></td>
                 </tr>
                 @empty
