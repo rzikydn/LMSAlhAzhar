@@ -614,16 +614,72 @@
         </div>
     </div>
 
+    @php
+        $teachersList = \App\Models\Guru::with('mapel')->get();
+        $guruReportsData = [];
+        
+        foreach ($teachersList as $g) {
+            $today = now()->format('Y-m-d');
+            $startOfWeek = now()->startOfWeek()->format('Y-m-d');
+            $endOfWeek = now()->endOfWeek()->format('Y-m-d');
+            $startOfMonth = now()->startOfMonth()->format('Y-m-d');
+            $endOfMonth = now()->endOfMonth()->format('Y-m-d');
+            
+            $hasHarian = \App\Models\LaporanMengajar::where('guru_id', $g->id)
+                ->where('tipe', 'harian')
+                ->where('tanggal', $today)
+                ->exists();
+                
+            $hasMingguan = \App\Models\LaporanMengajar::where('guru_id', $g->id)
+                ->where('tipe', 'mingguan')
+                ->whereBetween('tanggal', [$startOfWeek, $endOfWeek])
+                ->exists();
+                
+            $hasBulanan = \App\Models\LaporanMengajar::where('guru_id', $g->id)
+                ->where('tipe', 'bulanan')
+                ->whereBetween('tanggal', [$startOfMonth, $endOfMonth])
+                ->exists();
+                
+            $allReports = \App\Models\LaporanMengajar::where('guru_id', $g->id)
+                ->orderBy('tanggal', 'desc')
+                ->get()
+                ->map(function($l) {
+                    return [
+                        'id' => $l->id,
+                        'tipe' => ucfirst($l->tipe),
+                        'tanggal' => $l->tanggal->format('d M Y'),
+                        'isi' => $l->isi
+                    ];
+                });
+                
+            $classNames = \App\Models\Jadwal::where('guru_id', $g->id)
+                ->with('kelas')
+                ->get()
+                ->pluck('kelas.nama_kelas')
+                ->unique()
+                ->implode(', ') ?: '—';
+                
+            $guruReportsData[] = [
+                'id' => $g->id,
+                'nama' => $g->nama,
+                'mapel' => $g->mapel->nama_mapel ?? '—',
+                'kelas' => $classNames,
+                'harian' => $hasHarian ? 'Lengkap' : 'Belum Isi',
+                'mingguan' => $hasMingguan ? 'Lengkap' : 'Belum Isi',
+                'bulanan' => $hasBulanan ? 'Lengkap' : 'Belum Isi',
+                'reports' => $allReports
+            ];
+        }
+    @endphp
+    <script>
+        window.guruReportsData = @json($guruReportsData);
+    </script>
     <!-- AUDIT & KINERJA GURU TAB -->
     <div x-show="tab === 'audit_guru'" x-data="{
         showToast: false,
         toastMsg: '',
-        guruReports: [
-            { nama: 'Ustadz Ahmad Fauzi', harian: 'Lengkap', mingguan: 'Lengkap', bulanan: 'Belum Isi', kelas: '7A', mapel: 'PAI' },
-            { nama: 'Bu Dewi Sartika', harian: 'Lengkap', mingguan: 'Lengkap', bulanan: 'Lengkap', kelas: '7A-9B', mapel: 'Matematika' },
-            { nama: 'Ibu Siti Rahmawati', harian: 'Terlambat', mingguan: 'Belum Isi', bulanan: 'Belum Isi', kelas: '7A', mapel: 'B. Indonesia' },
-            { nama: 'Pak Budi Santoso', harian: 'Lengkap', mingguan: 'Lengkap', bulanan: 'Lengkap', kelas: '7A', mapel: 'IPA' }
-        ],
+        guruReports: window.guruReportsData,
+        selectedGuru: null,
         materiAjar: [
             { id: 1, guru: 'Bu Dewi Sartika', mapel: 'Matematika 7', judul: 'Aljabar & SPLDV', status: 'Pending' },
             { id: 2, guru: 'Pak Budi Santoso', mapel: 'IPA 7', judul: 'Ekosistem & Lingkungan', status: 'Pending' },
@@ -708,14 +764,16 @@
                                         <span class="badge" :class="{'green': rep.bulanan==='Lengkap', 'orange': rep.bulanan==='Terlambat', 'red': rep.bulanan==='Belum Isi'}" x-text="rep.bulanan"></span>
                                     </td>
                                     <td>
-                                        <template x-if="rep.harian === 'Belum Isi' || rep.mingguan === 'Belum Isi' || rep.bulanan === 'Belum Isi' || rep.harian === 'Terlambat'">
-                                            <button @click="sendReminder(rep.nama)" class="btn-small outline" style="border-color:var(--red); color:var(--red); padding:4px 8px; font-size:11px;">
-                                                <i class="fas fa-bell"></i> Hubungi
+                                        <div style="display:flex;gap:6px;align-items:center">
+                                            <button @click="selectedGuru = rep" class="btn-small outline" style="border-color:var(--blue); color:var(--blue); padding:4px 8px; font-size:11px; cursor:pointer">
+                                                <i class="fas fa-eye"></i> Detail
                                             </button>
-                                        </template>
-                                        <template x-if="rep.harian === 'Lengkap' && rep.mingguan === 'Lengkap' && rep.bulanan === 'Lengkap'">
-                                            <span style="color:var(--green); font-size:11px; font-weight:600;"><i class="fas fa-check-circle"></i> Ok</span>
-                                        </template>
+                                            <template x-if="rep.harian === 'Belum Isi' || rep.mingguan === 'Belum Isi' || rep.bulanan === 'Belum Isi' || rep.harian === 'Terlambat'">
+                                                <button @click="sendReminder(rep.nama)" class="btn-small outline" style="border-color:var(--red); color:var(--red); padding:4px 8px; font-size:11px; cursor:pointer">
+                                                    <i class="fas fa-bell"></i> Hubungi
+                                                </button>
+                                            </template>
+                                        </div>
                                     </td>
                                 </tr>
                             </template>
@@ -766,6 +824,41 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+
+        <!-- Detail Laporan Mengajar Guru (Dinamis via Alpine) -->
+        <div x-show="selectedGuru" class="card" style="margin-bottom: 24px; border-left: 4px solid var(--blue)" x-transition>
+            <div class="card-header" style="display:flex; justify-content:space-between; align-items:center">
+                <h3><i class="fas fa-file-alt" style="color:var(--blue)"></i> Detail Catatan Laporan: <span x-text="selectedGuru ? selectedGuru.nama : ''"></span></h3>
+                <button @click="selectedGuru = null" class="btn-small outline" style="border-color:var(--gray-400); color:var(--gray-500); cursor:pointer"><i class="fas fa-times"></i> Tutup</button>
+            </div>
+            <div class="table-wrap" style="margin-top:10px">
+                <table style="width:100%">
+                    <thead>
+                        <tr>
+                            <th style="width:15%">Tanggal</th>
+                            <th style="width:15%">Tipe Laporan</th>
+                            <th style="width:70%">Isi Catatan Laporan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template x-if="selectedGuru && selectedGuru.reports.length === 0">
+                            <tr>
+                                <td colspan="3" style="text-align:center;color:var(--gray-400);padding:20px">Guru ini belum pernah mengirim laporan mengajar.</td>
+                            </tr>
+                        </template>
+                        <template x-for="(rep, rIndex) in (selectedGuru ? selectedGuru.reports : [])" :key="rIndex">
+                            <tr>
+                                <td><strong x-text="rep.tanggal"></strong></td>
+                                <td>
+                                    <span class="badge light" :class="{'blue': rep.tipe==='Harian', 'green': rep.tipe==='Mingguan', 'purple': rep.tipe==='Bulanan'}" x-text="rep.tipe"></span>
+                                </td>
+                                <td style="font-size:13px;line-height:1.5;white-space:pre-line" x-text="rep.isi"></td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
             </div>
         </div>
 
