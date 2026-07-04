@@ -39,6 +39,30 @@
         <span style="font-weight:600;font-size:14px">{{ explode(' ', $siswa->nama)[0] }}</span>
     </div>
 </div>
+
+@if(isset($remedialActive) && $remedialActive->count() > 0)
+    @foreach($remedialActive as $rem)
+        @php
+            $kkmVal = str_contains($siswa->kelas->nama_kelas ?? '', 'SD') ? setting('kkm_sd', 70) : setting('kkm_smp', 75);
+            $diffDays = \Carbon\Carbon::parse($rem->deadline)->diffInDays(now()->startOfDay(), false);
+            $absDiff = abs($diffDays);
+            $badgeText = $diffDays < 0 ? "Lewat $absDiff Hari" : ($diffDays == 0 ? "Hari Ini" : "Sisa $absDiff Hari");
+        @endphp
+        <div class="card" style="background: var(--red-bg); border-left: 5px solid var(--red); padding: 14px 20px; margin-bottom: 16px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: space-between; gap: 12px; box-shadow: var(--shadow)">
+            <div style="display: flex; align-items: center; gap: 12px">
+                <div style="font-size: 20px; color: var(--red)"><i class="fas fa-exclamation-triangle"></i></div>
+                <div>
+                    <h4 style="font-size: 14px; font-weight: 700; color: var(--red); margin-bottom: 2px">Wajib Remedial Mapel {{ $rem->mapel->nama_mapel }}</h4>
+                    <p style="font-size: 12px; color: var(--gray-600); line-height: 1.4">
+                        Nilai Anda **{{ number_format($rem->nilai_asal, 1) }}** belum mencapai KKM (**{{ $kkmVal }}**). Segera hubungi guru dan lakukan perbaikan sebelum **{{ \Carbon\Carbon::parse($rem->deadline)->format('d M Y') }}**.
+                    </p>
+                </div>
+            </div>
+            <span class="badge red light" style="font-size: 11px; padding: 4px 10px; font-weight: 700" x-text="'{{ $badgeText }}'"></span>
+        </div>
+    @endforeach
+@endif
+
 <div class="welcome-banner">
     <div class="welcome-banner-left">
         <h2>Assalamu'alaikum, {{ explode(' ', $siswa->nama)[0] }}! 👋</h2>
