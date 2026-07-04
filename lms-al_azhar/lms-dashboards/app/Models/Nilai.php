@@ -8,7 +8,7 @@ class Nilai extends Model
 {
     protected $table = 'nilai';
     protected $fillable = [
-        'siswa_id', 'tugas_id', 'mapel_id', 'nilai', 'catatan'
+        'siswa_id', 'tugas_id', 'mapel_id', 'nilai', 'nilai_bahasa', 'jenis_nilai', 'catatan'
     ];
 
     public function siswa()

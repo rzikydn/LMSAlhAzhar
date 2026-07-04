@@ -43,7 +43,7 @@
                 <thead><tr><th>Mapel</th><th>Nilai</th><th>Grade</th></tr></thead>
                 <tbody>
                     @forelse($nilaiSiswa as $n)
-                    <tr><td>{{ $n->mapel->nama_mapel }}</td><td style="font-weight:700">{{ $n->nilai }}</td><td><span class="{{ $gradeColor($n->nilai) }}">{{ $gradeLetter($n->nilai) }}</span></td></tr>
+                    <tr><td>{{ $n->mapel->nama_mapel }}</td><td style="font-weight:700">{{ $n->nilai }}@if($n->nilai_bahasa) <span style="font-weight:normal;font-size:11px;color:var(--indigo)">(Eng: {{ $n->nilai_bahasa }})</span>@endif</td><td><span class="{{ $gradeColor($n->nilai) }}">{{ $gradeLetter($n->nilai) }}</span></td></tr>
                     @empty
                     <tr><td colspan="3" style="text-align:center;color:var(--gray-400)">Belum ada nilai</td></tr>
                     @endforelse
