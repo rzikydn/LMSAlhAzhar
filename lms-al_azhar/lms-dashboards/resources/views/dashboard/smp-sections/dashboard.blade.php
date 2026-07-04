@@ -41,6 +41,91 @@
     <p><strong>Halo, {{ explode(' ', $siswa->nama)[0] }}!</strong> Kamu punya <strong>{{ $tugasDeadlineCount }} tugas</strong> mendekati deadline minggu ini. Ayo segera kerjakan!</p>
 </div>
 
+@if(!$sudahIsiKondisi)
+<div class="card" style="background: var(--white); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); margin-bottom: 20px; border-left: 5px solid var(--blue)">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px">
+        <h3 style="font-size:16px; font-weight:700; color:var(--blue); margin:0">
+            <i class="fas fa-heartbeat" style="color:var(--red); margin-right:6px"></i> Survei Kondisi Kelas Hari Ini
+        </h3>
+        <span class="badge blue light" style="font-size:11px">15 Detik</span>
+    </div>
+    <p style="font-size:13px; color:var(--gray-500); margin-bottom:18px; line-height:1.5">
+        Halo! Yuk bantu Bapak/Ibu Guru mengetahui suasana kelasmu hari ini agar kegiatan belajar mengajar kita jadi lebih menyenangkan dan nyaman. Jawabanmu bersifat rahasia dan aman.
+    </p>
+    <form method="POST" action="{{ route('siswa.kondisi-kelas.store') }}" x-data="{
+        hubungan: 3,
+        nyaman: 3,
+        bantuan: 3,
+        get hubunganDesc() {
+            const list = {
+                1: 'Kaku / Takut (Komunikasi satu arah & tegang)',
+                2: 'Biasa Saja (Jarang berinteraksi dengan guru)',
+                3: 'Cukup Dekat (Bisa mengobrol santai saat pelajaran)',
+                4: 'Akrab (Sering bercanda & komunikatif)',
+                5: 'Sangat Akrab & Hangat (Guru sangat peduli & mendengarkan siswa)'
+            };
+            return list[this.hubungan];
+        },
+        get nyamanDesc() {
+            const list = {
+                1: 'Sangat Tidak Nyaman (Ada suasana tegang / ada yang mengganggu)',
+                2: 'Kurang Nyaman (Ada beberapa hal yang mengganggu konsentrasi)',
+                3: 'Biasa Saja (Nyaman seperti biasa)',
+                4: 'Nyaman (Bisa belajar dengan tenang & asyik)',
+                5: 'Sangat Nyaman & Seru (Semua teman ceria, seru, & saling mendukung)'
+            };
+            return list[this.nyaman];
+        },
+        get bantuanDesc() {
+            const list = {
+                1: 'Sangat Takut (Takut dimarahi / ditertawakan teman)',
+                2: 'Malu / Ragu (Sungkan bertanya jika belum paham)',
+                3: 'Cukup Berani (Mau bertanya jika didorong oleh guru)',
+                4: 'Mudah (Bebas bertanya kapan saja saat kesulitan)',
+                5: 'Sangat Terbuka (Guru sangat ramah & senang membantu kapan saja)'
+            };
+            return list[this.bantuan];
+        }
+    }">
+        @csrf
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:20px; margin-bottom:20px">
+            <!-- Hubungan Guru-Siswa -->
+            <div style="background:var(--gray-50); border:1px solid var(--border-light); padding:14px; border-radius:var(--radius-sm)">
+                <div style="display:flex; justify-content:space-between; font-weight:700; font-size:13px; color:var(--gray-700); margin-bottom:8px">
+                    <span>Hubungan dengan Guru</span>
+                    <span style="background:var(--blue); color:white; padding:1px 6px; border-radius:4px" x-text="hubungan"></span>
+                </div>
+                <input type="range" name="hubungan_guru_siswa" min="1" max="5" step="1" x-model.number="hubungan" style="width:100%; accent-color:var(--blue); cursor:pointer">
+                <div style="font-size:11px; font-weight:600; margin-top:8px" :style="'color: ' + (hubungan <= 2 ? 'var(--red)' : (hubungan == 3 ? 'var(--orange)' : 'var(--green)'))" x-text="hubunganDesc"></div>
+            </div>
+
+            <!-- Kenyamanan -->
+            <div style="background:var(--gray-50); border:1px solid var(--border-light); padding:14px; border-radius:var(--radius-sm)">
+                <div style="display:flex; justify-content:space-between; font-weight:700; font-size:13px; color:var(--gray-700); margin-bottom:8px">
+                    <span>Kenyamanan di Kelas</span>
+                    <span style="background:var(--purple); color:white; padding:1px 6px; border-radius:4px" x-text="nyaman"></span>
+                </div>
+                <input type="range" name="siswa_nyaman" min="1" max="5" step="1" x-model.number="nyaman" style="width:100%; accent-color:var(--purple); cursor:pointer">
+                <div style="font-size:11px; font-weight:600; margin-top:8px" :style="'color: ' + (nyaman <= 2 ? 'var(--red)' : (nyaman == 3 ? 'var(--orange)' : 'var(--green)'))" x-text="nyamanDesc"></div>
+            </div>
+
+            <!-- Bantuan -->
+            <div style="background:var(--gray-50); border:1px solid var(--border-light); padding:14px; border-radius:var(--radius-sm)">
+                <div style="display:flex; justify-content:space-between; font-weight:700; font-size:13px; color:var(--gray-700); margin-bottom:8px">
+                    <span>Kemudahan Bertanya & Bantuan</span>
+                    <span style="background:var(--orange); color:white; padding:1px 6px; border-radius:4px" x-text="bantuan"></span>
+                </div>
+                <input type="range" name="siswa_minta_bantuan" min="1" max="5" step="1" x-model.number="bantuan" style="width:100%; accent-color:var(--orange); cursor:pointer">
+                <div style="font-size:11px; font-weight:600; margin-top:8px" :style="'color: ' + (bantuan <= 2 ? 'var(--red)' : (bantuan == 3 ? 'var(--orange)' : 'var(--green)'))" x-text="bantuanDesc"></div>
+            </div>
+        </div>
+        <div style="display:flex; justify-content:flex-end">
+            <button type="submit" class="btn-login" style="border:none; background:var(--blue); color:#fff; cursor:pointer; padding:8px 24px; font-size:13px; font-weight:700; border-radius:var(--radius-sm)"><i class="fas fa-paper-plane"></i> Kirim Penilaian</button>
+        </div>
+    </form>
+</div>
+@endif
+
 <div class="performa-grid" style="margin-bottom:20px">
     <div class="performa-card">
         <div class="performa-icon teal"><i class="fas fa-calculator"></i></div>

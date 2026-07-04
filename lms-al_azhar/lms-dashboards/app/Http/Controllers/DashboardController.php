@@ -40,6 +40,10 @@ class DashboardController extends Controller
             $siswa = $user->siswa;
             $kelas = $siswa->kelas;
 
+            $sudahIsiKondisi = \App\Models\KondisiKelas::where('siswa_id', $siswa->id)
+                ->where('tanggal', now()->format('Y-m-d'))
+                ->exists();
+
             $data = [
                 'user' => $user,
                 'siswa' => $siswa,
@@ -93,6 +97,7 @@ class DashboardController extends Controller
                     ->with('mapel')
                     ->get()
                     ->map(fn($n) => ['nama_mapel' => $n->mapel->nama_mapel ?? $n->mapel->kode ?? 'Mapel', 'nilai' => $n->nilai]),
+                'sudahIsiKondisi' => $sudahIsiKondisi,
             ];
 
             // === PERINGKAT KELAS ===
@@ -125,6 +130,16 @@ class DashboardController extends Controller
                 return $k;
             });
 
+            $kondisiKelasHistory = \App\Models\KondisiKelas::selectRaw('kelas_id, tanggal, 
+                    AVG(hubungan_guru_siswa) as avg_hubungan, 
+                    AVG(siswa_nyaman) as avg_nyaman, 
+                    AVG(siswa_minta_bantuan) as avg_bantuan')
+                ->whereIn('kelas_id', $kelasIds)
+                ->groupBy('kelas_id', 'tanggal')
+                ->with('kelas')
+                ->orderBy('tanggal', 'desc')
+                ->get();
+
             $data = [
                 'user' => $user,
                 'guru' => $guru,
@@ -132,6 +147,7 @@ class DashboardController extends Controller
                 'tugas' => Tugas::where('guru_id', $guru->id)->with('kelas', 'mapel')->orderBy('tanggal_deadline')->get(),
                 'pengumuman' => Pengumuman::orderBy('created_at', 'desc')->get(),
                 'pesan' => Pesan::where('penerima_id', $user->id)->with('pengirim')->orderBy('created_at', 'desc')->get(),
+                'kondisiKelasHistory' => $kondisiKelasHistory,
             ];
         }
 
@@ -157,6 +173,10 @@ class DashboardController extends Controller
             $user = $request->user();
             $siswa = $user->siswa;
             $kelas = $siswa->kelas;
+
+            $sudahIsiKondisi = \App\Models\KondisiKelas::where('siswa_id', $siswa->id)
+                ->where('tanggal', now()->format('Y-m-d'))
+                ->exists();
 
             $data = [
                 'user' => $user,
@@ -210,6 +230,7 @@ class DashboardController extends Controller
                     ->with('mapel')
                     ->get()
                     ->map(fn($n) => ['nama_mapel' => $n->mapel->nama_mapel ?? $n->mapel->kode ?? 'Mapel', 'nilai' => $n->nilai]),
+                'sudahIsiKondisi' => $sudahIsiKondisi,
             ];
 
             // === PERINGKAT KELAS ===
