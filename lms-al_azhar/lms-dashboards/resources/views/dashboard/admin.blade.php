@@ -670,9 +670,24 @@
                 'reports' => $allReports
             ];
         }
+
+        $materiListAdmin = \App\Models\Materi::with('guru', 'mapel', 'kelas')
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(function($m) {
+                return [
+                    'id' => $m->id,
+                    'guru' => $m->guru->nama ?? '—',
+                    'mapel' => ($m->mapel->nama_mapel ?? '—') . ($m->kelas ? ' ' . $m->kelas->nama_kelas : ' (Semua Kelas)'),
+                    'judul' => $m->judul,
+                    'status' => ucfirst($m->status === 'approved' ? 'Approved' : ($m->status === 'rejected' ? 'Rejected' : 'Pending')),
+                    'file_path' => $m->file_path
+                ];
+            });
     @endphp
     <script>
         window.guruReportsData = @json($guruReportsData);
+        window.materiAjarData = @json($materiListAdmin);
     </script>
     <!-- AUDIT & KINERJA GURU TAB -->
     <div x-show="tab === 'audit_guru'" x-data="{
@@ -680,29 +695,21 @@
         toastMsg: '',
         guruReports: window.guruReportsData,
         selectedGuru: null,
-        materiAjar: [
-            { id: 1, guru: 'Bu Dewi Sartika', mapel: 'Matematika 7', judul: 'Aljabar & SPLDV', status: 'Pending' },
-            { id: 2, guru: 'Pak Budi Santoso', mapel: 'IPA 7', judul: 'Ekosistem & Lingkungan', status: 'Pending' },
-            { id: 3, guru: 'Ustadz Ahmad Fauzi', mapel: 'PAI 7', judul: 'Fiqih Sholat Berjamaah', status: 'Approved' }
-        ],
+        materiAjar: window.materiAjarData,
         sendReminder(nama) {
             this.toastMsg = 'Peringatan terkirim ke ' + nama + '!';
             this.showToast = true;
             setTimeout(() => this.showToast = false, 3000);
         },
         approveMateri(id) {
-            let m = this.materiAjar.find(x => x.id === id);
-            if (m) m.status = 'Approved';
-            this.toastMsg = 'Materi ajar disetujui!';
-            this.showToast = true;
-            setTimeout(() => this.showToast = false, 3000);
+            let form = document.getElementById('approve-materi-form');
+            form.action = '/admin/materi/' + id + '/approve';
+            form.submit();
         },
         rejectMateri(id) {
-            let m = this.materiAjar.find(x => x.id === id);
-            if (m) m.status = 'Rejected';
-            this.toastMsg = 'Materi ajar ditolak!';
-            this.showToast = true;
-            setTimeout(() => this.showToast = false, 3000);
+            let form = document.getElementById('reject-materi-form');
+            form.action = '/admin/materi/' + id + '/reject';
+            form.submit();
         },
         calculatePerformance(guruName) {
             let rep = this.guruReports.find(x => x.nama === guruName);
@@ -801,7 +808,9 @@
                             <template x-for="(mat, index) in materiAjar" :key="index">
                                 <tr>
                                     <td>
-                                        <div style="font-weight: 600;" x-text="mat.judul"></div>
+                                        <div style="font-weight: 600;">
+                                            <a :href="'/storage/' + mat.file_path" target="_blank" x-text="mat.judul" style="text-decoration:none;color:var(--text);font-weight:600"></a>
+                                        </div>
                                         <small style="color: var(--blue);" x-text="mat.mapel"></small>
                                     </td>
                                     <td style="font-weight:500;" x-text="mat.guru"></td>
@@ -914,6 +923,14 @@
              style="position: fixed; bottom: 24px; right: 24px; background: var(--teal); color: white; padding: 12px 24px; border-radius: var(--radius-sm); box-shadow: var(--shadow-lg); z-index: 9999; display: flex; align-items: center; gap: 8px;">
              <i class="fas fa-check-circle"></i> <span x-text="toastMsg"></span>
         </div>
+
+        <!-- Form Persetujuan Tersembunyi -->
+        <form id="approve-materi-form" method="POST" style="display:none">
+            @csrf
+        </form>
+        <form id="reject-materi-form" method="POST" style="display:none">
+            @csrf
+        </form>
     </div>
 
     <!-- KARYA TULIS & TAHFIDZ TAB -->
