@@ -5,6 +5,7 @@ use App\Http\Controllers\GuruTugasController;
 use App\Http\Controllers\GuruNilaiController;
 use App\Http\Controllers\GuruAbsensiController;
 use App\Http\Controllers\GuruCatatanController;
+use App\Http\Controllers\SiswaKondisiKelasController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 Route::middleware('auth')->group(function () {
     Route::post('/guru/tahfidz', [GuruTahfidzController::class, 'store'])->name('guru.tahfidz.store');
     Route::post('/guru/tahfidz/{tahfidzSetoran}/nilai-pembanding', [GuruTahfidzController::class, 'storePembanding'])->name('guru.tahfidz.store-pembanding');
+    Route::post('/siswa/kondisi-kelas', [SiswaKondisiKelasController::class, 'store'])->name('siswa.kondisi-kelas.store');
     Route::post('/guru/tugas', [GuruTugasController::class, 'store'])->name('guru.tugas.store');
     Route::post('/guru/nilai', [GuruNilaiController::class, 'store'])->name('guru.nilai.store');
     Route::post('/guru/absensi', [GuruAbsensiController::class, 'store'])->name('guru.absensi.store');

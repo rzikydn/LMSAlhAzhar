@@ -24,6 +24,9 @@
     <li :class="{'active': tab === 'catatan'}" @click="tab = 'catatan'">
         <label><i class="fas fa-star"></i> Catatan Wali</label>
     </li>
+    <li :class="{'active': tab === 'kondisi_kelas'}" @click="tab = 'kondisi_kelas'">
+        <label><i class="fas fa-heartbeat"></i> Kondisi Kelas</label>
+    </li>
     <li :class="{'active': tab === 'materi'}" @click="tab = 'materi'">
         <label><i class="fas fa-folder-open"></i> Upload Materi</label>
     </li>
@@ -62,6 +65,9 @@
     </div>
     <div x-show="tab === 'catatan'">
         @include('dashboard.guru-sections.catatan')
+    </div>
+    <div x-show="tab === 'kondisi_kelas'">
+        @include('dashboard.guru-sections.kondisi-kelas')
     </div>
     <div x-show="tab === 'materi'">
         @include('dashboard.guru-sections.materi')
