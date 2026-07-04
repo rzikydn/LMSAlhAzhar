@@ -44,6 +44,17 @@
     </div>
 </div>
 
+@php
+    $jadwalBerikutnya = $tahfidzSetoran->whereNotNull('tanggal_berikutnya')->first()?->tanggal_berikutnya;
+@endphp
+
+@if($jadwalBerikutnya)
+<div style="background:#e6fcf5; border:1px solid #c3fae8; color:#0ca678; padding:14px 18px; border-radius:8px; margin-bottom:20px; display:flex; align-items:center; gap:10px; font-weight:600; font-size:14px">
+    <i class="fas fa-calendar-alt" style="font-size:18px"></i>
+    <span>Jadwal Setoran Berikutnya: <span style="font-weight:800">{{ \Carbon\Carbon::parse($jadwalBerikutnya)->isoFormat('D MMMM YYYY') }}</span></span>
+</div>
+@endif
+
 <div class="card" style="margin-bottom:20px">
     <div class="card-header"><h3><i class="fas fa-quran" style="color:var(--green)"></i> Progress Tahfidz {{ $kelas->nama_kelas }}</h3></div>
     <div class="tahfidz-stats">
