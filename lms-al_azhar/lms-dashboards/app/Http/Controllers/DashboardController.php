@@ -44,6 +44,11 @@ class DashboardController extends Controller
                 ->where('tanggal', now()->format('Y-m-d'))
                 ->exists();
 
+            $remedialActive = \App\Models\Remedial::where('siswa_id', $siswa->id)
+                ->where('status', 'pending')
+                ->with('mapel', 'nilai')
+                ->get();
+
             $data = [
                 'user' => $user,
                 'siswa' => $siswa,
@@ -98,6 +103,7 @@ class DashboardController extends Controller
                     ->get()
                     ->map(fn($n) => ['nama_mapel' => $n->mapel->nama_mapel ?? $n->mapel->kode ?? 'Mapel', 'nilai' => $n->nilai]),
                 'sudahIsiKondisi' => $sudahIsiKondisi,
+                'remedialActive' => $remedialActive,
             ];
 
             // === PERINGKAT KELAS ===
@@ -140,6 +146,12 @@ class DashboardController extends Controller
                 ->orderBy('tanggal', 'desc')
                 ->get();
 
+            $remedialActive = \App\Models\Remedial::where('status', 'pending')
+                ->whereHas('siswa', fn($q) => $q->whereIn('kelas_id', $kelasIds))
+                ->with('siswa', 'siswa.kelas', 'mapel', 'nilai')
+                ->orderBy('deadline')
+                ->get();
+
             $data = [
                 'user' => $user,
                 'guru' => $guru,
@@ -148,6 +160,7 @@ class DashboardController extends Controller
                 'pengumuman' => Pengumuman::orderBy('created_at', 'desc')->get(),
                 'pesan' => Pesan::where('penerima_id', $user->id)->with('pengirim')->orderBy('created_at', 'desc')->get(),
                 'kondisiKelasHistory' => $kondisiKelasHistory,
+                'remedialActive' => $remedialActive,
             ];
         }
 
@@ -177,6 +190,11 @@ class DashboardController extends Controller
             $sudahIsiKondisi = \App\Models\KondisiKelas::where('siswa_id', $siswa->id)
                 ->where('tanggal', now()->format('Y-m-d'))
                 ->exists();
+
+            $remedialActive = \App\Models\Remedial::where('siswa_id', $siswa->id)
+                ->where('status', 'pending')
+                ->with('mapel', 'nilai')
+                ->get();
 
             $data = [
                 'user' => $user,
@@ -231,6 +249,7 @@ class DashboardController extends Controller
                     ->get()
                     ->map(fn($n) => ['nama_mapel' => $n->mapel->nama_mapel ?? $n->mapel->kode ?? 'Mapel', 'nilai' => $n->nilai]),
                 'sudahIsiKondisi' => $sudahIsiKondisi,
+                'remedialActive' => $remedialActive,
             ];
 
             // === PERINGKAT KELAS ===
