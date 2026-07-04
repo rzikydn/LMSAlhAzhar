@@ -39,6 +39,11 @@
     <li :class="{'active': tab === 'rapor'}" @click="tab = 'rapor'">
         <label><i class="fas fa-file-invoice"></i> Rapor</label>
     </li>
+    @if(isset($isKelas9) && $isKelas9)
+    <li :class="{'active': tab === 'kti'}" @click="tab = 'kti'">
+        <label><i class="fas fa-file-signature"></i> Karya Ilmiah (KTI)</label>
+    </li>
+    @endif
 @endsection
 
 @section('content')
@@ -78,4 +83,9 @@
     <div x-show="tab === 'rapor'">
         @include('dashboard.smp-sections.rapor')
     </div>
+    @if(isset($isKelas9) && $isKelas9)
+    <div x-show="tab === 'kti'">
+        @include('dashboard.smp-sections.kti')
+    </div>
+    @endif
 @endsection

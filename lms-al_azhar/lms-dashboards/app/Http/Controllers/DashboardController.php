@@ -152,6 +152,12 @@ class DashboardController extends Controller
                 ->orderBy('deadline')
                 ->get();
 
+            $kelas9Ids = Kelas::where('nama_kelas', 'like', '9%')->pluck('id');
+            $siswaKelas9 = Siswa::whereIn('kelas_id', $kelas9Ids)->with('kelas')->get();
+            $nilaiKtiRekap = \App\Models\NilaiKti::whereIn('siswa_id', $siswaKelas9->pluck('id'))
+                ->with('siswa', 'siswa.kelas')
+                ->get();
+
             $data = [
                 'user' => $user,
                 'guru' => $guru,
@@ -161,6 +167,8 @@ class DashboardController extends Controller
                 'pesan' => Pesan::where('penerima_id', $user->id)->with('pengirim')->orderBy('created_at', 'desc')->get(),
                 'kondisiKelasHistory' => $kondisiKelasHistory,
                 'remedialActive' => $remedialActive,
+                'siswaKelas9' => $siswaKelas9,
+                'nilaiKtiRekap' => $nilaiKtiRekap,
             ];
         }
 
@@ -195,6 +203,9 @@ class DashboardController extends Controller
                 ->where('status', 'pending')
                 ->with('mapel', 'nilai')
                 ->get();
+
+            $isKelas9 = str_starts_with($kelas->nama_kelas ?? '', '9');
+            $nilaiKti = $isKelas9 ? \App\Models\NilaiKti::where('siswa_id', $siswa->id)->first() : null;
 
             $data = [
                 'user' => $user,
@@ -250,6 +261,8 @@ class DashboardController extends Controller
                     ->map(fn($n) => ['nama_mapel' => $n->mapel->nama_mapel ?? $n->mapel->kode ?? 'Mapel', 'nilai' => $n->nilai]),
                 'sudahIsiKondisi' => $sudahIsiKondisi,
                 'remedialActive' => $remedialActive,
+                'isKelas9' => $isKelas9,
+                'nilaiKti' => $nilaiKti,
             ];
 
             // === PERINGKAT KELAS ===

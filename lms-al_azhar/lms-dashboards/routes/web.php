@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/siswa/kondisi-kelas', [SiswaKondisiKelasController::class, 'store'])->name('siswa.kondisi-kelas.store');
     Route::post('/guru/tugas', [GuruTugasController::class, 'store'])->name('guru.tugas.store');
     Route::post('/guru/nilai', [GuruNilaiController::class, 'store'])->name('guru.nilai.store');
+    Route::post('/guru/kti', [\App\Http\Controllers\GuruKtiController::class, 'store'])->name('guru.kti.store');
     Route::post('/guru/absensi', [GuruAbsensiController::class, 'store'])->name('guru.absensi.store');
     Route::post('/guru/catatan', [GuruCatatanController::class, 'store'])->name('guru.catatan.store');
     Route::get('/guru/export/nilai', [\App\Http\Controllers\ExportController::class, 'nilaiCsv'])->name('guru.export.nilai');
