@@ -27,14 +27,12 @@
         ->with('siswa')
         ->get();
 @endphp
-<div class="header-blue">
-    <div class="content-header">
-        <div class="greeting">Halo, <strong>{{ $siswa->nama }}</strong> 👋</div>
-        <div class="header-right">
-            <div class="notif-badge"><i class="fas fa-bell"></i></div>
-            <div class="avatar blue">{{ $inits }}</div>
-            <span style="font-weight:600;font-size:14px;color:#fff">{{ explode(' ', $siswa->nama)[0] }}</span>
-        </div>
+<div class="content-header">
+    <div class="greeting">Halo, <strong>{{ $siswa->nama }}</strong> 👋</div>
+    <div class="header-right">
+        <div class="notif-badge"><i class="fas fa-bell"></i></div>
+        <div class="avatar blue">{{ $inits }}</div>
+        <span style="font-weight:600;font-size:14px">{{ explode(' ', $siswa->nama)[0] }}</span>
     </div>
 </div>
 

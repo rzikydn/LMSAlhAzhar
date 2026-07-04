@@ -117,6 +117,17 @@ class DatabaseSeeder extends Seeder
             ['user_id' => $user->id, 'nama' => 'Doni Prasetyo', 'kelas_id' => $kelasIds['8B'], 'jenis_kelamin' => 'L', 'status' => 'nonaktif']
         );
 
+        // === USER & SISWA SMP (aktif - Kelas 9 untuk KTI) ===
+        $userKti = User::firstOrCreate(
+            ['email' => 'rian.hidayat@alazharjayaindonesia.sch.id'],
+            ['name' => 'Rian Hidayat', 'password' => Hash::make('password123'), 'role' => 'siswa_smp']
+        );
+        Siswa::firstOrCreate(
+            ['nis' => '2022001'],
+            ['user_id' => $userKti->id, 'nama' => 'Rian Hidayat', 'kelas_id' => $kelasIds['9A'], 'jenis_kelamin' => 'L', 'status' => 'aktif']
+        );
+
+
         // === USER & ORANG TUA ===
         $user = User::firstOrCreate(
             ['email' => 'sari.rohmah@email.com'],

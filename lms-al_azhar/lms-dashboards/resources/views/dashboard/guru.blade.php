@@ -42,6 +42,9 @@
     <li :class="{'active': tab === 'pesan'}" @click="tab = 'pesan'">
         <label><i class="fas fa-envelope"></i> Pesan</label>
     </li>
+    <li :class="{'active': tab === 'kti'}" @click="tab = 'kti'">
+        <label><i class="fas fa-file-signature"></i> Karya Ilmiah (KTI)</label>
+    </li>
 @endsection
 
 @section('content')
@@ -83,6 +86,9 @@
     </div>
     <div x-show="tab === 'pesan'">
         @include('dashboard.guru-sections.pesan')
+    </div>
+    <div x-show="tab === 'kti'">
+        @include('dashboard.guru-sections.kti')
     </div>
     <div x-show="tab === 'kelas-detail'">
         @include('dashboard.guru-sections.kelas-detail')
