@@ -12,6 +12,7 @@ class SiswaCbtController extends Controller
     {
         $siswa = $request->user()->siswa;
         $exams = CbtExam::where('status', 'approved')
+            ->where('metode', 'online')
             ->where(function($q) use ($siswa) {
                 $q->where('kelas_id', $siswa->kelas_id)
                   ->orWhereNull('kelas_id');

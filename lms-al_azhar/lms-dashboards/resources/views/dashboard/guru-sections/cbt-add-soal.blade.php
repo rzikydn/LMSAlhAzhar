@@ -58,6 +58,15 @@
             </div>
         </div>
 
+        <div class="form-group" style="margin-bottom:14px">
+            <label style="display:block;font-size:13px;font-weight:600;color:var(--gray-500);margin-bottom:4px">Tingkat Kesulitan</label>
+            <select name="kesulitan" required class="form-select" style="width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:14px;font-family:var(--font);background:var(--white)">
+                <option value="sedang">Sedang</option>
+                <option value="mudah">Mudah</option>
+                <option value="sulit">Sulit</option>
+            </select>
+        </div>
+
         <div x-show="tipe === 'pg'" x-transition>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
                 <div><label style="font-size:11px;color:var(--gray-400);font-weight:600">Pilihan A</label><input type="text" name="pilihan_a" placeholder="Opsi A" style="width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:13px;font-family:var(--font)"></div>
@@ -88,13 +97,18 @@
     <div class="card-header"><h3><i class="fas fa-list" style="color:var(--blue)"></i> Daftar Soal ({{ $soals->count() }})</h3></div>
     <div class="table-wrap">
         <table>
-            <thead><tr><th>No</th><th>Soal</th><th>Tipe</th><th>Aksi</th></tr></thead>
+            <thead><tr><th>No</th><th>Soal</th><th>Tipe</th><th>Kesulitan</th><th>Aksi</th></tr></thead>
             <tbody>
                 @foreach($soals as $s)
                 <tr>
                     <td>{{ $s->nomor }}</td>
                     <td style="max-width:300px">{{ Str::limit($s->soal, 100) }}</td>
                     <td><span class="badge {{ $s->tipe === 'pg' ? 'blue' : 'orange' }} light" style="font-size:10px">{{ $s->tipe }}</span></td>
+                    <td>
+                        <span class="badge {{ $s->kesulitan === 'mudah' ? 'green' : ($s->kesulitan === 'sulit' ? 'red' : 'orange') }} light" style="font-size:10px;text-transform:capitalize">
+                            {{ $s->kesulitan ?? 'sedang' }}
+                        </span>
+                    </td>
                     <td>
                         @if($cbtExam->status === 'draft')
                         <form method="POST" action="{{ route('guru.cbt.delete-soal', [$cbtExam->id, $s->id]) }}" style="display:inline" onsubmit="return confirm('Hapus soal ini?')">

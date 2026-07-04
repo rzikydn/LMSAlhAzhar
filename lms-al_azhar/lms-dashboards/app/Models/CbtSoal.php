@@ -9,7 +9,7 @@ class CbtSoal extends Model
     protected $fillable = [
         'cbt_exam_id', 'nomor', 'soal', 'tipe',
         'pilihan_a', 'pilihan_b', 'pilihan_c', 'pilihan_d',
-        'jawaban_benar', 'bobot'
+        'jawaban_benar', 'bobot', 'kesulitan'
     ];
 
     public function exam()
