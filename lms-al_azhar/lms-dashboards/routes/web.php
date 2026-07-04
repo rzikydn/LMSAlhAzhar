@@ -18,6 +18,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 
 Route::middleware('auth')->group(function () {
     Route::post('/guru/tahfidz', [GuruTahfidzController::class, 'store'])->name('guru.tahfidz.store');
+    Route::post('/guru/tahfidz/{tahfidzSetoran}/nilai-pembanding', [GuruTahfidzController::class, 'storePembanding'])->name('guru.tahfidz.store-pembanding');
     Route::post('/guru/tugas', [GuruTugasController::class, 'store'])->name('guru.tugas.store');
     Route::post('/guru/nilai', [GuruNilaiController::class, 'store'])->name('guru.nilai.store');
     Route::post('/guru/absensi', [GuruAbsensiController::class, 'store'])->name('guru.absensi.store');

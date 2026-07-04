@@ -8,7 +8,7 @@ class TahfidzSetoran extends Model
 {
     protected $table = 'tahfidz_setoran';
     protected $fillable = [
-        'siswa_id', 'guru_id', 'tanggal', 'surah',
+        'siswa_id', 'guru_id', 'tanggal', 'tanggal_berikutnya', 'surah',
         'ayat_mulai', 'ayat_selesai', 'jumlah_ayat',
         'status', 'nilai', 'catatan_guru'
     ];
@@ -21,5 +21,10 @@ class TahfidzSetoran extends Model
     public function guru()
     {
         return $this->belongsTo(Guru::class);
+    }
+
+    public function ayatNilai()
+    {
+        return $this->hasMany(TahfidzAyatNilai::class, 'tahfidz_setoran_id');
     }
 }
