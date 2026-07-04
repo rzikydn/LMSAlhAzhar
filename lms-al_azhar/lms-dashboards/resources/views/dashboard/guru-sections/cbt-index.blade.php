@@ -18,6 +18,7 @@
                 <tr>
                     <th>Judul</th>
                     <th>Tipe</th>
+                    <th>Metode</th>
                     <th>Mapel</th>
                     <th>Kelas</th>
                     <th>Jumlah Soal</th>
@@ -31,6 +32,11 @@
                 <tr>
                     <td><strong>{{ $exam->judul }}</strong></td>
                     <td><span class="badge {{ $exam->tipe === 'uts' ? 'orange' : ($exam->tipe === 'uas' ? 'purple' : 'teal') }} light" style="font-size:10px">{{ strtoupper($exam->tipe) }}</span></td>
+                    <td>
+                        <span class="badge {{ $exam->metode === 'cetak' ? 'blue' : 'teal' }} light" style="font-size:10px;text-transform:capitalize">
+                            <i class="fas {{ $exam->metode === 'cetak' ? 'fa-print' : 'fa-laptop' }}"></i> {{ $exam->metode ?? 'online' }}
+                        </span>
+                    </td>
                     <td>{{ $exam->mapel->kode ?? '-' }}</td>
                     <td>{{ $exam->kelas->nama_kelas ?? 'Semua' }}</td>
                     <td>{{ $exam->jumlah_soal }}</td>
@@ -62,6 +68,7 @@
                             @else
                                 <a href="{{ route('guru.cbt.add-soal', $exam->id) }}" class="btn-small outline" style="text-decoration:none"><i class="fas fa-eye"></i> Lihat</a>
                             @endif
+                            <a href="{{ route('guru.cbt.print', $exam->id) }}" target="_blank" class="btn-small outline" style="text-decoration:none;border-color:var(--blue);color:var(--blue)"><i class="fas fa-print"></i> Cetak</a>
                         </div>
                     </td>
                 </tr>

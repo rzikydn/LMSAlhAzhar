@@ -67,6 +67,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/{cbtExam}/soal', [\App\Http\Controllers\GuruCbtController::class, 'storeSoal'])->name('store-soal');
         Route::delete('/{cbtExam}/soal/{cbtSoal}', [\App\Http\Controllers\GuruCbtController::class, 'deleteSoal'])->name('delete-soal');
         Route::post('/{cbtExam}/ajukan', [\App\Http\Controllers\GuruCbtController::class, 'ajukan'])->name('ajukan');
+        Route::get('/{cbtExam}/print', [\App\Http\Controllers\GuruCbtController::class, 'printExam'])->name('print');
     });
 
     // Admin CBT
