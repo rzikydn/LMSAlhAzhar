@@ -31,6 +31,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/guru/workbook', [\App\Http\Controllers\GuruWorkbookController::class, 'store'])->name('guru.workbook.store');
     Route::post('/guru/workbook/{workbook}/soal', [\App\Http\Controllers\GuruWorkbookController::class, 'storeSoal'])->name('guru.workbook.soal');
     Route::post('/guru/materi', [\App\Http\Controllers\GuruMateriController::class, 'store'])->name('guru.materi.store');
+    Route::post('/guru/materi/{materi}/update', [\App\Http\Controllers\GuruMateriController::class, 'update'])->name('guru.materi.update');
+    Route::post('/guru/materi/{materi}/delete', [\App\Http\Controllers\GuruMateriController::class, 'destroy'])->name('guru.materi.delete');
+    Route::post('/admin/materi/{materi}/approve', [\App\Http\Controllers\GuruMateriController::class, 'approve'])->name('admin.materi.approve');
+    Route::post('/admin/materi/{materi}/reject', [\App\Http\Controllers\GuruMateriController::class, 'reject'])->name('admin.materi.reject');
     Route::post('/ortu/bayar', [\App\Http\Controllers\OrtuBayarController::class, 'store'])->name('ortu.bayar.store');
     Route::post('/ortu/pesan', [\App\Http\Controllers\OrtuPesanController::class, 'store'])->name('ortu.pesan.store');
     Route::post('/siswa/pesan', [\App\Http\Controllers\SiswaPesanController::class, 'store'])->name('siswa.pesan.store');

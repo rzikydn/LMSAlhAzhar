@@ -7,9 +7,43 @@
 </div>
 <div class="grid-2">
     @foreach($mapels as $m)
+    @php
+        $materiSiswa = \App\Models\Materi::where('mapel_id', $m->id)
+            ->where('status', 'approved')
+            ->where(function($q) use ($siswa) {
+                $q->where('kelas_id', $siswa->kelas_id)->orWhereNull('kelas_id');
+            })
+            ->get();
+    @endphp
     <div class="card">
         <div class="card-header"><h3><i class="fas fa-book" style="color:var(--{{ $cardColors[$loop->index % count($cardColors)] }})"></i> {{ $m->nama_mapel }}</h3></div>
-        <p style="font-size:13px;color:var(--gray-400)">Kode: {{ $m->kode }}</p>
+        <p style="font-size:13px;color:var(--gray-400);margin-bottom:8px">Kode: {{ $m->kode }}</p>
+        
+        @if($materiSiswa->count() > 0)
+        <div style="margin-top:12px;border-top:1px solid var(--border-light);padding-top:10px">
+            <span style="font-size:11px;font-weight:700;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.5px">Materi Ajar &amp; Modul</span>
+            <ul style="list-style:none;padding:0;margin:6px 0 0 0;display:flex;flex-direction:column;gap:8px">
+                @foreach($materiSiswa as $mat)
+                <li style="display:flex;flex-direction:column;gap:2px">
+                    <div style="display:flex;align-items:center;justify-content:space-between">
+                        <span style="font-size:13px;font-weight:600">
+                            <i class="fas fa-file-pdf" style="color:var(--red);margin-right:4px"></i>
+                            <a href="{{ asset('storage/' . $mat->file_path) }}" target="_blank" style="text-decoration:none;color:var(--text)">{{ $mat->judul }}</a>
+                        </span>
+                        <a href="{{ asset('storage/' . $mat->file_path) }}" target="_blank" class="btn-small outline" style="text-decoration:none;padding:2px 6px;font-size:11px"><i class="fas fa-download"></i></a>
+                    </div>
+                    @if($mat->deskripsi)
+                    <p style="font-size:11px;color:var(--gray-500);margin:0 0 0 16px;line-height:1.3">{{ $mat->deskripsi }}</p>
+                    @endif
+                </li>
+                @endforeach
+            </ul>
+        </div>
+        @else
+        <div style="margin-top:12px;border-top:1px solid var(--border-light);padding-top:8px;font-size:11px;color:var(--gray-400);font-style:italic">
+            Belum ada materi ajar yang diunggah.
+        </div>
+        @endif
     </div>
     @endforeach
 </div>
