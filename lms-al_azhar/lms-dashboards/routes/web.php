@@ -84,6 +84,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/{cbtExam}/submit', [\App\Http\Controllers\SiswaCbtController::class, 'submit'])->name('submit');
         Route::get('/{cbtExam}/hasil', [\App\Http\Controllers\SiswaCbtController::class, 'hasil'])->name('hasil');
     });
+
+    // Banding Nilai Bilingual
+    Route::post('/siswa/banding', [\App\Http\Controllers\SiswaBandingController::class, 'store'])->name('siswa.banding.store');
+    Route::post('/guru/banding/{banding}/proses', [\App\Http\Controllers\GuruBandingController::class, 'proses'])->name('guru.banding.proses');
 });
 
 require __DIR__.'/auth.php';
