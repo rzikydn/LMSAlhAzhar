@@ -247,6 +247,72 @@
         </div>
     </div>
 
+    <!-- Daftar Banding Nilai (Bilingual) -->
+    <div class="card" style="margin-top:20px">
+        <div class="card-header">
+            <h3><i class="fas fa-balance-scale" style="color:var(--indigo)"></i> Pengajuan Banding Nilai Bilingual</h3>
+        </div>
+        @php
+            $remedialBanding = \App\Models\BandingNilai::whereHas('nilai', function($q) use ($guru) {
+                $q->where('mapel_id', $guru->mapel_id);
+            })->with(['siswa.kelas', 'nilai.mapel'])->get();
+        @endphp
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Siswa</th>
+                        <th>Kelas</th>
+                        <th>Mata Pelajaran</th>
+                        <th>Nilai Asal (Materi / B.Ing)</th>
+                        <th>Alasan Siswa</th>
+                        <th>Aksi / Keputusan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($remedialBanding as $b)
+                        <tr>
+                            <td><strong>{{ $b->siswa->nama }}</strong></td>
+                            <td>{{ $b->siswa->kelas->nama_kelas ?? '-' }}</td>
+                            <td>{{ $b->nilai->mapel->nama_mapel }}</td>
+                            <td>
+                                <span style="font-weight:700">{{ $b->nilai->nilai }}</span> 
+                                <span style="font-size:11px;color:var(--indigo)">(Eng: {{ $b->nilai->nilai_bahasa }})</span>
+                            </td>
+                            <td style="max-width:250px; font-style:italic; font-size:13px; color:var(--gray-500)">"{{ $b->alasan_siswa }}"</td>
+                            <td>
+                                @if($b->status === 'pending')
+                                    <form action="{{ route('guru.banding.proses', $b->id) }}" method="POST" style="display:flex; flex-direction:column; gap:6px; max-width:200px">
+                                        @csrf
+                                        <input type="text" name="catatan_guru" placeholder="Catatan/Alasan keputusan..." required style="width:100%; padding:6px; border:1px solid var(--border); border-radius:4px; font-size:12px">
+                                        <div style="display:flex; gap:4px">
+                                            <input type="number" name="nilai" placeholder="Nilai baru" min="0" max="100" style="width:50%; padding:4px 6px; border:1px solid var(--border); border-radius:4px; font-size:11px">
+                                            <input type="number" name="nilai_bahasa" placeholder="Nilai B.Ing" min="0" max="100" style="width:50%; padding:4px 6px; border:1px solid var(--border); border-radius:4px; font-size:11px">
+                                        </div>
+                                        <div style="display:flex; gap:6px; margin-top:2px">
+                                            <button type="submit" name="status" value="disetujui" class="btn-small" style="background:var(--green); color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer; font-weight:600; font-size:11px">Setujui</button>
+                                            <button type="submit" name="status" value="ditolak" class="btn-small" style="background:var(--red); color:white; border:none; padding:4px 8px; border-radius:4px; cursor:pointer; font-weight:600; font-size:11px">Tolak</button>
+                                        </div>
+                                    </form>
+                                @elseif($b->status === 'disetujui')
+                                    <span class="badge light green"><i class="fas fa-check"></i> Disetujui</span>
+                                    <div style="font-size:11px; color:var(--gray-400); margin-top:4px">{{ $b->catatan_guru }}</div>
+                                @else
+                                    <span class="badge light red"><i class="fas fa-times"></i> Ditolak</span>
+                                    <div style="font-size:11px; color:var(--gray-400); margin-top:4px">{{ $b->catatan_guru }}</div>
+                                @endif
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" style="text-align:center;color:var(--gray-400);padding:20px">Belum ada pengajuan banding nilai.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
 
 @if(session('success'))

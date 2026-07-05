@@ -75,7 +75,7 @@ class DashboardController extends Controller
                     ->orderBy('tanggal_deadline')
                     ->get(),
                 'nilai' => Nilai::where('siswa_id', $siswa->id)
-                    ->with('mapel')
+                    ->with(['mapel', 'banding'])
                     ->get(),
                 'nilaiSekolah' => Nilai::where('siswa_id', $siswa->id)
                     ->where('jenis_nilai', 'biasa')
@@ -242,7 +242,7 @@ class DashboardController extends Controller
                     ->orderBy('tanggal_deadline')
                     ->get(),
                 'nilai' => Nilai::where('siswa_id', $siswa->id)
-                    ->with('mapel')
+                    ->with(['mapel', 'banding'])
                     ->get(),
                 'nilaiSekolah' => Nilai::where('siswa_id', $siswa->id)
                     ->where('jenis_nilai', 'biasa')

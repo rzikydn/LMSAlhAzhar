@@ -25,4 +25,9 @@ class Nilai extends Model
     {
         return $this->belongsTo(Mapel::class);
     }
+
+    public function banding()
+    {
+        return $this->hasOne(BandingNilai::class, 'nilai_id');
+    }
 }
