@@ -27,7 +27,14 @@ class RaporController extends Controller
         }
 
         $kelas = $siswa->kelas;
-        $nilai = Nilai::where('siswa_id', $siswa->id)->with('mapel')->get();
+        $type = $request->query('type', 'biasa');
+        if (!in_array($type, ['biasa', 'unggulan'])) {
+            $type = 'biasa';
+        }
+        $nilai = Nilai::where('siswa_id', $siswa->id)
+            ->where('jenis_nilai', $type)
+            ->with('mapel')
+            ->get();
         $rata = round($nilai->avg('nilai') ?? 0, 1);
         $catatanWali = CatatanWali::where('siswa_id', $siswa->id)->latest()->first();
         $kehadiran = Kehadiran::where('siswa_id', $siswa->id)->get();
@@ -41,7 +48,7 @@ class RaporController extends Controller
         $pdf = Pdf::loadView('rapor-pdf', compact(
             'siswa', 'kelas', 'nilai', 'rata', 'catatanWali',
             'kehadiran', 'totalHadir', 'totalSakit', 'totalIzin', 'totalAlpha',
-            'tahfidz', 'kkm'
+            'tahfidz', 'kkm', 'type'
         ));
 
         return $pdf->download('rapor-' . $siswa->nama . '.pdf');
