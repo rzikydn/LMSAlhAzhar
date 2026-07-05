@@ -40,7 +40,7 @@
 <div class="section">
   <h2>{{ (isset($type) && $type === 'unggulan') ? 'Nilai Program Unggulan' : 'Nilai Akademik' }}</h2>
   <table>
-    <thead><tr><th>No</th><th>Mata Pelajaran</th><th>KKM</th><th>Nilai</th><th>Grade</th></tr></thead>
+    <thead><tr><th>No</th><th>Mata Pelajaran</th><th>KKM</th><th>Nilai</th><th>Status (Grade)</th></tr></thead>
     <tbody>
       @foreach($nilai as $n)
       <tr>
@@ -48,13 +48,13 @@
         <td>{{ $n->mapel->nama_mapel }}</td>
         <td>{{ $kkm }}</td>
         <td style="font-weight:700;text-align:center">{{ $n->nilai }}</td>
-        <td style="text-align:center">
-          @if($n->nilai >= 90) A
-          @elseif($n->nilai >= 85) A-
-          @elseif($n->nilai >= 80) B+
-          @elseif($n->nilai >= 75) B
-          @elseif($n->nilai >= 70) B-
-          @else C
+        <td style="text-align:center;font-weight:600">
+          @if($n->nilai >= 90) Bagus Banget (A)
+          @elseif($n->nilai >= 85) Bagus (A-)
+          @elseif($n->nilai >= 80) Bagus (B+)
+          @elseif($n->nilai >= $kkm) Perlu Belajar Lagi (B)
+          @elseif($n->nilai >= 70) Perlu Belajar Lagi (B-)
+          @else Perlu Diulang (C)
           @endif
         </td>
       </tr>
