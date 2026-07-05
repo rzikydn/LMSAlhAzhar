@@ -13,48 +13,62 @@ if (!(Get-Command php -ErrorAction SilentlyContinue)) {
     exit
 }
 
-# 2. Setup Database PostgreSQL
-Write-Host "`n--- Setup Database PostgreSQL (Port: 5433) ---" -ForegroundColor Cyan
-$pg_password = $null
-
-while ($null -eq $pg_password) {
-    $input_password = Read-Host -Prompt "Masukkan password untuk user 'postgres' di PostgreSQL Anda (Tekan Enter untuk default: admin)"
-    if ([string]::IsNullOrEmpty($input_password)) {
-        $input_password = "admin"
-    }
-
-    # Test the connection
-    $env:PGPASSWORD = $input_password
-    $testResult = & psql -h localhost -p 5433 -U postgres -c "SELECT 1;" 2>&1
-    if ($LASTEXITCODE -eq 0) {
-        $pg_password = $input_password
-        Write-Host "Koneksi ke PostgreSQL berhasil!" -ForegroundColor Green
+# 2. Setup Database MySQL
+Write-Host "`n--- Setup Database MySQL ---" -ForegroundColor Cyan
+$mysql_path = "C:\xamppmostnew\mysql\bin"
+if (!(Test-Path "$mysql_path\mysql.exe")) {
+    $mysql_path = "C:\xampp\mysql\bin"
+}
+if (!(Test-Path "$mysql_path\mysql.exe")) {
+    if (Get-Command mysql -ErrorAction SilentlyContinue) {
+        $mysql_cmd = "mysql"
     } else {
-        Write-Host "Koneksi GAGAL! Password '$input_password' salah." -ForegroundColor Red
-        Write-Host "Silakan masukkan password PostgreSQL yang benar (biasanya: admin)." -ForegroundColor Yellow
+        Write-Error "MySQL (mysql.exe) tidak ditemukan di C:\xamppmostnew\mysql\bin atau C:\xampp\mysql\bin. Pastikan MySQL terpasang."
+        exit
     }
+} else {
+    $mysql_cmd = "$mysql_path\mysql.exe"
 }
 
-# Buat database
-Write-Host "Membuat database lms_alazhar..." -ForegroundColor Yellow
-try {
-    & psql -h localhost -p 5433 -U postgres -c "CREATE DATABASE lms_alazhar;" 2>$null
-    Write-Host "Database lms_alazhar berhasil dibuat (atau sudah ada)." -ForegroundColor Green
-} catch {
-    Write-Host "Terjadi kendala saat membuat database. Mungkin database sudah ada. Melanjutkan..." -ForegroundColor Yellow
+$db_user = "root"
+$db_pass = ""
+
+# Test the connection
+Write-Host "Mengecek koneksi ke MySQL..." -ForegroundColor Yellow
+$testResult = & $mysql_cmd -u $db_user -e "SELECT 1;" 2>&1
+if ($LASTEXITCODE -ne 0) {
+    $db_pass = Read-Host -Prompt "Koneksi root tanpa password gagal. Masukkan password MySQL root Anda"
+    $testResult = & $mysql_cmd -u $db_user -p$db_pass -e "SELECT 1;" 2>&1
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "Gagal menghubungkan ke MySQL. Pastikan MySQL server Anda sudah aktif."
+        exit
+    }
+}
+Write-Host "Koneksi ke MySQL berhasil!" -ForegroundColor Green
+
+# Buat database jika belum ada
+Write-Host "Membuat database lms_alazhar jika belum ada..." -ForegroundColor Yellow
+if ($db_pass -eq "") {
+    & $mysql_cmd -u $db_user -e "CREATE DATABASE IF NOT EXISTS lms_alazhar;" 2>$null
+} else {
+    & $mysql_cmd -u $db_user -p$db_pass -e "CREATE DATABASE IF NOT EXISTS lms_alazhar;" 2>$null
 }
 
 # Impor file database lms_alazhar.sql
 Write-Host "Mengimpor data lms_alazhar.sql ke database..." -ForegroundColor Yellow
 try {
-    & psql -h localhost -p 5433 -U postgres -d lms_alazhar -f lms-al_azhar/lms_alazhar.sql
+    if ($db_pass -eq "") {
+        & $mysql_cmd -u $db_user -D lms_alazhar -e "source lms-al_azhar/lms_alazhar.sql"
+    } else {
+        & $mysql_cmd -u $db_user -p$db_pass -D lms_alazhar -e "source lms-al_azhar/lms_alazhar.sql"
+    }
     Write-Host "Impor database selesai!" -ForegroundColor Green
 } catch {
-    Write-Error "Gagal mengimpor database. Pastikan password Anda benar dan file SQL tersedia."
+    Write-Error "Gagal mengimpor database. Pastikan file SQL lms-al_azhar/lms_alazhar.sql tersedia."
     exit
 }
 
-# 3. Update file .env dengan password PostgreSQL
+# 3. Update file .env dengan password MySQL
 Write-Host "`n--- Mengonfigurasi file .env ---" -ForegroundColor Cyan
 $envPath = "lms-al_azhar\lms-dashboards\.env"
 $envExamplePath = "lms-al_azhar\lms-dashboards\.env.example"
@@ -65,10 +79,12 @@ if (!(Test-Path $envPath)) {
 }
 
 $envContent = Get-Content $envPath
-$envContent = $envContent -replace '^DB_PORT=.*', 'DB_PORT=5433'
-$envContent = $envContent -replace '^DB_PASSWORD=.*', "DB_PASSWORD=$pg_password"
+$envContent = $envContent -replace '^DB_CONNECTION=.*', 'DB_CONNECTION=mysql'
+$envContent = $envContent -replace '^DB_PORT=.*', 'DB_PORT=3306'
+$envContent = $envContent -replace '^DB_PASSWORD=.*', "DB_PASSWORD=$db_pass"
+$envContent = $envContent -replace '^DB_USERNAME=.*', "DB_USERNAME=$db_user"
 $envContent | Set-Content $envPath
-Write-Host "File .env berhasil diperbarui dengan port 5433 dan password Anda." -ForegroundColor Green
+Write-Host "File .env berhasil diperbarui untuk MySQL." -ForegroundColor Green
 
 # 4. Install PHP Dependencies
 Write-Host "`n--- Menginstal dependensi PHP (Composer) ---" -ForegroundColor Cyan
