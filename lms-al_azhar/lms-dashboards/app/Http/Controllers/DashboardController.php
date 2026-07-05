@@ -77,6 +77,14 @@ class DashboardController extends Controller
                 'nilai' => Nilai::where('siswa_id', $siswa->id)
                     ->with('mapel')
                     ->get(),
+                'nilaiSekolah' => Nilai::where('siswa_id', $siswa->id)
+                    ->where('jenis_nilai', 'biasa')
+                    ->with('mapel')
+                    ->get(),
+                'nilaiUnggulan' => Nilai::where('siswa_id', $siswa->id)
+                    ->where('jenis_nilai', 'unggulan')
+                    ->with('mapel')
+                    ->get(),
                 'tahfidzSetoran' => TahfidzSetoran::where('siswa_id', $siswa->id)
                     ->with('guru')
                     ->orderBy('tanggal', 'desc')
@@ -99,6 +107,7 @@ class DashboardController extends Controller
                 }])->get(),
                 'guruUsers' => \App\Models\User::where('role', 'guru')->get(),
                 'nilaiChart' => Nilai::where('siswa_id', $siswa->id)
+                    ->where('jenis_nilai', 'biasa')
                     ->with('mapel')
                     ->get()
                     ->map(fn($n) => ['nama_mapel' => $n->mapel->nama_mapel ?? $n->mapel->kode ?? 'Mapel', 'nilai' => $n->nilai]),
@@ -110,7 +119,7 @@ class DashboardController extends Controller
             $siswaKelas = \App\Models\Siswa::where('kelas_id', $kelas->id)->get();
             $rataMap = [];
             foreach ($siswaKelas as $s) {
-                $rataMap[$s->id] = round(Nilai::where('siswa_id', $s->id)->avg('nilai'), 1);
+                $rataMap[$s->id] = round(Nilai::where('siswa_id', $s->id)->where('jenis_nilai', 'biasa')->avg('nilai') ?? 0, 1);
             }
             arsort($rataMap);
             $rank = 1;
@@ -235,6 +244,14 @@ class DashboardController extends Controller
                 'nilai' => Nilai::where('siswa_id', $siswa->id)
                     ->with('mapel')
                     ->get(),
+                'nilaiSekolah' => Nilai::where('siswa_id', $siswa->id)
+                    ->where('jenis_nilai', 'biasa')
+                    ->with('mapel')
+                    ->get(),
+                'nilaiUnggulan' => Nilai::where('siswa_id', $siswa->id)
+                    ->where('jenis_nilai', 'unggulan')
+                    ->with('mapel')
+                    ->get(),
                 'tahfidzSetoran' => TahfidzSetoran::where('siswa_id', $siswa->id)
                     ->with('guru')
                     ->orderBy('tanggal', 'desc')
@@ -256,6 +273,7 @@ class DashboardController extends Controller
                 }])->get(),
                 'guruUsers' => \App\Models\User::where('role', 'guru')->get(),
                 'nilaiChart' => Nilai::where('siswa_id', $siswa->id)
+                    ->where('jenis_nilai', 'biasa')
                     ->with('mapel')
                     ->get()
                     ->map(fn($n) => ['nama_mapel' => $n->mapel->nama_mapel ?? $n->mapel->kode ?? 'Mapel', 'nilai' => $n->nilai]),
@@ -269,7 +287,7 @@ class DashboardController extends Controller
             $siswaKelas = \App\Models\Siswa::where('kelas_id', $kelas->id)->get();
             $rataMap = [];
             foreach ($siswaKelas as $s) {
-                $rataMap[$s->id] = round(Nilai::where('siswa_id', $s->id)->avg('nilai'), 1);
+                $rataMap[$s->id] = round(Nilai::where('siswa_id', $s->id)->where('jenis_nilai', 'biasa')->avg('nilai') ?? 0, 1);
             }
             arsort($rataMap);
             $rank = 1;

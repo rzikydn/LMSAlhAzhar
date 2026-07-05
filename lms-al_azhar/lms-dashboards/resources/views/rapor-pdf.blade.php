@@ -23,7 +23,7 @@
 </head>
 <body>
 <div class="header">
-  <h1>RAPOR SEMESTER</h1>
+  <h1>{{ (isset($type) && $type === 'unggulan') ? 'RAPOR PROGRAM UNGGULAN' : 'RAPOR SEMESTER' }}</h1>
   <p>{{ setting('school_name') }} — Tahun Ajaran {{ setting('tahun_ajaran') }}</p>
 </div>
 
@@ -38,7 +38,7 @@
 </div>
 
 <div class="section">
-  <h2>Nilai Akademik</h2>
+  <h2>{{ (isset($type) && $type === 'unggulan') ? 'Nilai Program Unggulan' : 'Nilai Akademik' }}</h2>
   <table>
     <thead><tr><th>No</th><th>Mata Pelajaran</th><th>KKM</th><th>Nilai</th><th>Grade</th></tr></thead>
     <tbody>
