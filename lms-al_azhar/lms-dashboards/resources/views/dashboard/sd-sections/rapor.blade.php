@@ -12,6 +12,12 @@
         if ($v >= 70) return 'B-';
         return 'C';
     };
+    $getStatus = function($v, $kkm = 70) {
+        if ($v >= 90) return ['label' => 'Bagus Banget', 'class' => 'status-bagus-banget'];
+        if ($v >= 80) return ['label' => 'Bagus', 'class' => 'status-bagus'];
+        if ($v >= $kkm) return ['label' => 'Perlu Belajar Lagi', 'class' => 'status-perlu-belajar'];
+        return ['label' => 'Perlu Diulang', 'class' => 'status-perlu-diulang'];
+    };
     $rataSekolah = round($nilaiSekolah->avg('nilai') ?? 0, 1);
     $rataUnggulan = round($nilaiUnggulan->avg('nilai') ?? 0, 1);
     $totalHadir = $kehadiran->where('status', 'hadir')->count();
@@ -19,6 +25,37 @@
     $totalIzin = $kehadiran->where('status', 'izin')->count();
     $totalAlpha = $kehadiran->where('status', 'alpha')->count();
 @endphp
+<style>
+    .status-badge {
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        display: inline-block;
+    }
+    .status-bagus-banget {
+        background-color: #e6fffa;
+        color: #047857;
+        border: 1px solid #b2f5ea;
+    }
+    .status-bagus {
+        background-color: #ebf8ff;
+        color: #0284c7;
+        border: 1px solid #bee3f8;
+    }
+    .status-perlu-belajar {
+        background-color: #fffaf0;
+        color: #dd6b20;
+        border: 1px solid #feebc8;
+    }
+    .status-perlu-diulang {
+        background-color: #fff5f5;
+        color: #e53e3e;
+        border: 1px solid #fed7d7;
+    }
+</style>
 <div x-data="{ activeRaporTab: 'sekolah' }" class="sd-content sd-content-rapor">
     <div class="content-header">
         <div>
@@ -82,7 +119,8 @@
                     <thead><tr><th>No</th><th>Mata Pelajaran</th><th>KKM</th><th>Nilai</th><th>Grade</th><th>Predikat</th></tr></thead>
                     <tbody>
                         @forelse($nilaiSekolah as $n)
-                        <tr><td>{{ $loop->iteration }}</td><td>{{ $n->mapel->nama_mapel }}</td><td>{{ setting('kkm_sd') }}</td><td style="font-weight:700">{{ $n->nilai }}</td><td><span class="{{ $gradeColor($n->nilai) }}">{{ $gradeLetter($n->nilai) }}</span></td><td>{{ $n->nilai >= 90 ? 'Sangat Baik' : ($n->nilai >= 80 ? 'Baik' : 'Cukup') }}</td></tr>
+                        @php $status = $getStatus($n->nilai, setting('kkm_sd')); @endphp
+                        <tr><td>{{ $loop->iteration }}</td><td>{{ $n->mapel->nama_mapel }}</td><td>{{ setting('kkm_sd') }}</td><td style="font-weight:700">{{ $n->nilai }}</td><td><span class="{{ $gradeColor($n->nilai) }}">{{ $gradeLetter($n->nilai) }}</span></td><td><span class="status-badge {{ $status['class'] }}">{{ $status['label'] }}</span></td></tr>
                         @empty
                         <tr><td colspan="6" style="text-align:center;color:var(--gray-400)">Belum ada nilai akademik sekolah.</td></tr>
                         @endforelse
@@ -106,7 +144,8 @@
                     <thead><tr><th>No</th><th>Program Unggulan</th><th>KKM</th><th>Nilai</th><th>Grade</th><th>Predikat</th></tr></thead>
                     <tbody>
                         @forelse($nilaiUnggulan as $n)
-                        <tr><td>{{ $loop->iteration }}</td><td>{{ $n->mapel->nama_mapel }}</td><td>{{ setting('kkm_sd') }}</td><td style="font-weight:700">{{ $n->nilai }}</td><td><span class="{{ $gradeColor($n->nilai) }}">{{ $gradeLetter($n->nilai) }}</span></td><td>{{ $n->nilai >= 90 ? 'Sangat Baik' : ($n->nilai >= 80 ? 'Baik' : 'Cukup') }}</td></tr>
+                        @php $status = $getStatus($n->nilai, setting('kkm_sd')); @endphp
+                        <tr><td>{{ $loop->iteration }}</td><td>{{ $n->mapel->nama_mapel }}</td><td>{{ setting('kkm_sd') }}</td><td style="font-weight:700">{{ $n->nilai }}</td><td><span class="{{ $gradeColor($n->nilai) }}">{{ $gradeLetter($n->nilai) }}</span></td><td><span class="status-badge {{ $status['class'] }}">{{ $status['label'] }}</span></td></tr>
                         @empty
                         <tr><td colspan="6" style="text-align:center;color:var(--gray-400)">Belum ada nilai program unggulan.</td></tr>
                         @endforelse
