@@ -78,4 +78,9 @@ class Siswa extends Model
     {
         return $this->hasMany(PengumpulanTugas::class);
     }
+
+    public function ktiBimbingan()
+    {
+        return $this->hasMany(KtiBimbingan::class);
+    }
 }

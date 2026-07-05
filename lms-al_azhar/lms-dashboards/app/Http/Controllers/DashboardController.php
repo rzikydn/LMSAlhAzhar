@@ -166,6 +166,10 @@ class DashboardController extends Controller
             $nilaiKtiRekap = \App\Models\NilaiKti::whereIn('siswa_id', $siswaKelas9->pluck('id'))
                 ->with('siswa', 'siswa.kelas')
                 ->get();
+            $ktiBimbinganReviews = \App\Models\KtiBimbingan::where('status', 'pending')
+                ->with(['siswa.kelas'])
+                ->orderBy('created_at', 'asc')
+                ->get();
 
             $data = [
                 'user' => $user,
@@ -178,6 +182,7 @@ class DashboardController extends Controller
                 'remedialActive' => $remedialActive,
                 'siswaKelas9' => $siswaKelas9,
                 'nilaiKtiRekap' => $nilaiKtiRekap,
+                'ktiBimbinganReviews' => $ktiBimbinganReviews,
             ];
         }
 
@@ -215,6 +220,7 @@ class DashboardController extends Controller
 
             $isKelas9 = str_starts_with($kelas->nama_kelas ?? '', '9');
             $nilaiKti = $isKelas9 ? \App\Models\NilaiKti::where('siswa_id', $siswa->id)->first() : null;
+            $ktiBimbingans = $isKelas9 ? \App\Models\KtiBimbingan::where('siswa_id', $siswa->id)->orderBy('created_at', 'desc')->get() : collect();
 
             $data = [
                 'user' => $user,
@@ -281,6 +287,7 @@ class DashboardController extends Controller
                 'remedialActive' => $remedialActive,
                 'isKelas9' => $isKelas9,
                 'nilaiKti' => $nilaiKti,
+                'ktiBimbingans' => $ktiBimbingans,
             ];
 
             // === PERINGKAT KELAS ===
