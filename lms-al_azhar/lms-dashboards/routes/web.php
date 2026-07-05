@@ -88,6 +88,11 @@ Route::middleware('auth')->group(function () {
     // Banding Nilai Bilingual
     Route::post('/siswa/banding', [\App\Http\Controllers\SiswaBandingController::class, 'store'])->name('siswa.banding.store');
     Route::post('/guru/banding/{banding}/proses', [\App\Http\Controllers\GuruBandingController::class, 'proses'])->name('guru.banding.proses');
+
+    // Bimbingan & Ujian KTI
+    Route::post('/siswa/kti/bimbingan', [\App\Http\Controllers\SiswaKtiController::class, 'store'])->name('siswa.kti.bimbingan');
+    Route::post('/guru/kti/bimbingan/{bimbingan}/proses', [\App\Http\Controllers\GuruKtiController::class, 'prosesBimbingan'])->name('guru.kti.proses-bimbingan');
+    Route::post('/guru/kti/{kti}/jadwal', [\App\Http\Controllers\GuruKtiController::class, 'jadwalSidang'])->name('guru.kti.jadwal');
 });
 
 require __DIR__.'/auth.php';
